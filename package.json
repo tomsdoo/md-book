@@ -1,0 +1,20 @@
+{
+  "name": "@tomsd/md-book",
+  "version": "1.0.0",
+  "description": "It provides .js that displays the contents from the markdown document files on page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomsdoo/md-book.git"
+  },
+  "keywords": [],
+  "author": "tom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomsdoo/md-book/issues"
+  },
+  "homepage": "https://github.com/tomsdoo/md-book#readme"
+}
