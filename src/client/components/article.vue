@@ -11,8 +11,9 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, reactive, watch } from "vue";
+import { computed, defineComponent, nextTick, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
+import hljs from "highlight.js";
 
 export default defineComponent({
   components: {
@@ -39,6 +40,15 @@ export default defineComponent({
         state.currentPage = props.pageContents
           .find(({ rawPath }) => rawPath === to)
           ?? props.indexedPageContents[0];
+      },
+      { immediate: true }
+    );
+    watch(
+      () => state?.currentPage,
+      (to) => {
+        nextTick(() => {
+          hljs.highlightAll();
+        });
       },
       { immediate: true }
     );
