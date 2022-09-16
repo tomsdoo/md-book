@@ -31,6 +31,40 @@ function applyMermaid(){
   mermaid.init();
 }
 
+function waitMs(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function applyCopyable(){
+  document
+    .querySelectorAll("#article pre code.hljs")
+    .forEach((codeTag) => {
+      const container = codeTag.parentNode;
+      if (container.classList.contains("copyable")) {
+        return;
+      }
+      container.classList.add("copyable");
+      const button = container.appendChild(
+        document.createElement("button")
+      );
+      button.classList.add("copy-button");
+      const iconTag = button.appendChild(document.createElement("span"));
+      iconTag.classList.add("material-icons", "icon");
+      iconTag.innerHTML = "content_copy";
+      button.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(codeTag.textContent)
+          .then(() => {
+            iconTag.innerHTML = "done";
+            return waitMs(1000);
+          })
+          .then(() => {
+            iconTag.innerHTML = "content_copy";
+          });
+      });
+    });
+}
+
 export default defineComponent({
   components: {
     VueLayout
@@ -65,6 +99,7 @@ export default defineComponent({
         nextTick(() => {
           hljs.highlightAll();
           applyMermaid();
+          applyCopyable();
         });
       },
       { immediate: true }
