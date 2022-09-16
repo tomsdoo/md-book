@@ -10,6 +10,7 @@ import * as marked from "marked";
 
 import "destyle.css";
 import "highlight.js/styles/stackoverflow-light.css";
+import "./css/style.css";
 
 type MdFiles = {
   indexedPaths: string[];
