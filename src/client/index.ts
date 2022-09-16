@@ -65,6 +65,12 @@ function setHead({ header }: MdBookOptions){
     }));
   }
 
+  headTag.appendChild(createTag("script", {
+    src: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js",
+    async: "",
+    defer: ""
+  }));
+
 }
 
 async function fetchPageContent({ path, indexed }) {

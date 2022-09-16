@@ -15,6 +15,22 @@ import { computed, defineComponent, nextTick, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 
+function applyMermaid(){
+  document
+    .querySelectorAll("#article pre code.language-mermaid")
+    .forEach((codeTag) => {
+      const container = codeTag.parentNode;
+      if (container.classList.contains("language-mermaid")) {
+        return;
+      }
+      container.classList.add("language-mermaid");
+      const div = container.appendChild(document.createElement("div"));
+      div.innerHTML = codeTag.innerHTML;
+      div.classList.add("mermaid");
+    });
+  mermaid.init();
+}
+
 export default defineComponent({
   components: {
     VueLayout
@@ -48,6 +64,7 @@ export default defineComponent({
       (to) => {
         nextTick(() => {
           hljs.highlightAll();
+          applyMermaid();
         });
       },
       { immediate: true }
