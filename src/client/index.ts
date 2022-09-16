@@ -11,6 +11,8 @@ import * as marked from "marked";
 import "destyle.css";
 import "highlight.js/styles/stackoverflow-light.css";
 import "./css/style.css";
+import "./css/cloak.css";
+import "./css/fade.css";
 
 type MdFiles = {
   indexedPaths: string[];
