@@ -33,6 +33,40 @@ export interface MdBookOptions {
   }
 }
 
+function setHead({ header }: MdBookOptions){
+  const createTag = (name: string, attributes?: object) => {
+    const ele = document.createElement(name);
+    Object.entries(attributes ?? {}).forEach(([ key, value ]) => {
+      ele.setAttribute(key, value);
+    });
+    return ele;
+  };
+
+  const headTag = document.getElementsByTagName("head")[0];
+  if(!document.querySelector("head meta[charset]")){
+    headTag.appendChild(createTag("meta", { charset: "UTF-8" }));
+  }
+
+  if(!document.querySelector("head title")){
+    headTag.appendChild(createTag("title")).innerHTML = header?.title ?? "untitled";
+  }
+
+  if(!document.querySelector("head meta[name='viewport']")){
+    headTag.appendChild(createTag("meta", {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1"
+    }));
+  }
+
+  if(!document.querySelector("head meta[name='description']")){
+    headTag.appendChild(createTag("meta", {
+      name: "description",
+      content: "@tomsd/md-book helps you ad hoc web book making."
+    }));
+  }
+
+}
+
 async function fetchPageContent({ path, indexed }) {
   return fetch(path)
     .then(async (response) => ({
@@ -52,6 +86,8 @@ export async function start({ mdFiles, header: headerOptions, footer: footerOpti
   console.log(mdFiles);
 
   window.addEventListener("load", async () => {
+    setHead({ mdFiles, header: headerOptions, footer: footerOptions });
+
     const pageContents = await Promise.all([
       ...mdFiles.indexedPaths.map(path => ({ path, indexed: true })),
       ...mdFiles.hiddenPaths.map(path => ({ path, indexed: false }))
