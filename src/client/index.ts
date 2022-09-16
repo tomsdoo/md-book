@@ -20,10 +20,17 @@ type MdFiles = {
 };
 
 export interface MdBookOptions {
+  mdFiles: MdFiles;
   header?: {
     title?: string;
   };
-  mdFiles: MdFiles;
+  footer?: {
+    text?: string;
+    link?: {
+      href: string;
+      text: string;
+    }
+  }
 }
 
 async function fetchPageContent({ path, indexed }) {
@@ -41,7 +48,7 @@ async function fetchPageContent({ path, indexed }) {
     }));
 }
 
-export async function start({ header: headerOptions, mdFiles }: MdBookOptions){
+export async function start({ mdFiles, header: headerOptions, footer: footerOptions }: MdBookOptions){
   console.log(mdFiles);
 
   window.addEventListener("load", async () => {
@@ -75,7 +82,10 @@ export async function start({ header: headerOptions, mdFiles }: MdBookOptions){
     const footer = createApp({
       components: {
         VueFooter
-      }
+      },
+      data: () => ({
+        footerOptions
+      })
     });
     footer.mount("#footer");
   });

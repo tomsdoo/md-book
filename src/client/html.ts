@@ -16,6 +16,6 @@ export const bodyHtml = `
   </router-view>
 </main>
 <footer id="footer">
-  <vue-footer />
+  <vue-footer :options="footerOptions" />
 </footer>
 `;
