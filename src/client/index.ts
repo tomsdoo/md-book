@@ -8,6 +8,8 @@ import { router } from "./router/";
 
 import * as marked from "marked";
 
+import "destyle.css";
+
 type MdFiles = {
   indexedPaths: string[];
   hiddenPaths: string[];
