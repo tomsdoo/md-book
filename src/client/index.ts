@@ -19,6 +19,13 @@ type MdFiles = {
   hiddenPaths: string[];
 };
 
+export interface MdBookOptions {
+  header?: {
+    title?: string;
+  };
+  mdFiles: MdFiles;
+}
+
 async function fetchPageContent({ path, indexed }) {
   return fetch(path)
     .then(async (response) => ({
@@ -34,7 +41,7 @@ async function fetchPageContent({ path, indexed }) {
     }));
 }
 
-export async function start(mdFiles: MdFiles){
+export async function start({ mdFiles }: MdBookOptions){
   console.log(mdFiles);
 
   window.addEventListener("load", async () => {

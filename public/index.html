@@ -4,12 +4,14 @@
   <script src="js/index.js"></script>
   <script>
     MdBook.start({
-      indexedPaths: [
-        "/md/test.md"
-      ],
-      hiddenPaths: [
-        "/md/hidden.md"
-      ]
+      mdFiles: {
+        indexedPaths: [
+          "https://raw.githubusercontent.com/tomsdoo/endecoder/main/README.md",
+        ],
+        hiddenPaths: [
+          "https://raw.githubusercontent.com/tomsdoo/endecoder/main/README.md",
+        ]
+      }
     });
   </script>
 </head>
