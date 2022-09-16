@@ -34,6 +34,16 @@ body {
   height: var(--header-height);
 }
 
+#app {
+  grid-area: main;
+  display: grid;
+  grid-template: "index content" 1fr / max-content 1fr;
+  width: min(1100px, calc(100vw - 2rem));
+  margin: 0 auto;
+  height: var(--main-height);
+  grid-gap: 1rem;
+}
+
 #footer {
   grid-area: footer;
   display: grid;
@@ -41,4 +51,12 @@ body {
   align-items: center;
   height: var(--footer-height);
   box-shadow: 0 0 1px;
+}
+
+@media screen and (max-width: 600px) {
+  #app {
+    grid-template:
+      "index" max-content
+      "content" 1fr / 1fr;
+  }
 }
