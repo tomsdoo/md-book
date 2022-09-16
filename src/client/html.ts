@@ -1,6 +1,6 @@
 export const bodyHtml = `
 <header id="header">
-  <vue-header />
+  <vue-header :options="headerOptions" />
 </header>
 <main id="app" v-cloak>
   <router-view

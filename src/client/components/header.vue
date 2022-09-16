@@ -1,6 +1,6 @@
 <template>
   <div class="header-content">
-    <span>electronade</span>
+    <span>{{ headerText }}</span>
     <form
       onsubmit="return false"
       v-on:submit="onSubmit"
@@ -12,15 +12,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  setup(){
+  props: {
+    options: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  setup(props){
     const router = useRouter();
     const state = reactive({
       keyword: ""
     });
+    const headerText = computed(() => props.options?.title ?? "untitled");
 
     const onSubmit = () => {
       if(!Boolean(state.keyword)){return;}
@@ -33,6 +40,7 @@ export default defineComponent({
     };
     return {
       state,
+      headerText,
       onSubmit
     };
   }

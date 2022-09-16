@@ -41,7 +41,7 @@ async function fetchPageContent({ path, indexed }) {
     }));
 }
 
-export async function start({ mdFiles }: MdBookOptions){
+export async function start({ header: headerOptions, mdFiles }: MdBookOptions){
   console.log(mdFiles);
 
   window.addEventListener("load", async () => {
@@ -64,7 +64,10 @@ export async function start({ mdFiles }: MdBookOptions){
     const header = createApp({
       components: {
         VueHeader
-      }
+      },
+      data: () => ({
+        headerOptions
+      })
     });
     header.use(router);
     header.mount("#header");
