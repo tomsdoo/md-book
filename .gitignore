@@ -1,3 +1,5 @@
+bin/**/*.d.ts
+bin/**/*.js
 node_modules/
 public/js/
 package-lock.json
