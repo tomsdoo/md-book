@@ -51,6 +51,7 @@ body {
   align-items: center;
   height: var(--footer-height);
   box-shadow: 0 0 1px;
+  background: var(--footer-bg-color, transparent);
 }
 
 @media screen and (max-width: 600px) {
