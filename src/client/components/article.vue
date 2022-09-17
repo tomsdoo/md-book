@@ -1,11 +1,13 @@
 <template>
   <vue-layout :indexed-page-contents="indexedPageContents">
-    <article
-      v-if="state.currentPage"
-      v-html="state.currentPage.html"
-      id="article"
-      class="article"
-    ></article>
+    <transition name="fade">
+      <article
+        v-show="state.ready && state.currentPage"
+        v-html="state.currentPage.html"
+        id="article"
+        class="article"
+      ></article>
+    </transition>
   </vue-layout>
 </template>
 
@@ -81,7 +83,8 @@ export default defineComponent({
   },
   setup(props){
     const state = reactive({
-      currentPage: undefined
+      currentPage: undefined,
+      ready: false
     });
     const route = useRoute();
     watch(
@@ -96,7 +99,9 @@ export default defineComponent({
     watch(
       () => state?.currentPage,
       (to) => {
+        state.ready = false;
         nextTick(() => {
+          state.ready = true;
           hljs.highlightAll();
           applyMermaid();
           applyCopyable();
