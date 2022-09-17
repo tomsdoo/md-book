@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "target": "es2015",
+    "module": "commonjs",
+    "declaration": false,
+    "outDir": "./bin/"
+  },
+  "include": [
+    "src/bin/**/*.ts"
+  ]
+}

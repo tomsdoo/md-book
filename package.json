@@ -2,9 +2,14 @@
   "name": "@tomsd/md-book",
   "version": "1.0.0",
   "description": "It provides .js that displays the contents from the markdown document files on page",
-  "main": "index.js",
+  "main": "public/js/index.js",
+  "bin": {
+    "electronade": "bin/mdbook.js"
+  },
   "scripts": {
-    "build": "webpack",
+    "build": "npm run build:bin && npm run build:client",
+    "build:bin": "tsc --project tsconfig.bin.json",
+    "build:client": "webpack",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +26,7 @@
   },
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
+    "@types/commander": "^2.12.2",
     "@types/koa": "^2.13.5",
     "css-loader": "^6.7.1",
     "koa": "^2.13.4",
@@ -36,6 +42,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
+    "commander": "^9.4.0",
     "destyle.css": "^3.0.2",
     "highlight.js": "^11.6.0",
     "marked": "^4.1.0",
