@@ -91,7 +91,7 @@ export default defineComponent({
   grid-template: "icon text" max-content / max-content max-content;
   grid-gap: 0.5em;
   align-items: start;
-  color: #439cff;
+  color: var(--search-anchor-color, #439cff);
   width: max-content;
 }
 .search-result > .list > .item > .link:hover {

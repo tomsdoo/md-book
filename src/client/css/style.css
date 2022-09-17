@@ -22,7 +22,8 @@ body {
     "footer" max-content / 1fr;
   height: 100vh;
   font-family: "M PLUS Rounded 1c", sans-serif;
-  color: #232323;
+  color: var(--default-color, #232323);
+  background: var(--bg-color, transparent);
 }
 
 #header {

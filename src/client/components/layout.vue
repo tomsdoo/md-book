@@ -103,7 +103,7 @@ export default defineComponent({
   height: 2rem;
   justify-content: center;
   align-items: center;
-  background: #eeeeee;
+  background: var(--index-toggle-button-bg-color, #eeeeee);
 }
 .index-toggle-button > .icon {
   position: absolute;

@@ -30,7 +30,9 @@ function applyMermaid(){
       div.innerHTML = codeTag.innerHTML;
       div.classList.add("mermaid");
     });
-  mermaid.init();
+  nextTick(() => {
+    mermaid.init();
+  });
 }
 
 function waitMs(ms) {
@@ -152,7 +154,7 @@ export default defineComponent({
 }
 
 #article a {
-  color: #439cff;
+  color: var(--markdown-anchor-color, #439cff);
 }
 #article a:hover {
   text-shadow: 0 0 0.5px;
@@ -169,12 +171,12 @@ export default defineComponent({
 
 #article code:not(.hljs) {
   padding: 0 0.5em;
-  background: #eeeeee;
+  background: var(--markdown-inline-code-color, #eeeeee);
 }
 
 #article blockquote {
   padding: 0.5em 1em;
-  border-left: 5px solid #cccccc;
+  border-left: 5px solid var(--markdown-quote-border-color, #cccccc);
   margin: 0.5em 0;
 }
 
@@ -202,7 +204,7 @@ export default defineComponent({
 }
 #article table th,
 #article table td {
-  border: 1px solid #aaaaaa;
+  border: 1px solid var(--markdown-table-border-color, #aaaaaa);
   padding: 0.2em 0.5em;
 }
 
