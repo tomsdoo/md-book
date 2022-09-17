@@ -1,14 +1,16 @@
 @import url(//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/stackoverflow-dark.min.css);
 
 :root {
+  --custom-common-anchor-color: #6298ed;
+
   --default-color: #ededed;
   --header-bg-color: #343434;
   --bg-color: #232323;
   --footer-bg-color: #343434;
   --index-toggle-button-bg-color: #343434;
-  --markdown-anchor-color: #6298ed;
+  --markdown-anchor-color: var(--custom-common-anchor-color);
   --markdown-table-border-color: #656565;
   --markdown-quote-border-color: #727272;
   --markdown-inline-code-color: #5d5d5d;
-  --search-anchor-color: #6298ed;
+  --search-anchor-color: var(--custom-common-anchor-color);
 }
