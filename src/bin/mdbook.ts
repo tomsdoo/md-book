@@ -5,7 +5,7 @@ import { cwd } from "process";
 import { join } from "path";
 import { stat } from "fs/promises";
 
-import { initializeHtmlFile } from "./opts/";
+import { initializeHtmlFile, serveDocuments } from "./opts/";
 
 const program = new Command();
 const commandname = "mdbook";
@@ -46,8 +46,7 @@ program.on("--help", () => {
   if (opts.init as boolean && directoryPath) {
     await initializeHtmlFile(directoryPath);
   } else if (opts.serve as boolean && directoryPath) {
-    console.log(directoryPath);
-    console.log("serve");
+    await serveDocuments(directoryPath);
   }else{
     program.help();
   }
