@@ -5,6 +5,7 @@
   >
     <ul
       class="index-list scroll-hidden"
+      :class="[state.indexFolded && 'folded']"
     >
       <li
         v-for="(page, index) in indexedPageContents"
@@ -43,9 +44,15 @@ export default defineComponent({
     }
   },
   setup(){
-    const state = reactive({});
+    const state = reactive({
+      indexFolded: false
+    });
+    const toggleIndexFolded = () => {
+      state.indexFolded = !state.indexFolded;
+    };
     return {
-      state
+      state,
+      toggleIndexFolded
     };
   }
 });
