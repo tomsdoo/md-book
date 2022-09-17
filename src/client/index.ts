@@ -1,3 +1,9 @@
+import "destyle.css";
+import "highlight.js/styles/stackoverflow-light.css";
+import "./css/style.css";
+import "./css/cloak.css";
+import "./css/fade.css";
+
 import { createApp } from "vue";
 import { bodyHtml } from "./html";
 
@@ -7,12 +13,6 @@ import VueFooter from "./components/footer.vue";
 import { router } from "./router/";
 
 import * as marked from "marked";
-
-import "destyle.css";
-import "highlight.js/styles/stackoverflow-light.css";
-import "./css/style.css";
-import "./css/cloak.css";
-import "./css/fade.css";
 
 type MdFiles = {
   indexedPaths: string[];
@@ -68,7 +68,7 @@ async function setHead({ header }: MdBookOptions){
 
     headTag.appendChild(createTag("script", {
       src: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
-    })).onload = () => resolve();
+    })).onload = () => resolve(undefined);
 
   });
 }
