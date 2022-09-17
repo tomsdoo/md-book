@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { computed, defineComponent, reactive, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
@@ -23,11 +23,19 @@ export default defineComponent({
     }
   },
   setup(props){
+    const route = useRoute();
     const router = useRouter();
     const state = reactive({
       keyword: ""
     });
     const headerText = computed(() => props.options?.title ?? "untitled");
+
+    watch(
+      () => route?.query?.keyword,
+      (to) => {
+        state.keyword = to ?? "";
+      }
+    );
 
     const onSubmit = () => {
       if(!Boolean(state.keyword)){return;}
@@ -36,7 +44,6 @@ export default defineComponent({
         name: "search",
         query: { keyword: state.keyword }
       });
-      state.keyword = "";
     };
     return {
       state,
