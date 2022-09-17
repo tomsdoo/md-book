@@ -90,6 +90,10 @@ export default defineComponent({
     watch(
       () => route?.query?.path,
       (to) => {
+        state.ready = false;
+        nextTick(() => {
+          state.ready = true;
+        });
         state.currentPage = props.pageContents
           .find(({ rawPath }) => rawPath === to)
           ?? props.indexedPageContents[0];
@@ -99,9 +103,7 @@ export default defineComponent({
     watch(
       () => state?.currentPage,
       (to) => {
-        state.ready = false;
         nextTick(() => {
-          state.ready = true;
           hljs.highlightAll();
           applyMermaid();
           applyCopyable();
