@@ -1,0 +1,1 @@
+export { initializeHtmlFile } from "./init";
