@@ -34,12 +34,12 @@ program.on("--help", () => {
     program.help();
   }
 
-  const getDirectoryPath = async (): Promise<string | undefined> => {
+  const getDirectoryPath = async (): Promise<string | false | undefined> => {
     const directoryPath =
       opts.directory as boolean && join(cwd(), opts.directory as string);
     return (
       Boolean(directoryPath) &&
-      (await stat(directoryPath)
+      (await stat(directoryPath as string)
         .then((r) => (r.isDirectory() ? directoryPath : undefined))
         .catch((e) => undefined))
     );
@@ -48,9 +48,9 @@ program.on("--help", () => {
   const directoryPath = await getDirectoryPath();
 
   if ((opts.init as boolean) && Boolean(directoryPath)) {
-    await initializeHtmlFile(directoryPath);
+    await initializeHtmlFile(directoryPath as string);
   } else if ((opts.serve as boolean) && Boolean(directoryPath)) {
-    await serveDocuments(directoryPath);
+    await serveDocuments(directoryPath as string);
   } else {
     program.help();
   }
