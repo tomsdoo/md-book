@@ -6,7 +6,7 @@ import serve from "koa-static-server";
 import * as path from "path";
 import * as fs from "fs";
 
-export async function serveDocuments(directoryPath: string) {
+export async function serveDocuments(directoryPath: string): Promise<any> {
   ///
 
   const app = new Koa();
