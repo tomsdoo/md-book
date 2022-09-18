@@ -2,9 +2,7 @@
   <vue-layout :indexed-page-contents="indexedPageContents">
     <transition name="fade">
       <div v-if="state.ready" class="search-result">
-        <h1 class="title">
-          "{{ keyword }}": {{ searchResultPages.length }}
-        </h1>
+        <h1 class="title">"{{ keyword }}": {{ searchResultPages.length }}</h1>
         <ul class="list">
           <li
             v-for="(page, index) in searchResultPages"
@@ -27,34 +25,41 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive, SetupContext } from "vue";
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  reactive,
+  SetupContext,
+} from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
-    VueLayout
+    VueLayout,
   },
   props: {
     pageContents: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     indexedPageContents: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  setup(props){
+  setup(props) {
     const state = reactive({
-      ready: false
+      ready: false,
     });
     const route = useRoute();
     const keyword = computed(() => route.query.keyword);
 
     const searchResultPages = computed(() => {
       const keyl = route.query.keyword.split(" ");
-      return props.pageContents
-        .filter(({ text }) => keyl.every(keye => text.match(new RegExp(keye, "i"))));
+      return props.pageContents.filter(({ text }) =>
+        keyl.every((keye) => text.match(new RegExp(keye, "i")))
+      );
     });
     nextTick(() => {
       state.ready = true;
@@ -62,9 +67,9 @@ export default defineComponent({
     return {
       state,
       keyword,
-      searchResultPages
+      searchResultPages,
     };
-  }
+  },
 });
 </script>
 

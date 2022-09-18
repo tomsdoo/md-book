@@ -3,12 +3,7 @@
     <span v-if="footerText" class="footer-text">
       {{ footerText }}
     </span>
-    <a
-      v-if="link"
-      :href="link.href"
-      class="footer-link"
-      target="_blank"
-    >
+    <a v-if="link" :href="link.href" class="footer-link" target="_blank">
       <span class="text">{{ link.text }}</span>
       <span class="material-icons icon">open_in_new</span>
     </a>
@@ -22,26 +17,28 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
-  setup(props){
-    const link = computed(() =>
-      props.options?.link ??
-      (props.options?.text === undefined && {
-        href: "https://www.npmjs.com/package/@tomsd/md-book",
-        text: "@tomsd/md-book"
-      })
+  setup(props) {
+    const link = computed(
+      () =>
+        props.options?.link ??
+        (props.options?.text === undefined && {
+          href: "https://www.npmjs.com/package/@tomsd/md-book",
+          text: "@tomsd/md-book",
+        })
     );
-    const footerText = computed(() =>
-      props.options?.text ??
-      (props.options?.link === undefined && "powered by ")
+    const footerText = computed(
+      () =>
+        props.options?.text ??
+        (props.options?.link === undefined && "powered by ")
     );
     return {
       link,
-      footerText
+      footerText,
     };
-  }
+  },
 });
 </script>
 
@@ -53,7 +50,6 @@ export default defineComponent({
 }
 
 .footer-text {
-
 }
 
 .footer-link {

@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="index main-padded"
-    :class="[state.indexFolded && 'folded']"
-  >
+  <section class="index main-padded" :class="[state.indexFolded && 'folded']">
     <ul
       class="index-list scroll-hidden"
       :class="[state.indexFolded && 'folded']"
@@ -12,7 +9,10 @@
         :key="index"
         class="item"
       >
-        <router-link :to="{ name: 'article', query: { path: page.rawPath }}" class="link">
+        <router-link
+          :to="{ name: 'article', query: { path: page.rawPath } }"
+          class="link"
+        >
           <span class="material-icons-outlined icon">article</span>
           <span class="text">{{ page.title }}</span>
         </router-link>
@@ -28,7 +28,7 @@
   </section>
   <section class="content main-padded">
     <div class="article-wrapper scroll-hidden" ref="articleWrapper">
-        <slot></slot>
+      <slot></slot>
     </div>
   </section>
 </template>
@@ -40,13 +40,13 @@ export default defineComponent({
   props: {
     indexedPageContents: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  setup(){
+  setup() {
     const articleWrapper = ref(undefined);
     const state = reactive({
-      indexFolded: false
+      indexFolded: false,
     });
     const toggleIndexFolded = () => {
       state.indexFolded = !state.indexFolded;
@@ -58,9 +58,9 @@ export default defineComponent({
       articleWrapper,
       scrollToTop,
       state,
-      toggleIndexFolded
+      toggleIndexFolded,
     };
-  }
+  },
 });
 </script>
 
