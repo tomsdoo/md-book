@@ -25,12 +25,7 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  reactive,
-} from "vue";
+import { computed, defineComponent, nextTick, reactive } from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
