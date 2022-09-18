@@ -10,6 +10,7 @@
     "build": "npm run build:bin && npm run build:client",
     "build:bin": "tsc --project tsconfig.bin.json",
     "build:client": "webpack",
+    "format": "npm run format:public && npm run format:src:bin && npm run format:src:client",
     "format:public": "prettier --write public/css/**/*.css",
     "format:src:bin": "prettier --write src/bin/",
     "format:src:client": "prettier --write src/client/",
