@@ -22,6 +22,20 @@
     "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "lint-staged": {
+    "public/**/*.css": [
+      "npm run format:public"
+    ],
+    "src/bin/**/*.ts": [
+      "npm run lint:src:bin",
+      "npm run format:src:bin"
+    ],
+    "src/client/**/*": [
+      "npm run lint:src:client",
+      "npm run lint:src:client:vue",
+      "npm run format:src:client"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomsdoo/md-book.git"
@@ -49,6 +63,7 @@
     "koa": "^2.13.4",
     "koa-router": "^12.0.0",
     "koa-static-server": "^1.5.2",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
