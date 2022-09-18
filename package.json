@@ -10,6 +10,9 @@
     "build": "npm run build:bin && npm run build:client",
     "build:bin": "tsc --project tsconfig.bin.json",
     "build:client": "webpack",
+    "format:public": "prettier --write public/css/**/*.css",
+    "format:src:bin": "prettier --write src/bin/",
+    "format:src:client": "prettier --write src/client/",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,6 +35,7 @@
     "koa": "^2.13.4",
     "koa-router": "^12.0.0",
     "koa-static-server": "^1.5.2",
+    "prettier": "^2.7.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
     "ts-node": "^10.9.1",

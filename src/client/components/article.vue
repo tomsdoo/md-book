@@ -17,7 +17,7 @@ import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 
-function applyMermaid(){
+function applyMermaid() {
   document
     .querySelectorAll("#article pre code.language-mermaid")
     .forEach((codeTag) => {
@@ -39,67 +39,65 @@ function waitMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function applyCopyable(){
-  document
-    .querySelectorAll("#article pre code.hljs")
-    .forEach((codeTag) => {
-      const container = codeTag.parentNode;
-      if (container.classList.contains("copyable")) {
-        return;
-      }
-      container.classList.add("copyable");
-      const button = container.appendChild(
-        document.createElement("button")
-      );
-      button.classList.add("copy-button");
-      const iconTag = button.appendChild(document.createElement("span"));
-      iconTag.classList.add("material-icons", "icon");
-      iconTag.innerHTML = "content_copy";
-      button.addEventListener("click", () => {
-        navigator.clipboard
-          .writeText(codeTag.textContent)
-          .then(() => {
-            iconTag.innerHTML = "done";
-            return waitMs(1000);
-          })
-          .then(() => {
-            iconTag.innerHTML = "content_copy";
-          });
-      });
+function applyCopyable() {
+  document.querySelectorAll("#article pre code.hljs").forEach((codeTag) => {
+    const container = codeTag.parentNode;
+    if (container.classList.contains("copyable")) {
+      return;
+    }
+    container.classList.add("copyable");
+    const button = container.appendChild(document.createElement("button"));
+    button.classList.add("copy-button");
+    const iconTag = button.appendChild(document.createElement("span"));
+    iconTag.classList.add("material-icons", "icon");
+    iconTag.innerHTML = "content_copy";
+    button.addEventListener("click", () => {
+      navigator.clipboard
+        .writeText(codeTag.textContent)
+        .then(() => {
+          iconTag.innerHTML = "done";
+          return waitMs(1000);
+        })
+        .then(() => {
+          iconTag.innerHTML = "content_copy";
+        });
     });
+  });
 }
 
-function adjustCheckboxes(){
+function adjustCheckboxes() {
   document
     .querySelectorAll("#article li input[type='checkbox']")
-    .forEach(inputTag => {
+    .forEach((inputTag) => {
       const listItemTag = inputTag.parentNode;
       const listTag = listItemTag.parentNode;
 
-      if(listTag.classList.contains("check-list")){return;}
+      if (listTag.classList.contains("check-list")) {
+        return;
+      }
       listTag.classList.add("check-list");
     });
 }
 
 export default defineComponent({
   components: {
-    VueLayout
+    VueLayout,
   },
   props: {
     pageContents: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     indexedPageContents: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  setup(props){
+  setup(props) {
     const layout = ref(undefined);
     const state = reactive({
       currentPage: undefined,
-      ready: false
+      ready: false,
     });
     const route = useRoute();
     watch(
@@ -109,9 +107,9 @@ export default defineComponent({
         nextTick(() => {
           state.ready = true;
         });
-        state.currentPage = props.pageContents
-          .find(({ rawPath }) => rawPath === to)
-          ?? props.indexedPageContents[0];
+        state.currentPage =
+          props.pageContents.find(({ rawPath }) => rawPath === to) ??
+          props.indexedPageContents[0];
       },
       { immediate: true }
     );
@@ -130,9 +128,9 @@ export default defineComponent({
     );
     return {
       layout,
-      state
+      state,
     };
-  }
+  },
 });
 </script>
 

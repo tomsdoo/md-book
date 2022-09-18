@@ -7,19 +7,19 @@ const routes = [
     path: "/",
     name: "article",
     components: {
-      default: VueArticle
-    }
+      default: VueArticle,
+    },
   },
   {
     path: "/search",
     name: "search",
     components: {
-      default: VueSearch
-    }
-  }
+      default: VueSearch,
+    },
+  },
 ];
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });

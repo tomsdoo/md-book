@@ -3,11 +3,7 @@
     <router-link :to="{ name: 'article' }">
       {{ headerText }}
     </router-link>
-    <form
-      onsubmit="return false"
-      v-on:submit="onSubmit"
-      class="key-form"
-    >
+    <form onsubmit="return false" v-on:submit="onSubmit" class="key-form">
       <input class="keybox" v-model="state.keyword" />
     </form>
   </div>
@@ -21,14 +17,14 @@ export default defineComponent({
   props: {
     options: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
-  setup(props){
+  setup(props) {
     const route = useRoute();
     const router = useRouter();
     const state = reactive({
-      keyword: ""
+      keyword: "",
     });
     const headerText = computed(() => props.options?.title ?? "untitled");
 
@@ -40,19 +36,21 @@ export default defineComponent({
     );
 
     const onSubmit = () => {
-      if(!Boolean(state.keyword)){return;}
+      if (!Boolean(state.keyword)) {
+        return;
+      }
 
       router.push({
         name: "search",
-        query: { keyword: state.keyword }
+        query: { keyword: state.keyword },
       });
     };
     return {
       state,
       headerText,
-      onSubmit
+      onSubmit,
     };
-  }
+  },
 });
 </script>
 

@@ -7,5 +7,5 @@ declare global {
 }
 
 window.MdBook = {
-  start
+  start,
 };

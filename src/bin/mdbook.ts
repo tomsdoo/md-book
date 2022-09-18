@@ -35,19 +35,23 @@ program.on("--help", () => {
   }
 
   const getDirectoryPath = async () => {
-    const directoryPath = opts.directory && join(cwd(), opts.directory as string);
-    return directoryPath && await stat(directoryPath)
-      .then(r => r.isDirectory() ? directoryPath : undefined)
-      .catch(e => undefined);
+    const directoryPath =
+      opts.directory && join(cwd(), opts.directory as string);
+    return (
+      directoryPath &&
+      (await stat(directoryPath)
+        .then((r) => (r.isDirectory() ? directoryPath : undefined))
+        .catch((e) => undefined))
+    );
   };
 
   const directoryPath = await getDirectoryPath();
 
-  if (opts.init as boolean && directoryPath) {
+  if ((opts.init as boolean) && directoryPath) {
     await initializeHtmlFile(directoryPath);
-  } else if (opts.serve as boolean && directoryPath) {
+  } else if ((opts.serve as boolean) && directoryPath) {
     await serveDocuments(directoryPath);
-  }else{
+  } else {
     program.help();
   }
 

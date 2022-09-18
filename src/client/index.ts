@@ -29,14 +29,14 @@ export interface MdBookOptions {
     link?: {
       href: string;
       text: string;
-    }
-  }
+    };
+  };
 }
 
-async function setHead({ header }: MdBookOptions){
+async function setHead({ header }: MdBookOptions) {
   const createTag = (name: string, attributes?: object) => {
     const ele = document.createElement(name);
-    Object.entries(attributes ?? {}).forEach(([ key, value ]) => {
+    Object.entries(attributes ?? {}).forEach(([key, value]) => {
       ele.setAttribute(key, value);
     });
     return ele;
@@ -44,32 +44,38 @@ async function setHead({ header }: MdBookOptions){
 
   return new Promise((resolve) => {
     const headTag = document.getElementsByTagName("head")[0];
-    if(!document.querySelector("head meta[charset]")){
+    if (!document.querySelector("head meta[charset]")) {
       headTag.appendChild(createTag("meta", { charset: "UTF-8" }));
     }
 
-    if(!document.querySelector("head title")){
-      headTag.appendChild(createTag("title")).innerHTML = header?.title ?? "untitled";
+    if (!document.querySelector("head title")) {
+      headTag.appendChild(createTag("title")).innerHTML =
+        header?.title ?? "untitled";
     }
 
-    if(!document.querySelector("head meta[name='viewport']")){
-      headTag.appendChild(createTag("meta", {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1"
-      }));
+    if (!document.querySelector("head meta[name='viewport']")) {
+      headTag.appendChild(
+        createTag("meta", {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1",
+        })
+      );
     }
 
-    if(!document.querySelector("head meta[name='description']")){
-      headTag.appendChild(createTag("meta", {
-        name: "description",
-        content: "@tomsd/md-book helps you ad hoc web book making."
-      }));
+    if (!document.querySelector("head meta[name='description']")) {
+      headTag.appendChild(
+        createTag("meta", {
+          name: "description",
+          content: "@tomsd/md-book helps you ad hoc web book making.",
+        })
+      );
     }
 
-    headTag.appendChild(createTag("script", {
-      src: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
-    })).onload = () => resolve(undefined);
-
+    headTag.appendChild(
+      createTag("script", {
+        src: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js",
+      })
+    ).onload = () => resolve(undefined);
   });
 }
 
@@ -88,46 +94,52 @@ async function fetchPageContent({ path, indexed }) {
     }));
 }
 
-export async function start({ mdFiles, header: headerOptions, footer: footerOptions }: MdBookOptions){
+export async function start({
+  mdFiles,
+  header: headerOptions,
+  footer: footerOptions,
+}: MdBookOptions) {
   console.log(mdFiles);
 
   window.addEventListener("load", async () => {
     await setHead({ mdFiles, header: headerOptions, footer: footerOptions });
 
-    const pageContents = await Promise.all([
-      ...mdFiles.indexedPaths.map(path => ({ path, indexed: true })),
-      ...mdFiles.hiddenPaths.map(path => ({ path, indexed: false }))
-    ].map(fetchPageContent));
+    const pageContents = await Promise.all(
+      [
+        ...mdFiles.indexedPaths.map((path) => ({ path, indexed: true })),
+        ...mdFiles.hiddenPaths.map((path) => ({ path, indexed: false })),
+      ].map(fetchPageContent)
+    );
 
     console.log(pageContents);
     document.body.innerHTML = bodyHtml;
     const app = createApp({
       data: () => ({
         pageContents,
-        indexedPageContents: pageContents.filter(({ indexed }) => indexed)
-      })
+        indexedPageContents: pageContents.filter(({ indexed }) => indexed),
+      }),
     });
     app.use(router);
     app.mount("#app");
 
     const header = createApp({
       components: {
-        VueHeader
+        VueHeader,
       },
       data: () => ({
-        headerOptions
-      })
+        headerOptions,
+      }),
     });
     header.use(router);
     header.mount("#header");
 
     const footer = createApp({
       components: {
-        VueFooter
+        VueFooter,
       },
       data: () => ({
-        footerOptions
-      })
+        footerOptions,
+      }),
     });
     footer.mount("#footer");
   });
