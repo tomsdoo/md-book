@@ -11,6 +11,7 @@
     "build:bin": "tsc --project tsconfig.bin.json",
     "build:client": "webpack",
     "format:public": "prettier --write public/css/**/*.css",
+    "format:src:bin": "prettier --write src/bin/",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
