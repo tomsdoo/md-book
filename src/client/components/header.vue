@@ -1,6 +1,8 @@
 <template>
   <div class="header-content">
-    <span>{{ headerText }}</span>
+    <router-link :to="{ name: 'article' }">
+      {{ headerText }}
+    </router-link>
     <form
       onsubmit="return false"
       v-on:submit="onSubmit"
