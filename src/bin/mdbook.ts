@@ -36,7 +36,7 @@ program.on("--help", () => {
 
   const getDirectoryPath = async (): Promise<string | false | undefined> => {
     const directoryPath =
-      opts.directory as boolean && join(cwd(), opts.directory as string);
+      (opts.directory as boolean) && join(cwd(), opts.directory as string);
     return (
       Boolean(directoryPath) &&
       (await stat(directoryPath as string)
