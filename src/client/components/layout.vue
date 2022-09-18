@@ -27,14 +27,14 @@
     </button>
   </section>
   <section class="content main-padded">
-    <div class="article-wrapper scroll-hidden">
+    <div class="article-wrapper scroll-hidden" ref="articleWrapper">
         <slot></slot>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 
 export default defineComponent({
   props: {
@@ -44,13 +44,19 @@ export default defineComponent({
     }
   },
   setup(){
+    const articleWrapper = ref(undefined);
     const state = reactive({
       indexFolded: false
     });
     const toggleIndexFolded = () => {
       state.indexFolded = !state.indexFolded;
     };
+    const scrollToTop = () => {
+      articleWrapper.value.scrollTo(0, 0);
+    };
     return {
+      articleWrapper,
+      scrollToTop,
       state,
       toggleIndexFolded
     };

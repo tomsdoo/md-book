@@ -1,5 +1,5 @@
 <template>
-  <vue-layout :indexed-page-contents="indexedPageContents">
+  <vue-layout :indexed-page-contents="indexedPageContents" ref="layout">
     <transition name="fade">
       <article
         v-show="state.ready && state.currentPage"
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive, watch } from "vue";
+import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 
@@ -96,6 +96,7 @@ export default defineComponent({
     }
   },
   setup(props){
+    const layout = ref(undefined);
     const state = reactive({
       currentPage: undefined,
       ready: false
@@ -122,11 +123,13 @@ export default defineComponent({
           applyMermaid();
           applyCopyable();
           adjustCheckboxes();
+          layout?.value?.scrollToTop();
         });
       },
       { immediate: true }
     );
     return {
+      layout,
       state
     };
   }
