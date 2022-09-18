@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
+import { defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 
@@ -31,6 +31,7 @@ function applyMermaid() {
       div.classList.add("mermaid");
     });
   nextTick(() => {
+    // eslint-disable-next-line no-undef
     mermaid.init();
   });
 }

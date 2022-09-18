@@ -14,10 +14,19 @@ import { router } from "./router/";
 
 import * as marked from "marked";
 
-type MdFiles = {
+interface MdFiles {
   indexedPaths: string[];
   hiddenPaths: string[];
-};
+}
+
+interface PageContent {
+  indexed: boolean;
+  rawPath: string;
+  url: string;
+  text: string;
+  title: string;
+  html: string;
+}
 
 export interface MdBookOptions {
   mdFiles: MdFiles;
@@ -33,8 +42,8 @@ export interface MdBookOptions {
   };
 }
 
-async function setHead({ header }: MdBookOptions) {
-  const createTag = (name: string, attributes?: object) => {
+async function setHead({ header }: MdBookOptions): Promise<any> {
+  const createTag = (name: string, attributes?: object): HTMLElement => {
     const ele = document.createElement(name);
     Object.entries(attributes ?? {}).forEach(([key, value]) => {
       ele.setAttribute(key, value);
@@ -42,18 +51,18 @@ async function setHead({ header }: MdBookOptions) {
     return ele;
   };
 
-  return new Promise((resolve) => {
+  return await new Promise((resolve) => {
     const headTag = document.getElementsByTagName("head")[0];
-    if (!document.querySelector("head meta[charset]")) {
+    if (document.querySelector("head meta[charset]") == null) {
       headTag.appendChild(createTag("meta", { charset: "UTF-8" }));
     }
 
-    if (!document.querySelector("head title")) {
+    if (document.querySelector("head title") == null) {
       headTag.appendChild(createTag("title")).innerHTML =
         header?.title ?? "untitled";
     }
 
-    if (!document.querySelector("head meta[name='viewport']")) {
+    if (document.querySelector("head meta[name='viewport']") == null) {
       headTag.appendChild(
         createTag("meta", {
           name: "viewport",
@@ -62,7 +71,7 @@ async function setHead({ header }: MdBookOptions) {
       );
     }
 
-    if (!document.querySelector("head meta[name='description']")) {
+    if (document.querySelector("head meta[name='description']") == null) {
       headTag.appendChild(
         createTag("meta", {
           name: "description",
@@ -79,8 +88,8 @@ async function setHead({ header }: MdBookOptions) {
   });
 }
 
-async function fetchPageContent({ path, indexed }) {
-  return fetch(path)
+async function fetchPageContent({ path, indexed }): Promise<PageContent> {
+  return await fetch(path)
     .then(async (response) => ({
       indexed,
       rawPath: path,
@@ -98,9 +107,10 @@ export async function start({
   mdFiles,
   header: headerOptions,
   footer: footerOptions,
-}: MdBookOptions) {
+}: MdBookOptions): Promise<any> {
   console.log(mdFiles);
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
     await setHead({ mdFiles, header: headerOptions, footer: footerOptions });
 

@@ -30,7 +30,6 @@ import {
   defineComponent,
   nextTick,
   reactive,
-  SetupContext,
 } from "vue";
 import { useRoute } from "vue-router";
 
