@@ -13,20 +13,3 @@ CSS variables below can be applied.
 |--markdown-quote-border-color|color of quote border in markdown|
 |--markdown-inline-code-color|background color of inline code|
 |--search-anchor-color|color of anchor text on search result|
-
-`asdf`
-
-> jkljasdf
-
-``` mermaid
-classDiagram
-
-class Animal {
-  +die() void
-}
-
-class Dog {
-  +bark() void
-}
-
-```
