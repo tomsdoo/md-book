@@ -69,6 +69,18 @@ function applyCopyable(){
     });
 }
 
+function adjustCheckboxes(){
+  document
+    .querySelectorAll("#article li input[type='checkbox']")
+    .forEach(inputTag => {
+      const listItemTag = inputTag.parentNode;
+      const listTag = listItemTag.parentNode;
+
+      if(listTag.classList.contains("check-list")){return;}
+      listTag.classList.add("check-list");
+    });
+}
+
 export default defineComponent({
   components: {
     VueLayout
@@ -109,6 +121,7 @@ export default defineComponent({
           hljs.highlightAll();
           applyMermaid();
           applyCopyable();
+          adjustCheckboxes();
         });
       },
       { immediate: true }
@@ -184,18 +197,19 @@ export default defineComponent({
   margin: 0.5em 0;
 }
 
-#article ol {
+#article ol,
+#article ul {
   margin: 0.5em 0;
-  list-style-type: decimal;
   list-style-position: outside;
   padding-left: 1.2em;
 }
 
-#article ul {
-  margin: 0.5em 0;
+#article ol:not(.check-list) {
+  list-style-type: decimal;
+}
+
+#article ul:not(.check-list) {
   list-style-type: disc;
-  list-style-position: outside;
-  padding-left: 1.2em;
 }
 
 #article table {
