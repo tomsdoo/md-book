@@ -14,6 +14,7 @@
     "format:src:bin": "prettier --write src/bin/",
     "format:src:client": "prettier --write src/client/",
     "lint:src:bin": "eslint src/bin/",
+    "lint:src:client": "eslint src/client/",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
