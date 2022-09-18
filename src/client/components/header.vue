@@ -36,7 +36,7 @@ export default defineComponent({
     );
 
     const onSubmit = () => {
-      if (!Boolean(state.keyword)) {
+      if (!state.keyword) {
         return;
       }
 
