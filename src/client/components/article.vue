@@ -88,6 +88,19 @@ function wrapTable() {
   });
 }
 
+function adjustLinks(currentPage) {
+  document.querySelectorAll("article a").forEach((anchorTag) => {
+    const hyperReference = anchorTag.getAttribute("href");
+    if (hyperReference.match(/^http/i)) {
+      return;
+    }
+    anchorTag.setAttribute(
+      "href",
+      `#/?path=${new URL(hyperReference, currentPage.url).href}`
+    );
+  });
+}
+
 export default defineComponent({
   components: {
     VueLayout,
@@ -131,6 +144,7 @@ export default defineComponent({
           applyCopyable();
           adjustCheckboxes();
           wrapTable();
+          adjustLinks(state.currentPage);
           layout?.value?.scrollToTop();
         });
       },
