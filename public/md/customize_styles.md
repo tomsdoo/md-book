@@ -15,12 +15,12 @@ Just add one line to apply the theme.
 <link rel="stylesheet" href="path/to/theme.css" />
 ```
 
-See [Making a theme](#/?path=/md/make_theme.md) to know how to make a customized theme file.
+See [Making a theme](./make_theme.md) to know how to make a customized theme file.
 
 ## Defining CSS variables
 
 You can override the value for each CSS variable.  
-See [CSS Variables](#/?path=/md/css_variables.md) for detailes.
+See [CSS Variables](./css_variables.md) for detailes.
 
 Write `<style>` tag in HTML `head` tag, to override the variables.
 
