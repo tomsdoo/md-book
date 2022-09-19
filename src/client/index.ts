@@ -119,8 +119,6 @@ export async function start({
       ].map(fetchPageContent)
     );
 
-    console.log(pageContents);
-
     document.body.innerHTML = bodyHtml;
     const app = createApp({
       data: () => ({
