@@ -87,7 +87,7 @@ export default defineComponent({
   grid-template: "icon text" max-content / max-content 1fr;
   grid-gap: 0.5em;
   align-items: start;
-  padding: 0.2em 1em;
+  padding: 0.4em 1em;
 }
 .index-list > .item > .link:hover {
   text-shadow: 0 0 0.5px;
