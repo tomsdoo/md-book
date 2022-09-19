@@ -1,0 +1,16 @@
+@import url(//cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/atelier-dune-light.css);
+
+:root {
+  --custom-common-anchor-color: #2a5c0b;
+
+  --default-color: #562b08;
+  --header-bg-color: #c0cd71;
+  --bg-color: #f1ebdb;
+  --footer-bg-color: #c0cd71;
+  --index-toggle-button-bg-color: #9ba657;
+  --markdown-anchor-color: var(--custom-common-anchor-color);
+  --markdown-table-border-color: #6b5344;
+  --markdown-quote-border-color: #cbb488;
+  --markdown-inline-code-color: #f3e8b6;
+  --search-anchor-color: var(--custom-common-anchor-color);
+}
