@@ -8,7 +8,7 @@ This page shows you how to make a theme for `@tomsd/md-book`.
 ## define CSS Variables
 
 CSS variables are required to be defined.  
-See [CSS Variables](#/?path=/md/css_variables.md) for details.
+See [CSS Variables](./css_variables.md) for details.
 
 ``` css
 :root {
@@ -39,4 +39,4 @@ make one file named `some-theme.css`.
 }
 ```
 
-see [Customize styles](#/?path=/md/customize_styles.md) to apply.
+see [Customize styles](./customize_styles.md) to apply.
