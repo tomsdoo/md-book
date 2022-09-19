@@ -59,14 +59,14 @@ below is a horizontal line.
 
 ## table
 
-|#|name|description|
-|--:|:--|:--|
-|12345|test|some sentence|
-|43|test 2|another expresion|
+|#|name|description|notes|
+|--:|:--|:--|:--|
+|12345|test|some sentence|note|
+|43|test 2|another expresion|long long note line abcdefghijklmnopqrstuvwxyz|
 
 ## image
 
-![](https://picsum.photos/300)
+![](https://picsum.photos/500)
 
 ## mermaid.js
 
