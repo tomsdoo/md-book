@@ -80,6 +80,14 @@ function adjustCheckboxes() {
     });
 }
 
+function wrapTable() {
+  document.querySelectorAll("#article table").forEach((tableTag) => {
+    if (!tableTag.parentNode.classList.contains("table-wrapper")) {
+      tableTag.outerHTML = `<div class="table-wrapper scroll-hidden">${tableTag.outerHTML}</div>`;
+    }
+  });
+}
+
 export default defineComponent({
   components: {
     VueLayout,
@@ -122,6 +130,7 @@ export default defineComponent({
           applyMermaid();
           applyCopyable();
           adjustCheckboxes();
+          wrapTable();
           layout?.value?.scrollToTop();
         });
       },
@@ -226,6 +235,11 @@ export default defineComponent({
 #article table td {
   border: 1px solid var(--markdown-table-border-color, #aaaaaa);
   padding: 0.2em 0.5em;
+}
+
+/* table */
+#article > div.table-wrapper {
+  overflow: auto;
 }
 
 /* mermaid.js */
