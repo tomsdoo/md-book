@@ -94,9 +94,10 @@ function adjustLinks(currentPage) {
     if (hyperReference.match(/^http/i)) {
       return;
     }
+    const replacedUrl = new URL(hyperReference, currentPage.url);
     anchorTag.setAttribute(
       "href",
-      `#/?path=${new URL(hyperReference, currentPage.url).href}`
+      `#/?path=${replacedUrl.origin + replacedUrl.pathname}`
     );
   });
 }
