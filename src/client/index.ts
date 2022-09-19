@@ -108,8 +108,6 @@ export async function start({
   header: headerOptions,
   footer: footerOptions,
 }: MdBookOptions): Promise<any> {
-  console.log(mdFiles);
-
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
     await setHead({ mdFiles, header: headerOptions, footer: footerOptions });
@@ -121,7 +119,6 @@ export async function start({
       ].map(fetchPageContent)
     );
 
-    console.log(pageContents);
     document.body.innerHTML = bodyHtml;
     const app = createApp({
       data: () => ({
