@@ -142,7 +142,7 @@ export default defineComponent({
 #article h4:not(:first-child),
 #article h5:not(:first-child),
 #article h6:not(:first-child) {
-  margin: 1rem 0 0.5rem;
+  margin: 2rem 0 0.5rem;
 }
 
 #article h1 {
