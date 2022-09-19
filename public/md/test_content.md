@@ -64,6 +64,10 @@ below is a horizontal line.
 |12345|test|some sentence|
 |43|test 2|another expresion|
 
+## image
+
+![](https://picsum.photos/300)
+
 ## mermaid.js
 
 ``` mermaid
