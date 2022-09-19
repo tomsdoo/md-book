@@ -1,0 +1,16 @@
+@import url(//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/kimbie-dark.min.css);
+
+:root {
+  --custom-common-anchor-color: #db3c6e;
+
+  --default-color: #6b5344;
+  --header-bg-color: #f7edbf;
+  --bg-color: #f1eed9;
+  --footer-bg-color: #f7edbf;
+  --index-toggle-button-bg-color: #f7edbf;
+  --markdown-anchor-color: var(--custom-common-anchor-color);
+  --markdown-table-border-color: #6b5344;
+  --markdown-quote-border-color: #d4c098;
+  --markdown-inline-code-color: #f7edbf;
+  --search-anchor-color: var(--custom-common-anchor-color);
+}
