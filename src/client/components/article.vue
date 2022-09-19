@@ -179,6 +179,10 @@ export default defineComponent({
   text-shadow: 0 0 0.5px;
 }
 
+#article img {
+  max-width: 100%;
+}
+
 #article hr {
   opacity: 0.5;
   margin: 1rem 0;
@@ -227,6 +231,9 @@ export default defineComponent({
 /* mermaid.js */
 #article > pre > code.language-mermaid {
   display: none;
+}
+#article > pre > div.mermaid > svg {
+  max-width: 100%;
 }
 
 /* code copy button */
