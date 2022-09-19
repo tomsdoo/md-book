@@ -10,7 +10,7 @@
             class="item"
           >
             <router-link
-              :to="{ name: 'article', query: { path: page.rawPath } }"
+              :to="{ name: 'article', query: { path: page.url } }"
               class="link"
             >
               <span class="material-icons-outlined icon">article</span>

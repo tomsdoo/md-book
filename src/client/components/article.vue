@@ -117,7 +117,7 @@ export default defineComponent({
           state.ready = true;
         });
         state.currentPage =
-          props.pageContents.find(({ rawPath }) => rawPath === to) ??
+          props.pageContents.find(({ url }) => url === to) ??
           props.indexedPageContents[0];
       },
       { immediate: true }
