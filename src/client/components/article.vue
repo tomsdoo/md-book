@@ -88,17 +88,33 @@ function wrapTable() {
   });
 }
 
+function replaceUrl(originalPath, currentUrl) {
+  if (originalPath.match(/^http/i)) {
+    return originalPath;
+  }
+  const replacedUrl = new URL(originalPath, currentUrl);
+  return replacedUrl.origin + replacedUrl.pathname;
+}
+
 function adjustLinks(currentPage) {
   document.querySelectorAll("article a").forEach((anchorTag) => {
     const hyperReference = anchorTag.getAttribute("href");
-    if (hyperReference.match(/^http/i)) {
+    const replacedUrl = replaceUrl(hyperReference, currentPage.url);
+    if (hyperReference === replacedUrl) {
       return;
     }
-    const replacedUrl = new URL(hyperReference, currentPage.url);
-    anchorTag.setAttribute(
-      "href",
-      `#/?path=${replacedUrl.origin + replacedUrl.pathname}`
-    );
+    anchorTag.setAttribute("href", `#/?path=${replacedUrl}`);
+  });
+}
+
+function adjustImagePaths(currentPage) {
+  document.querySelectorAll("#article img").forEach((imageTag) => {
+    const src = imageTag.getAttribute("src");
+    const replacedSrc = replaceUrl(src, currentPage.url);
+    if (src === replacedSrc) {
+      return;
+    }
+    imageTag.setAttribute("src", replacedSrc);
   });
 }
 
@@ -146,6 +162,7 @@ export default defineComponent({
           adjustCheckboxes();
           wrapTable();
           adjustLinks(state.currentPage);
+          adjustImagePaths(state.currentPage);
           layout?.value?.scrollToTop();
         });
       },
