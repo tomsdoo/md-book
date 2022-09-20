@@ -12,20 +12,11 @@ import VueFooter from "./components/footer.vue";
 
 import { router } from "./router/";
 
-import * as marked from "marked";
+import { fetchPageContent } from "./modules/";
 
 interface MdFiles {
   indexedPaths: string[];
   hiddenPaths: string[];
-}
-
-interface PageContent {
-  indexed: boolean;
-  rawPath: string;
-  url: string;
-  text: string;
-  title: string;
-  html: string;
 }
 
 export interface MdBookOptions {
@@ -86,21 +77,6 @@ async function setHead({ header }: MdBookOptions): Promise<any> {
       })
     ).onload = () => resolve(undefined);
   });
-}
-
-async function fetchPageContent({ path, indexed }): Promise<PageContent> {
-  return await fetch(path)
-    .then(async (response) => ({
-      indexed,
-      rawPath: path,
-      url: response.url,
-      text: await response.text(),
-    }))
-    .then((content) => ({
-      ...content,
-      title: content.text.split("\n")[0].replace(/^# /, ""),
-      html: marked.parse(content.text),
-    }));
 }
 
 export async function start({

@@ -16,6 +16,7 @@ import VueLayout from "./layout.vue";
 import { defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
+import { fetchPageContent } from "../modules/";
 
 function applyMermaid() {
   document
@@ -141,14 +142,20 @@ export default defineComponent({
     const route = useRoute();
     watch(
       () => route?.query?.path,
-      (to) => {
+      async (to) => {
         state.ready = false;
+        state.currentPage =
+          to === undefined
+            ? props.indexedPageContents[0]
+            : props.pageContents.find(({ url }) => url === to) ??
+              (await fetchPageContent({ path: to, indexed: false }).then(
+                (page) => (page.status !== 200 ? undefined : page)
+              )) ??
+              props.indexedPageContents[0];
+
         nextTick(() => {
           state.ready = true;
         });
-        state.currentPage =
-          props.pageContents.find(({ url }) => url === to) ??
-          props.indexedPageContents[0];
       },
       { immediate: true }
     );
