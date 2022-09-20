@@ -15,12 +15,12 @@ const htmlFileContent = `<!DOCTYPE html>
             "https://raw.githubusercontent.com/tomsdoo/endecoder/main/README.md",
           ]
         },
-        header: { title: "header title" },
+        header: { title: "md book" },
         footer: {
-          text: "footer text",
+          text: "powered by ",
           link: {
             href: "https://www.npmjs.com/package/@tomsd/md-book",
-            text: "footer link"
+            text: "md-book"
           }
         }
       });
