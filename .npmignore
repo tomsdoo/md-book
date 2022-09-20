@@ -5,7 +5,7 @@ public/**/*.md
 public/**/*.html
 public/**/*.svg
 src/
-.eslingrc.js
+.eslintrc.js
 .gitignore
 .npmignore
 doc_server.ts
