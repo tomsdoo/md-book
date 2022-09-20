@@ -4,6 +4,7 @@ export interface PageContent {
   indexed: boolean;
   rawPath: string;
   url: string;
+  status: number;
   text: string;
   title: string;
   html: string;
@@ -18,6 +19,7 @@ export async function fetchPageContent({
       indexed,
       rawPath: path,
       url: response.url,
+      status: response.status,
       text: await response.text(),
     }))
     .then((content) => ({
