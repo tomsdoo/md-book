@@ -1,0 +1,14 @@
+.github/
+.husky/
+node_modules/
+public/**/*.md
+public/**/*.html
+public/**/*.svg
+src/
+.eslingrc.js
+.gitignore
+.npmignore
+doc_server.ts
+package-lock.json
+tsconfig.*.json
+webpack.config.js
