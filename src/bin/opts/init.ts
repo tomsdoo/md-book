@@ -9,10 +9,14 @@ const htmlFileContent = `<!DOCTYPE html>
       MdBook.start({
         mdFiles: {
           indexedPaths: [
-            "https://raw.githubusercontent.com/tomsdoo/endecoder/main/README.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/about.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/getting_started.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/customize_styles.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/make_theme.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/css_variables.md"
           ],
           hiddenPaths: [
-            "https://raw.githubusercontent.com/tomsdoo/endecoder/main/README.md",
+            "https://raw.githubusercontent.com/tomsdoo/md-book/main/public/md/test_content.md"
           ]
         },
         header: { title: "md book" },
