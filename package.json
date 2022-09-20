@@ -40,7 +40,7 @@
     "type": "git",
     "url": "git+https://github.com/tomsdoo/md-book.git"
   },
-  "keywords": [],
+  "keywords": ["markdown"],
   "author": "tom",
   "license": "MIT",
   "bugs": {
