@@ -1,0 +1,1 @@
+export { fetchPageContent } from "./fetchPageContent";
