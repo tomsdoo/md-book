@@ -1,0 +1,16 @@
+@import url(//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/base16/gruvbox-light-hard.min.css);
+
+:root {
+  --custom-common-anchor-color: #632e3e;
+
+  --default-color: #00a390;
+  --header-bg-color: #eceeb6;
+  --bg-color: #fffdeb;
+  --footer-bg-color: #eceeb6;
+  --index-toggle-button-bg-color: #343434;
+  --markdown-anchor-color: var(--custom-common-anchor-color);
+  --markdown-table-border-color: #00a390;
+  --markdown-quote-border-color: #b0ded8;
+  --markdown-inline-code-color: #e0f4cf;
+  --search-anchor-color: var(--custom-common-anchor-color);
+}
