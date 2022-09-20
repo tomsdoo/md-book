@@ -8,5 +8,7 @@
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/@tomsd/md-book)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 
+[![](https://nodei.co/npm/@tomsd/md-book.svg?mini=true)](https://www.npmjs.com/package/@tomsd/md-book)
+
 ready to start?
 - [getting started](./getting_started.md)
