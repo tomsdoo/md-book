@@ -1,6 +1,6 @@
 {
   "name": "@tomsd/md-book",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "It provides .js that displays the contents from the markdown document files on page",
   "main": "public/js/index.js",
   "bin": {
