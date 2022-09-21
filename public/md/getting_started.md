@@ -4,6 +4,7 @@
 1. initialize
 1. edit
 1. serve
+1. publish
 
 ## Install
 
@@ -57,3 +58,7 @@ CLI provides the local server.
 ``` shell
 npx mdbook --serve --directory path/to/directory
 ```
+
+## publish
+
+put the directory on the static web server that is like [netlify](https://www.netlify.com/).
