@@ -147,7 +147,7 @@ export default defineComponent({
     height: calc(100% - 2rem);
   }
   .index-list.folded {
-    height: 0;
+    height: 1px;
   }
   .index-toggle-button {
     display: grid;
