@@ -15,7 +15,7 @@
     "format:src:bin": "prettier --write src/bin/",
     "format:src:client": "prettier --write src/client/",
     "lint:src:bin": "eslint src/bin/",
-    "lint:src:client": "eslint src/client/",
+    "lint:src:client": "eslint src/client/**/*.ts",
     "lint:src:client:vue": "eslint src/client/**/*.vue",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
