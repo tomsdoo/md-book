@@ -15,8 +15,8 @@ import { router } from "./router/";
 import { fetchPageContents, FetchPageContentOptions } from "./modules/";
 
 interface MdFiles {
-  indexedPaths: string[];
-  hiddenPaths: string[];
+  indexedPaths: Array<string | { path: string; title: string }>;
+  hiddenPaths: Array<string | { path: string; title: string }>;
 }
 
 type CoreOptions = FetchPageContentOptions;
@@ -98,8 +98,14 @@ export async function start({
     });
 
     const pathObjects = [
-      ...mdFiles.indexedPaths.map((path) => ({ path, indexed: true })),
-      ...mdFiles.hiddenPaths.map((path) => ({ path, indexed: false })),
+      ...mdFiles.indexedPaths.map((path) => ({
+        ...(typeof path === "object" ? path : { path }),
+        indexed: true,
+      })),
+      ...mdFiles.hiddenPaths.map((path) => ({
+        ...(typeof path === "object" ? path : { path }),
+        indexed: false,
+      })),
     ];
 
     const pageContents = await fetchPageContents(pathObjects, core);
