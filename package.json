@@ -30,9 +30,12 @@
       "npm run lint:src:bin",
       "npm run format:src:bin"
     ],
-    "src/client/**/*": [
+    "src/client/**/*.(ts|vue)": [
       "npm run lint:src:client",
       "npm run lint:src:client:vue",
+      "npm run format:src:client"
+    ],
+    "src/client/**/*.css": [
       "npm run format:src:client"
     ]
   },
