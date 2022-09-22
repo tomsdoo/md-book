@@ -1,2 +1,5 @@
 export { fetchPageContent } from "./fetchPageContent";
-export { fetchPageContents } from "./fetchPageContents";
+export {
+  fetchPageContents,
+  FetchPageContentOptions,
+} from "./fetchPageContents";
