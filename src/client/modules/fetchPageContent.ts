@@ -1,5 +1,11 @@
 import * as marked from "marked";
 
+export interface PageSeed {
+  path: string;
+  indexed: boolean;
+  title?: string;
+}
+
 export interface PageContent {
   indexed: boolean;
   rawPath: string;
@@ -13,7 +19,8 @@ export interface PageContent {
 export async function fetchPageContent({
   path,
   indexed,
-}): Promise<PageContent> {
+  title,
+}: PageSeed): Promise<PageContent> {
   return await fetch(path)
     .then(async (response) => ({
       indexed,
@@ -24,7 +31,7 @@ export async function fetchPageContent({
     }))
     .then((content) => ({
       ...content,
-      title: content.text.split("\n")[0].replace(/^# /, ""),
+      title: title ?? content.text.split("\n")[0].replace(/^# /, ""),
       html: marked.parse(content.text),
     }));
 }

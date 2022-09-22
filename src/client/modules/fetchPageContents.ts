@@ -1,4 +1,4 @@
-import { fetchPageContent, PageContent } from "./fetchPageContent";
+import { fetchPageContent, PageContent, PageSeed } from "./fetchPageContent";
 
 export interface FetchPageContentOptions {
   loading?: {
@@ -7,14 +7,12 @@ export interface FetchPageContentOptions {
   verbose?: boolean;
 }
 
-async function fetchBatch(
-  pathObjects: Array<{ path: string; indexed: boolean }>
-): Promise<PageContent[]> {
+async function fetchBatch(pathObjects: PageSeed[]): Promise<PageContent[]> {
   return await Promise.all(pathObjects.map(fetchPageContent));
 }
 
 export async function fetchPageContents(
-  pathObjects: Array<{ path: string; indexed: boolean }>,
+  pathObjects: PageSeed[],
   options?: FetchPageContentOptions
 ): Promise<PageContent[]> {
   const batches = [];
