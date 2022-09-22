@@ -15,7 +15,7 @@
     "format:src:bin": "prettier --write src/bin/",
     "format:src:client": "prettier --write src/client/",
     "lint:src:bin": "eslint src/bin/",
-    "lint:src:client": "eslint src/client/",
+    "lint:src:client": "eslint src/client/**/*.ts",
     "lint:src:client:vue": "eslint src/client/**/*.vue",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
@@ -30,9 +30,12 @@
       "npm run lint:src:bin",
       "npm run format:src:bin"
     ],
-    "src/client/**/*": [
+    "src/client/**/*.(ts|vue)": [
       "npm run lint:src:client",
       "npm run lint:src:client:vue",
+      "npm run format:src:client"
+    ],
+    "src/client/**/*.css": [
       "npm run format:src:client"
     ]
   },
