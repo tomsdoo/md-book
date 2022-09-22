@@ -12,12 +12,14 @@ import VueFooter from "./components/footer.vue";
 
 import { router } from "./router/";
 
-import { fetchPageContent } from "./modules/";
+import { fetchPageContents, FetchPageContentOptions } from "./modules/";
 
 interface MdFiles {
   indexedPaths: string[];
   hiddenPaths: string[];
 }
+
+type CoreOptions = FetchPageContentOptions;
 
 export interface MdBookOptions {
   mdFiles: MdFiles;
@@ -31,6 +33,7 @@ export interface MdBookOptions {
       text: string;
     };
   };
+  core?: CoreOptions;
 }
 
 async function setHead({ header }: MdBookOptions): Promise<any> {
@@ -83,17 +86,23 @@ export async function start({
   mdFiles,
   header: headerOptions,
   footer: footerOptions,
+  core,
 }: MdBookOptions): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
-    await setHead({ mdFiles, header: headerOptions, footer: footerOptions });
+    await setHead({
+      mdFiles,
+      header: headerOptions,
+      footer: footerOptions,
+      core,
+    });
 
-    const pageContents = await Promise.all(
-      [
-        ...mdFiles.indexedPaths.map((path) => ({ path, indexed: true })),
-        ...mdFiles.hiddenPaths.map((path) => ({ path, indexed: false })),
-      ].map(fetchPageContent)
-    );
+    const pathObjects = [
+      ...mdFiles.indexedPaths.map((path) => ({ path, indexed: true })),
+      ...mdFiles.hiddenPaths.map((path) => ({ path, indexed: false })),
+    ];
+
+    const pageContents = await fetchPageContents(pathObjects, core);
 
     document.body.innerHTML = bodyHtml;
     const app = createApp({
