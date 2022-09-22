@@ -3,6 +3,7 @@ import "highlight.js/styles/stackoverflow-light.css";
 import "./css/style.css";
 import "./css/cloak.css";
 import "./css/fade.css";
+import "./css/initial-loading.css";
 
 import { createApp } from "vue";
 import { bodyHtml } from "./html";
@@ -90,6 +91,8 @@ export async function start({
 }: MdBookOptions): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
+    document.body.innerHTML = `<div id="initial-loading"><div class="rotate">md-book</div></div>`;
+
     await setHead({
       mdFiles,
       header: headerOptions,
