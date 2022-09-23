@@ -87,7 +87,7 @@ function replaceUrl(originalPath: string, currentUrl: string): string {
 }
 
 function adjustLinks(currentPage: { url: string }): void {
-  globalThis.document.querySelectorAll("article a").forEach((anchorTag) => {
+  globalThis.document.querySelectorAll("#article a").forEach((anchorTag) => {
     const hyperReference = anchorTag.getAttribute("href") as string;
     const replacedUrl = replaceUrl(hyperReference, currentPage.url);
     if (hyperReference === replacedUrl) {
