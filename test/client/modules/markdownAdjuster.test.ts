@@ -85,4 +85,35 @@ describe("markdownAdjuster", () => {
       2
     );
   });
+
+  it("adjustCheckboxes()", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <ul class="test-target">
+              <li>
+                <input type="checkbox" />
+              </li>
+            </ul>
+            <ol class="test-target">
+              <li>
+                <input type="checkbox" checked />
+              </li>
+            </ol>
+          </div>
+        </body>
+      </html>
+      `).window.document;
+    markdownAdjuster.adjustCheckboxes();
+
+    assert.equal(document.querySelectorAll(".test-target").length, 2);
+
+    assert(
+      Array.from(document.querySelectorAll(".test-target")).every((el) =>
+        el.classList.contains("check-list")
+      )
+    );
+  });
 });
