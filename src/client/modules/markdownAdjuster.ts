@@ -14,8 +14,8 @@ function applyMermaid(): void {
       div.classList.add("mermaid");
     });
   nextTick(() => {
-    // @ts-expect-error eslint-disable-next-line no-undef
-    mermaid.init();
+    // eslint-disable-next-line no-undef
+    globalThis.mermaid.init();
   })
     .then(() => {})
     .catch(() => {});
