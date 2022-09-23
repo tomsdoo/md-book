@@ -49,4 +49,40 @@ describe("markdownAdjuster", () => {
       2
     );
   });
+
+  it("applyCopyable()", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <pre class="test-target">
+              <code class="hljs">
+                this is a test
+              </code>
+            </pre>
+            <pre class="test-target">
+              <code class="hljs">
+                this is a test
+              </code>
+            </pre>
+          </div>
+        </body>
+      </html>
+    `).window.document;
+    markdownAdjuster.applyCopyable();
+
+    assert.equal(document.querySelectorAll(".test-target").length, 2);
+
+    assert(
+      Array.from(document.querySelectorAll(".test-target")).every((el) =>
+        el.classList.contains("copyable")
+      )
+    );
+
+    assert.equal(
+      document.querySelectorAll(".test-target > .copy-button").length,
+      2
+    );
+  });
 });
