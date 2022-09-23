@@ -1,7 +1,7 @@
 import { nextTick } from "vue";
 
 function applyMermaid(): void {
-  document
+  globalThis.document
     .querySelectorAll("#article pre code.language-mermaid")
     .forEach((codeTag) => {
       const container = codeTag.parentNode as HTMLElement;
