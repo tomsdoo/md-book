@@ -3,3 +3,4 @@ export {
   fetchPageContents,
   FetchPageContentOptions,
 } from "./fetchPageContents";
+export { markdownAdjuster } from "./markdownAdjuster";
