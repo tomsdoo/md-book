@@ -26,30 +26,32 @@ async function waitMs(ms: number): Promise<any> {
 }
 
 function applyCopyable(): void {
-  document.querySelectorAll("#article pre code.hljs").forEach((codeTag) => {
-    const container = codeTag.parentNode as HTMLElement;
-    if (container.classList.contains("copyable")) {
-      return;
-    }
-    container.classList.add("copyable");
-    const button = container.appendChild(document.createElement("button"));
-    button.classList.add("copy-button");
-    const iconTag = button.appendChild(document.createElement("span"));
-    iconTag.classList.add("material-icons", "icon");
-    iconTag.innerHTML = "content_copy";
-    button.addEventListener("click", () => {
-      navigator.clipboard
-        .writeText(codeTag.textContent as string)
-        .then(async () => {
-          iconTag.innerHTML = "done";
-          return await waitMs(1000);
-        })
-        .then(() => {
-          iconTag.innerHTML = "content_copy";
-        })
-        .catch(() => {});
+  globalThis.document
+    .querySelectorAll("#article pre code.hljs")
+    .forEach((codeTag) => {
+      const container = codeTag.parentNode as HTMLElement;
+      if (container.classList.contains("copyable")) {
+        return;
+      }
+      container.classList.add("copyable");
+      const button = container.appendChild(document.createElement("button"));
+      button.classList.add("copy-button");
+      const iconTag = button.appendChild(document.createElement("span"));
+      iconTag.classList.add("material-icons", "icon");
+      iconTag.innerHTML = "content_copy";
+      button.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(codeTag.textContent as string)
+          .then(async () => {
+            iconTag.innerHTML = "done";
+            return await waitMs(1000);
+          })
+          .then(() => {
+            iconTag.innerHTML = "content_copy";
+          })
+          .catch(() => {});
+      });
     });
-  });
 }
 
 function adjustCheckboxes(): void {
