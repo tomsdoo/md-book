@@ -1,7 +1,7 @@
 import { nextTick } from "vue";
 
 function applyMermaid(): void {
-  document
+  globalThis.document
     .querySelectorAll("#article pre code.language-mermaid")
     .forEach((codeTag) => {
       const container = codeTag.parentNode as HTMLElement;
@@ -14,8 +14,8 @@ function applyMermaid(): void {
       div.classList.add("mermaid");
     });
   nextTick(() => {
-    // @ts-expect-error eslint-disable-next-line no-undef
-    mermaid.init();
+    // eslint-disable-next-line no-undef
+    globalThis.mermaid.init();
   })
     .then(() => {})
     .catch(() => {});
@@ -26,34 +26,36 @@ async function waitMs(ms: number): Promise<any> {
 }
 
 function applyCopyable(): void {
-  document.querySelectorAll("#article pre code.hljs").forEach((codeTag) => {
-    const container = codeTag.parentNode as HTMLElement;
-    if (container.classList.contains("copyable")) {
-      return;
-    }
-    container.classList.add("copyable");
-    const button = container.appendChild(document.createElement("button"));
-    button.classList.add("copy-button");
-    const iconTag = button.appendChild(document.createElement("span"));
-    iconTag.classList.add("material-icons", "icon");
-    iconTag.innerHTML = "content_copy";
-    button.addEventListener("click", () => {
-      navigator.clipboard
-        .writeText(codeTag.textContent as string)
-        .then(async () => {
-          iconTag.innerHTML = "done";
-          return await waitMs(1000);
-        })
-        .then(() => {
-          iconTag.innerHTML = "content_copy";
-        })
-        .catch(() => {});
+  globalThis.document
+    .querySelectorAll("#article pre code.hljs")
+    .forEach((codeTag) => {
+      const container = codeTag.parentNode as HTMLElement;
+      if (container.classList.contains("copyable")) {
+        return;
+      }
+      container.classList.add("copyable");
+      const button = container.appendChild(document.createElement("button"));
+      button.classList.add("copy-button");
+      const iconTag = button.appendChild(document.createElement("span"));
+      iconTag.classList.add("material-icons", "icon");
+      iconTag.innerHTML = "content_copy";
+      button.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(codeTag.textContent as string)
+          .then(async () => {
+            iconTag.innerHTML = "done";
+            return await waitMs(1000);
+          })
+          .then(() => {
+            iconTag.innerHTML = "content_copy";
+          })
+          .catch(() => {});
+      });
     });
-  });
 }
 
 function adjustCheckboxes(): void {
-  document
+  globalThis.document
     .querySelectorAll("#article li input[type='checkbox']")
     .forEach((inputTag) => {
       const listItemTag = (inputTag as HTMLElement).parentNode as HTMLElement;
@@ -67,7 +69,7 @@ function adjustCheckboxes(): void {
 }
 
 function wrapTable(): void {
-  document.querySelectorAll("#article table").forEach((tableTag) => {
+  globalThis.document.querySelectorAll("#article table").forEach((tableTag) => {
     if (
       !(tableTag.parentNode as HTMLElement).classList.contains("table-wrapper")
     ) {
@@ -85,7 +87,7 @@ function replaceUrl(originalPath: string, currentUrl: string): string {
 }
 
 function adjustLinks(currentPage: { url: string }): void {
-  document.querySelectorAll("article a").forEach((anchorTag) => {
+  globalThis.document.querySelectorAll("article a").forEach((anchorTag) => {
     const hyperReference = anchorTag.getAttribute("href") as string;
     const replacedUrl = replaceUrl(hyperReference, currentPage.url);
     if (hyperReference === replacedUrl) {
@@ -96,7 +98,7 @@ function adjustLinks(currentPage: { url: string }): void {
 }
 
 function adjustImagePaths(currentPage: { url: string }): void {
-  document.querySelectorAll("#article img").forEach((imageTag) => {
+  globalThis.document.querySelectorAll("#article img").forEach((imageTag) => {
     const src = imageTag.getAttribute("src") as string;
     const replacedSrc = replaceUrl(src, currentPage.url);
     if (src === replacedSrc) {
