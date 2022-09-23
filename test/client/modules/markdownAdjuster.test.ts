@@ -116,4 +116,49 @@ describe("markdownAdjuster", () => {
       )
     );
   });
+
+  it("wrapTable()", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <table class="test-target">
+              <thead>
+                <tr>
+                  <th>test</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>test</td>
+              </tr>
+              </tbody>
+            </table>
+            <table class="test-target">
+              <thead>
+                <tr>
+                  <th>test</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>test</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </body>
+      </html>
+      `).window.document;
+    markdownAdjuster.wrapTable();
+
+    assert.equal(document.querySelectorAll(".test-target").length, 2);
+
+    assert.equal(
+      document.querySelectorAll("#article > .table-wrapper > .test-target")
+        .length,
+      2
+    );
+  });
 });
