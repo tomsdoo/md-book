@@ -211,4 +211,63 @@ describe("markdownAdjuster", () => {
       )
     );
   });
+
+  it("adjustImagePaths()", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <p>
+              <img
+                class="test-target"
+                data-original-href="./test.png"
+                src="./test.png"
+              />
+            </p>
+            <p>
+              <img
+                class="test-target"
+                data-original-href="../test/test.png"
+                src="../test/test.png"
+              />
+            </p>
+            <p>
+              heading
+              <img
+                class="not-applied"
+                data-original-href="https://some.domain/test.jpg"
+                src="https://some.domain/test.jpg"
+              />
+            </p>
+          </div>
+        </body>
+      </html>
+      `).window.document;
+    const currentPage = {
+      url: "http://localhost:1234/md/testing.md",
+    };
+    markdownAdjuster.adjustImagePaths(currentPage);
+
+    assert.equal(document.querySelectorAll(".test-target").length, 2);
+
+    assert(
+      Array.from(document.querySelectorAll(".test-target")).every((el) => {
+        const expectedUrl = new URL(
+          el.getAttribute("data-original-href") as string,
+          currentPage.url
+        );
+        return (
+          el.getAttribute("src") ===
+          `${expectedUrl.origin}${expectedUrl.pathname}`
+        );
+      })
+    );
+
+    assert(
+      Array.from(document.querySelectorAll("not-applied")).every(
+        (el) => el.getAttribute("data-original-href") === el.getAttribute("src")
+      )
+    );
+  });
 });
