@@ -98,7 +98,7 @@ function adjustLinks(currentPage: { url: string }): void {
 }
 
 function adjustImagePaths(currentPage: { url: string }): void {
-  document.querySelectorAll("#article img").forEach((imageTag) => {
+  globalThis.document.querySelectorAll("#article img").forEach((imageTag) => {
     const src = imageTag.getAttribute("src") as string;
     const replacedSrc = replaceUrl(src, currentPage.url);
     if (src === replacedSrc) {
