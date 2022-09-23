@@ -5,6 +5,7 @@ public/**/*.md
 public/**/*.html
 public/**/*.svg
 src/
+test/
 .eslintrc.js
 .gitignore
 .npmignore
