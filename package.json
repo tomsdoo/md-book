@@ -13,14 +13,16 @@
     "format": "npm run format:public && npm run format:src:bin && npm run format:src:client",
     "format:public": "prettier --write public/css/**/*.css",
     "format:src:bin": "prettier --write src/bin/",
+    "format:test": "prettier --write test/**/*.ts",
     "format:src:client": "prettier --write src/client/",
     "lint:src:bin": "eslint src/bin/",
     "lint:src:client": "eslint src/client/**/*.ts",
     "lint:src:client:vue": "eslint src/client/**/*.vue",
+    "lint:test": "eslint test/**/*.ts",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "prepare": "husky install",
-    "test": "exit 0"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/**/*.ts\" --timeout 30000"
   },
   "lint-staged": {
     "public/**/*.css": [
@@ -37,6 +39,10 @@
     ],
     "src/client/**/*.css": [
       "npm run format:src:client"
+    ],
+    "test/**/*.ts": [
+      "npm run lint:test",
+      "npm run format:test"
     ]
   },
   "repository": {
@@ -54,8 +60,10 @@
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
     "@types/commander": "^2.12.2",
+    "@types/jsdom": "^20.0.0",
     "@types/koa": "^2.13.5",
     "@types/marked": "^4.0.7",
+    "@types/mocha": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.23.1",
@@ -66,7 +74,9 @@
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-vue": "^9.5.1",
     "husky": "^8.0.1",
+    "jsdom": "^20.0.0",
     "lint-staged": "^13.0.3",
+    "mocha": "^10.0.0",
     "prettier": "^2.7.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
