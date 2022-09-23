@@ -55,7 +55,7 @@ function applyCopyable(): void {
 }
 
 function adjustCheckboxes(): void {
-  document
+  globalThis.document
     .querySelectorAll("#article li input[type='checkbox']")
     .forEach((inputTag) => {
       const listItemTag = (inputTag as HTMLElement).parentNode as HTMLElement;
