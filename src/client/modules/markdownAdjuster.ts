@@ -4,8 +4,8 @@ function applyMermaid(): void {
   document
     .querySelectorAll("#article pre code.language-mermaid")
     .forEach((codeTag) => {
-      const container = codeTag.parentNode;
-      if (container.classList.contains("language-mermaid") as boolean) {
+      const container = codeTag.parentNode as HTMLElement;
+      if (container.classList.contains("language-mermaid")) {
         return;
       }
       container.classList.add("language-mermaid");
@@ -14,21 +14,21 @@ function applyMermaid(): void {
       div.classList.add("mermaid");
     });
   nextTick(() => {
-    // eslint-disable-next-line no-undef
+    // @ts-expect-error eslint-disable-next-line no-undef
     mermaid.init();
   })
     .then(() => {})
     .catch(() => {});
 }
 
-async function waitMs(ms): Promise<any> {
+async function waitMs(ms: number): Promise<any> {
   return await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function applyCopyable(): void {
   document.querySelectorAll("#article pre code.hljs").forEach((codeTag) => {
-    const container = codeTag.parentNode;
-    if (container.classList.contains("copyable") as boolean) {
+    const container = codeTag.parentNode as HTMLElement;
+    if (container.classList.contains("copyable")) {
       return;
     }
     container.classList.add("copyable");
@@ -39,7 +39,7 @@ function applyCopyable(): void {
     iconTag.innerHTML = "content_copy";
     button.addEventListener("click", () => {
       navigator.clipboard
-        .writeText(codeTag.textContent)
+        .writeText(codeTag.textContent as string)
         .then(async () => {
           iconTag.innerHTML = "done";
           return await waitMs(1000);
@@ -56,10 +56,10 @@ function adjustCheckboxes(): void {
   document
     .querySelectorAll("#article li input[type='checkbox']")
     .forEach((inputTag) => {
-      const listItemTag = inputTag.parentNode;
-      const listTag = listItemTag.parentNode;
+      const listItemTag = (inputTag as HTMLElement).parentNode as HTMLElement;
+      const listTag = listItemTag.parentNode as HTMLElement;
 
-      if (listTag.classList.contains("check-list") as boolean) {
+      if (listTag.classList.contains("check-list")) {
         return;
       }
       listTag.classList.add("check-list");
@@ -68,23 +68,25 @@ function adjustCheckboxes(): void {
 
 function wrapTable(): void {
   document.querySelectorAll("#article table").forEach((tableTag) => {
-    if (!(tableTag.parentNode.classList.contains("table-wrapper") as boolean)) {
+    if (
+      !(tableTag.parentNode as HTMLElement).classList.contains("table-wrapper")
+    ) {
       tableTag.outerHTML = `<div class="table-wrapper scroll-hidden">${tableTag.outerHTML}</div>`;
     }
   });
 }
 
-function replaceUrl(originalPath, currentUrl): string {
-  if (originalPath.match(/^http/i) as boolean) {
+function replaceUrl(originalPath: string, currentUrl: string): string {
+  if (originalPath.match(/^http/i) !== null) {
     return originalPath;
   }
   const replacedUrl = new URL(originalPath, currentUrl);
   return replacedUrl.origin + replacedUrl.pathname;
 }
 
-function adjustLinks(currentPage): void {
+function adjustLinks(currentPage: { url: string }): void {
   document.querySelectorAll("article a").forEach((anchorTag) => {
-    const hyperReference = anchorTag.getAttribute("href");
+    const hyperReference = anchorTag.getAttribute("href") as string;
     const replacedUrl = replaceUrl(hyperReference, currentPage.url);
     if (hyperReference === replacedUrl) {
       return;
@@ -93,9 +95,9 @@ function adjustLinks(currentPage): void {
   });
 }
 
-function adjustImagePaths(currentPage): void {
+function adjustImagePaths(currentPage: { url: string }): void {
   document.querySelectorAll("#article img").forEach((imageTag) => {
-    const src = imageTag.getAttribute("src");
+    const src = imageTag.getAttribute("src") as string;
     const replacedSrc = replaceUrl(src, currentPage.url);
     if (src === replacedSrc) {
       return;
