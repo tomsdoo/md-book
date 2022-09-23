@@ -161,4 +161,54 @@ describe("markdownAdjuster", () => {
       2
     );
   });
+
+  it("adjustLinks()", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <p>
+              test sentence
+              <a class="test-target" data-original-href="./test.md" href="./test.md">test link</a>
+            </p>
+            <h2>
+              heading
+              <a class="test-target" data-original-href="../test/test.md" href="../test/test.md">test link</a>
+            </h2>
+            <h4>
+              heading
+              <a class="not-applied" data-original-href="https://www.google.com" href="https://www.google.com">google</a>
+            </h4>
+          </div>
+        </body>
+      </html>
+      `).window.document;
+    const currentPage = {
+      url: "http://localhost:1234/md/testing.md",
+    };
+    markdownAdjuster.adjustLinks(currentPage);
+
+    assert.equal(document.querySelectorAll(".test-target").length, 2);
+
+    assert(
+      Array.from(document.querySelectorAll(".test-target")).every((el) => {
+        const expectedUrl = new URL(
+          el.getAttribute("data-original-href") as string,
+          currentPage.url
+        );
+        return (
+          el.getAttribute("href") ===
+          `#/?path=${expectedUrl.origin}${expectedUrl.pathname}`
+        );
+      })
+    );
+
+    assert(
+      Array.from(document.querySelectorAll("not-applied")).every(
+        (el) =>
+          el.getAttribute("data-original-href") === el.getAttribute("href")
+      )
+    );
+  });
 });
