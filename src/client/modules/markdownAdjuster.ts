@@ -69,7 +69,7 @@ function adjustCheckboxes(): void {
 }
 
 function wrapTable(): void {
-  document.querySelectorAll("#article table").forEach((tableTag) => {
+  globalThis.document.querySelectorAll("#article table").forEach((tableTag) => {
     if (
       !(tableTag.parentNode as HTMLElement).classList.contains("table-wrapper")
     ) {
