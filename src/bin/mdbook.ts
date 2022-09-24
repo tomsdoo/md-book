@@ -13,7 +13,8 @@ const commandname = "mdbook";
 program
   .option("--directory <directory>", "path/to/directory")
   .option("--serve", "serve document server")
-  .option("--init", "initialize html file");
+  .option("--init", "initialize html file")
+  .option("--port <port>", "port number for serve option");
 
 program.on("--help", () => {
   console.log("");
@@ -50,6 +51,13 @@ program.on("--help", () => {
   if ((opts.init as boolean) && Boolean(directoryPath)) {
     await initializeHtmlFile(directoryPath as string);
   } else if ((opts.serve as boolean) && Boolean(directoryPath)) {
+    if (
+      "port" in opts &&
+      (opts.port as string) !== "" &&
+      !Number.isNaN(Number(opts.port as string))
+    ) {
+      process.env.PORT = opts.port;
+    }
     await serveDocuments(directoryPath as string);
   } else {
     program.help();
