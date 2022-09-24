@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import { markdownAdjuster } from "../../../src/client/modules/";
 
 declare global {
+  // eslint-disable-next-line no-var
   var mermaid: any;
 }
 
