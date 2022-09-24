@@ -51,7 +51,7 @@ program.on("--help", () => {
   if ((opts.init as boolean) && Boolean(directoryPath)) {
     await initializeHtmlFile(directoryPath as string);
   } else if ((opts.serve as boolean) && Boolean(directoryPath)) {
-    if ((opts.port as string) !== "") {
+    if ("port" in opts && (opts.port as string) !== "") {
       process.env.PORT = opts.port;
     }
     await serveDocuments(directoryPath as string);
