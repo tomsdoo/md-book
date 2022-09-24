@@ -22,15 +22,16 @@ export async function fetchPageContent({
   title,
 }: PageSeed): Promise<PageContent> {
   return await globalThis
+    // @ts-expect-error
     .fetch(path)
-    .then(async (response) => ({
+    .then(async (response: any) => ({
       indexed,
       rawPath: path,
       url: response.url,
       status: response.status,
       text: await response.text(),
     }))
-    .then((content) => ({
+    .then((content: any) => ({
       ...content,
       title: title ?? content.text.split("\n")[0].replace(/^# /, ""),
       html: marked.parse(content.text),
