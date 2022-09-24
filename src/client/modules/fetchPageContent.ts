@@ -21,7 +21,8 @@ export async function fetchPageContent({
   indexed,
   title,
 }: PageSeed): Promise<PageContent> {
-  return await fetch(path)
+  return await globalThis
+    .fetch(path)
     .then(async (response) => ({
       indexed,
       rawPath: path,
