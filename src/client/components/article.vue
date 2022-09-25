@@ -23,6 +23,10 @@ export default defineComponent({
     VueLayout,
   },
   props: {
+    bookOptions: {
+      type: Object,
+      default: () => ({}),
+    },
     pageContents: {
       type: Array,
       default: () => [],
@@ -63,7 +67,7 @@ export default defineComponent({
       (to) => {
         nextTick(() => {
           hljs.highlightAll();
-          markdownAdjuster.applyMermaid();
+          markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
           markdownAdjuster.applyCopyable();
           markdownAdjuster.adjustCheckboxes();
           markdownAdjuster.wrapTable();

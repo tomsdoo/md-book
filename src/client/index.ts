@@ -35,6 +35,7 @@ export interface MdBookOptions {
     };
   };
   core?: CoreOptions;
+  mermaid?: object;
 }
 
 async function setHead({ header }: MdBookOptions): Promise<any> {
@@ -88,6 +89,7 @@ export async function start({
   header: headerOptions,
   footer: footerOptions,
   core,
+  mermaid,
 }: MdBookOptions): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
@@ -116,6 +118,9 @@ export async function start({
     document.body.innerHTML = bodyHtml;
     const app = createApp({
       data: () => ({
+        bookOptions: {
+          mermaid,
+        },
         pageContents,
         indexedPageContents: pageContents.filter(({ indexed }) => indexed),
       }),

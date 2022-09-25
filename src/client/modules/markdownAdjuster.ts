@@ -1,6 +1,6 @@
 import { nextTick } from "vue";
 
-function applyMermaid(): void {
+function applyMermaid(options?: object): void {
   globalThis.document
     .querySelectorAll("#article pre code.language-mermaid")
     .forEach((codeTag) => {
@@ -14,6 +14,9 @@ function applyMermaid(): void {
       div.classList.add("mermaid");
     });
   nextTick(() => {
+    if (options != null) {
+      globalThis.mermaid.mermaidAPI.initialize(options);
+    }
     // eslint-disable-next-line no-undef
     globalThis.mermaid.init();
   })
