@@ -71,7 +71,6 @@ below is a horizontal line.
 ## mermaid.js
 
 ``` mermaid
-%%{ init:{'theme': 'dark' }}%%
 gitGraph
 commit id: " "
 branch feature/base

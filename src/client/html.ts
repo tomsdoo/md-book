@@ -9,6 +9,7 @@ export const bodyHtml = `
     <transition name="fade">
       <component
         :is="Component"
+        :book-options="bookOptions"
         :page-contents="pageContents"
         :indexed-page-contents="indexedPageContents"
       ></component>
