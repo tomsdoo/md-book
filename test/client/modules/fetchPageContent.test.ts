@@ -1,8 +1,7 @@
 import { describe, it } from "mocha";
-import { strict as assert } from "assert";
+import { expect } from "chai";
 import { mock } from "sinon";
 
-import { marked } from "marked";
 import { fetchPageContent } from "../../../src/client/modules/fetchPageContent";
 
 let originalFetch: Function;
@@ -32,7 +31,7 @@ describe("fetchPageContent()", () => {
     const mocked = mock(globalThis);
     mocked
       .expects("fetch")
-      .once()
+      .twice()
       .withArgs(path)
       .returns(
         Promise.resolve({
@@ -42,23 +41,34 @@ describe("fetchPageContent()", () => {
         })
       );
 
-    assert.equal(
-      JSON.stringify(
-        await fetchPageContent({
-          path,
-          indexed: true,
-        })
-      ),
-      JSON.stringify({
+    expect(
+      async () => await fetchPageContent({ path, indexed: true })
+    ).to.not.throw();
+
+    const expected = expect(
+      await fetchPageContent({
+        path,
         indexed: true,
-        rawPath: path,
-        url: responseUrl,
-        status: 200,
-        text: responseText,
-        title: "test",
-        html: marked.parse(responseText),
       })
     );
+
+    expected.to.include.all.keys([
+      "indexed",
+      "rawPath",
+      "url",
+      "status",
+      "text",
+      "title",
+      "html",
+    ]);
+
+    expected.to.satisfy(({ status }: any) => status === 200);
+    expected.nested.property("indexed").is.a("boolean");
+    expected.nested.property("rawPath").is.a("string");
+    expected.nested.property("url").is.a("string");
+    expected.nested.property("text").is.a("string");
+    expected.nested.property("title").is.a("string");
+    expected.nested.property("html").is.a("string");
 
     mocked.verify();
     mocked.restore();
