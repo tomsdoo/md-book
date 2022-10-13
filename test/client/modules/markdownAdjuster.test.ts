@@ -1,5 +1,5 @@
 import { describe, it } from "mocha";
-import { strict as assert } from "assert";
+import { expect } from "chai";
 import { JSDOM } from "jsdom";
 
 import { markdownAdjuster } from "../../../src/client/modules/";
@@ -37,18 +37,18 @@ describe("markdownAdjuster", () => {
     `).window.document;
     markdownAdjuster.applyMermaid();
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert(
-      Array.from(document.querySelectorAll(".test-target")).every((el) =>
-        el.classList.contains("language-mermaid")
-      )
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) =>
+          (el as HTMLElement).classList.contains("language-mermaid")
+        )
     );
 
-    assert.equal(
-      document.querySelectorAll(".test-target > div.mermaid").length,
-      2
-    );
+    expect(
+      document.querySelectorAll(".test-target > div.mermaid")
+    ).to.have.lengthOf(2);
   });
 
   it("applyCopyable()", () => {
@@ -73,18 +73,18 @@ describe("markdownAdjuster", () => {
     `).window.document;
     markdownAdjuster.applyCopyable();
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert(
-      Array.from(document.querySelectorAll(".test-target")).every((el) =>
-        el.classList.contains("copyable")
-      )
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) =>
+          (el as HTMLElement).classList.contains("copyable")
+        )
     );
 
-    assert.equal(
-      document.querySelectorAll(".test-target > .copy-button").length,
-      2
-    );
+    expect(
+      document.querySelectorAll(".test-target > .copy-button")
+    ).to.have.lengthOf(2);
   });
 
   it("adjustCheckboxes()", () => {
@@ -109,12 +109,13 @@ describe("markdownAdjuster", () => {
       `).window.document;
     markdownAdjuster.adjustCheckboxes();
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert(
-      Array.from(document.querySelectorAll(".test-target")).every((el) =>
-        el.classList.contains("check-list")
-      )
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) =>
+          (el as HTMLElement).classList.contains("check-list")
+        )
     );
   });
 
@@ -154,13 +155,11 @@ describe("markdownAdjuster", () => {
       `).window.document;
     markdownAdjuster.wrapTable();
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert.equal(
+    expect(
       document.querySelectorAll("#article > .table-wrapper > .test-target")
-        .length,
-      2
-    );
+    ).to.have.lengthOf(2);
   });
 
   it("adjustLinks()", () => {
@@ -190,26 +189,29 @@ describe("markdownAdjuster", () => {
     };
     markdownAdjuster.adjustLinks(currentPage);
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert(
-      Array.from(document.querySelectorAll(".test-target")).every((el) => {
-        const expectedUrl = new URL(
-          el.getAttribute("data-original-href") as string,
-          currentPage.url
-        );
-        return (
-          el.getAttribute("href") ===
-          `#/?path=${expectedUrl.origin}${expectedUrl.pathname}`
-        );
-      })
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) => {
+          const expectedUrl = new URL(
+            (el as HTMLElement).getAttribute("data-original-href") as string,
+            currentPage.url
+          );
+          return (
+            (el as HTMLElement).getAttribute("href") ===
+            `#/?path=${expectedUrl.origin}${expectedUrl.pathname}`
+          );
+        })
     );
 
-    assert(
-      Array.from(document.querySelectorAll("not-applied")).every(
-        (el) =>
-          el.getAttribute("data-original-href") === el.getAttribute("href")
-      )
+    expect(document.querySelectorAll("not-applied")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every(
+          (el) =>
+            (el as HTMLElement).getAttribute("data-original-href") ===
+            (el as HTMLElement).getAttribute("href")
+        )
     );
   });
 
@@ -250,25 +252,29 @@ describe("markdownAdjuster", () => {
     };
     markdownAdjuster.adjustImagePaths(currentPage);
 
-    assert.equal(document.querySelectorAll(".test-target").length, 2);
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
-    assert(
-      Array.from(document.querySelectorAll(".test-target")).every((el) => {
-        const expectedUrl = new URL(
-          el.getAttribute("data-original-href") as string,
-          currentPage.url
-        );
-        return (
-          el.getAttribute("src") ===
-          `${expectedUrl.origin}${expectedUrl.pathname}`
-        );
-      })
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) => {
+          const expectedUrl = new URL(
+            (el as HTMLElement).getAttribute("data-original-href") as string,
+            currentPage.url
+          );
+          return (
+            (el as HTMLElement).getAttribute("src") ===
+            `${expectedUrl.origin}${expectedUrl.pathname}`
+          );
+        })
     );
 
-    assert(
-      Array.from(document.querySelectorAll("not-applied")).every(
-        (el) => el.getAttribute("data-original-href") === el.getAttribute("src")
-      )
+    expect(document.querySelectorAll("not-applied")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every(
+          (el) =>
+            (el as HTMLElement).getAttribute("data-original-href") ===
+            (el as HTMLElement).getAttribute("src")
+        )
     );
   });
 });
