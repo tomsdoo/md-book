@@ -4,3 +4,4 @@ export {
   FetchPageContentOptions,
 } from "./fetchPageContents";
 export { markdownAdjuster } from "./markdownAdjuster";
+export { setHead } from "./setHead";
