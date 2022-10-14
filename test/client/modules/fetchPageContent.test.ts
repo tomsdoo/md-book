@@ -8,8 +8,7 @@ let originalFetch: Function;
 
 describe("fetchPageContent()", () => {
   before(() => {
-    // @ts-expect-error
-    originalFetch = global.fetch;
+    originalFetch = globalThis.fetch;
     // @ts-expect-error
     globalThis.fetch = async (path: string) =>
       await Promise.resolve({

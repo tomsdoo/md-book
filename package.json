@@ -22,7 +22,7 @@
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "prepare": "husky install",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha -r ts-node/register \"test/**/*.ts\" --timeout 30000"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"lib\": [\"esnext\", \"dom\"], \"module\":\"commonjs\"}' mocha -r ts-node/register \"test/**/*.ts\" --timeout 30000"
   },
   "lint-staged": {
     "public/**/*.css": [
