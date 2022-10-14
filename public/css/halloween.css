@@ -1,0 +1,16 @@
+@import url(//cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/pojoaque.css);
+
+:root {
+  --custom-common-anchor-color: #ea5e30;
+
+  --default-color: #f69f3a;
+  --header-bg-color: #10070f;
+  --bg-color: #33172a;
+  --footer-bg-color: #4f203c;
+  --index-toggle-button-bg-color: #10070f;
+  --markdown-anchor-color: var(--custom-common-anchor-color);
+  --markdown-table-border-color: #fcb562;
+  --markdown-quote-border-color: #b57529;
+  --markdown-inline-code-color: #5f401c;
+  --search-anchor-color: var(--custom-common-anchor-color);
+}
