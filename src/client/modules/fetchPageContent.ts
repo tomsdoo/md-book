@@ -22,7 +22,6 @@ export async function fetchPageContent({
   title,
 }: PageSeed): Promise<PageContent> {
   return await globalThis
-    // @ts-expect-error
     .fetch(path)
     .then(async (response: any) => ({
       indexed,
