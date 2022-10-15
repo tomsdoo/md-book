@@ -1,4 +1,5 @@
 import { start } from "./";
+import { theme } from "./themes";
 
 declare global {
   interface Window {
@@ -8,4 +9,5 @@ declare global {
 
 window.MdBook = {
   start,
+  theme,
 };
