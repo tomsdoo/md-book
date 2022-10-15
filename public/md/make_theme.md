@@ -1,6 +1,6 @@
 # Making a theme
 
-This page shows you how to make a theme for `@tomsd/md-book`.
+This page shows you how to make a theme for `@tomsd/md-book`. See [Themes](./theme.md) if you'd like to use prepared themes.
 
 - define CSS Variables
 - define `highlight.js` theme

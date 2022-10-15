@@ -15,7 +15,8 @@ Just add one line to apply the theme.
 <link rel="stylesheet" href="path/to/theme.css" />
 ```
 
-See [Making a theme](./make_theme.md) to know how to make a customized theme file.
+See [Themes](./theme.md) for the prepared themes.  
+Or, see [Making a theme](./make_theme.md) to know how to make a customized theme file.
 
 ## Defining CSS variables
 
