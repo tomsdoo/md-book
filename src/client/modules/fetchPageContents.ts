@@ -15,7 +15,7 @@ export async function fetchPageContents(
   pathObjects: PageSeed[],
   options?: FetchPageContentOptions
 ): Promise<PageContent[]> {
-  const batches = [];
+  const batches: PageContent[][] = [];
   const UNIT_PER_BATCH = options?.loading?.maxNumberOfFilesAtOnce ?? 5;
   const batchLength =
     Math.floor(pathObjects.length / UNIT_PER_BATCH) +
