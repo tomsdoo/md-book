@@ -1,4 +1,5 @@
-import { fetchPageContent, PageContent, PageSeed } from "./fetchPageContent";
+import { PageContent, PageSeed } from "./types";
+import { fetchPageContent } from "./fetchPageContent";
 
 export interface FetchPageContentOptions {
   loading?: {
