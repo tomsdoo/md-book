@@ -1,0 +1,39 @@
+.github-token-area {
+  position: fixed;
+  display: grid;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-color);
+}
+
+.github-token-area > .form-list {
+  display: grid;
+  height: max-content;
+  grid-gap: 0.5em;
+  margin-top: auto;
+}
+
+.github-token-area > .form-list > .form-item {
+  display: grid;
+  grid-template: "repository tokenbox" max-content / 1fr 1fr;
+  grid-gap: 0.5em;
+}
+
+.github-token-area > .form-list > .form-item > .repo {
+  font-size: 1em;
+}
+
+.github-token-area > .form-list > .form-item > .tokenbox {
+  border: 1px solid;
+}
+
+.github-token-area > .ok-button {
+  display: grid;
+  margin-bottom: auto;
+  margin-left: auto;
+  width: max-content;
+}
