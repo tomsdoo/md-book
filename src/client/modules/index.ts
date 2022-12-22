@@ -5,3 +5,4 @@ export {
 } from "./fetchPageContents";
 export { markdownAdjuster } from "./markdownAdjuster";
 export { setHead } from "./setHead";
+export { getGithubTokens } from "./getGithubTokens";
