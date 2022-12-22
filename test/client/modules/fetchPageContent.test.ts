@@ -41,11 +41,12 @@ describe("fetchPageContent()", () => {
       );
 
     expect(
-      async () => await fetchPageContent({ path, indexed: true })
+      async () => await fetchPageContent({ type: "plain", path, indexed: true })
     ).to.not.throw();
 
     const expected = expect(
       await fetchPageContent({
+        type: "plain",
         path,
         indexed: true,
       })
