@@ -27,7 +27,7 @@ export async function fetchGitHubContent({
     text: "Not Found",
     html: "Not Found",
   };
-  if (token != null) {
+  if (token == null) {
     return notFoundContent;
   }
   return await new GitHubRepo(token, owner, repo)
