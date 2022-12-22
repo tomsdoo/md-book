@@ -128,7 +128,11 @@ describe("getGithubTokens()", () => {
       .then((tokens) => {
         expect(tokens).to.have.property("owner1/repo1", "token1");
         expect(tokens).to.have.property("owner2/repo2", "token2");
-        done();
+        setTimeout(() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          expect(document.querySelector(".github-token-area")).to.be.null;
+          done();
+        }, 1);
       })
       .catch((e) => {
         throw e;
@@ -146,5 +150,12 @@ describe("getGithubTokens()", () => {
       ).value = "token2";
       (document.querySelector("button.ok-button") as HTMLButtonElement).click();
     }, 1);
+  });
+
+  it("parameter length === 0", async () => {
+    const expected = expect(
+      await getGithubTokens([]).then((result) => JSON.stringify(result))
+    );
+    expected.to.equals("{}");
   });
 });

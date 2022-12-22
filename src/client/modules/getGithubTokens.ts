@@ -7,7 +7,10 @@ export async function getGithubTokens(
   repositoryInfos: RepositoryInfo[]
 ): Promise<{ [key: string]: string }> {
   return await new Promise((resolve, reject) => {
-    document.body.innerHTML = "";
+    if (repositoryInfos.length === 0) {
+      resolve({});
+      return;
+    }
     const div = document.body.appendChild(document.createElement("div"));
     div.classList.add("github-token-area");
     const ul = div.appendChild(document.createElement("ul"));
@@ -29,12 +32,17 @@ export async function getGithubTokens(
     button.addEventListener("click", () => {
       resolve(
         Object.fromEntries(
-          Array.from(document.querySelectorAll(".tokenbox")).map((box) => [
-            box.getAttribute("data-repo"),
-            (box as HTMLInputElement).value,
-          ])
+          Array.from(document.querySelectorAll(".tokenbox"))
+            .filter((box) => Boolean((box as HTMLInputElement).value))
+            .map((box) => [
+              box.getAttribute("data-repo"),
+              (box as HTMLInputElement).value,
+            ])
         )
       );
+      setTimeout(() => {
+        document.querySelector(".github-token-area")?.remove();
+      }, 1);
     });
   });
 }
