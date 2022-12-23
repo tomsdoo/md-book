@@ -47,10 +47,13 @@ export default defineComponent({
       () => route?.query?.path,
       async (to) => {
         state.ready = false;
+        // @ts-expect-error
         state.currentPage =
           to === undefined
             ? props.indexedPageContents[0]
-            : props.pageContents.find(({ url }) => url === to) ??
+            : // @ts-expect-error
+              props.pageContents.find(({ url }) => url === to) ??
+              // @ts-expect-error
               (await fetchPageContent({ path: to, indexed: false }).then(
                 (page) => (page.status !== 200 ? undefined : page)
               )) ??
@@ -71,8 +74,11 @@ export default defineComponent({
           markdownAdjuster.applyCopyable();
           markdownAdjuster.adjustCheckboxes();
           markdownAdjuster.wrapTable();
+          // @ts-expect-error
           markdownAdjuster.adjustLinks(state.currentPage);
+          // @ts-expect-error
           markdownAdjuster.adjustImagePaths(state.currentPage);
+          // @ts-expect-error
           layout?.value?.scrollToTop();
         });
       },
