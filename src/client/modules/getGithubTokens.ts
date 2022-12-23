@@ -15,7 +15,11 @@ export async function getGithubTokens(
     div.classList.add("github-token-area");
     const ul = div.appendChild(document.createElement("ul"));
     ul.classList.add("form-list");
-    repositoryInfos.forEach(({ owner, repo }) => {
+    Object.values(
+      Object.fromEntries(
+        repositoryInfos.map((info) => [`${info.owner}/${info.repo}`, info])
+      )
+    ).forEach(({ owner, repo }) => {
       const li = ul.appendChild(document.createElement("li"));
       li.classList.add("form-item");
       const formDiv = li.appendChild(document.createElement("div"));
