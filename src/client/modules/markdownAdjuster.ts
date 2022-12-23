@@ -85,6 +85,12 @@ function replaceUrl(originalPath: string, currentUrl: string): string {
   if (originalPath.match(/^http/i) !== null) {
     return originalPath;
   }
+  if (currentUrl.match(/^github:/i) !== null) {
+    const urlArray = currentUrl.split("/");
+    const dummyUrl = "http://dummy.app/" + urlArray.slice(3).join("/");
+    const replacedUrl = new URL(originalPath, dummyUrl);
+    return urlArray.slice(0, 3).join("/") + replacedUrl.pathname;
+  }
   const replacedUrl = new URL(originalPath, currentUrl);
   return replacedUrl.origin + replacedUrl.pathname;
 }
