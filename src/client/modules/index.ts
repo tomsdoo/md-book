@@ -6,3 +6,4 @@ export {
 export { markdownAdjuster } from "./markdownAdjuster";
 export { setHead } from "./setHead";
 export { getGithubTokens } from "./getGithubTokens";
+export { PathInterpreter } from "./PathInterpreter";
