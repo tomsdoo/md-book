@@ -57,10 +57,7 @@ export async function start({
     document.body.innerHTML = `<div id="initial-loading"><div class="rotate">md-book</div></div>`;
 
     await setHead({
-      mdFiles,
       header: headerOptions,
-      footer: footerOptions,
-      core,
     });
 
     const pathObjects = [
