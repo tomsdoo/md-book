@@ -2,11 +2,11 @@ import { describe, it } from "mocha";
 import { expect } from "chai";
 import { mock } from "sinon";
 
-import { fetchPageContent } from "../../../src/client/modules/fetchPageContent";
+import { fetchPlainContent } from "../../../src/client/modules/fetchPageContent";
 
 let originalFetch: Function;
 
-describe("fetchPageContent()", () => {
+describe("fetchPlainContent()", () => {
   before(() => {
     originalFetch = globalThis.fetch;
     // @ts-expect-error
@@ -41,11 +41,12 @@ describe("fetchPageContent()", () => {
       );
 
     expect(
-      async () => await fetchPageContent({ type: "plain", path, indexed: true })
+      async () =>
+        await fetchPlainContent({ type: "plain", path, indexed: true })
     ).to.not.throw();
 
     const expected = expect(
-      await fetchPageContent({
+      await fetchPlainContent({
         type: "plain",
         path,
         indexed: true,
