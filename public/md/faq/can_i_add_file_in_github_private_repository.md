@@ -9,9 +9,9 @@ The users who read the page will have to input GitHub tokens for each repository
 MdBook.start({
   mdFiles: {
     indexedPaths: [
-      // path-like
+      // path format
       "github://owner.repo/path.md",
-      // object-like
+      // object format
       {
         type: "github",
         path: "path/to/file.md",
