@@ -1,7 +1,27 @@
 import { marked } from "marked";
-import { PageSeed, PageContent } from "./types";
+import { PageSeed, GitHubPageSeed, PageContent } from "./types";
+import { PathInterpreter } from "./PathInterpreter";
+import { fetchGitHubContent } from "./fetchGitHubContent";
 
-export async function fetchPageContent({
+export async function fetchPageContent(
+  seed: (Omit<PageSeed, "type"> | Omit<GitHubPageSeed, "type">) & {
+    type?: string;
+  }
+): Promise<PageContent> {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const lseed = seed.type
+    ? seed
+    : {
+        ...seed,
+        ...new PathInterpreter(seed.path).result,
+      };
+  if (lseed.type === "github") {
+    return await fetchGitHubContent(lseed as GitHubPageSeed);
+  }
+  return await fetchPlainContent(lseed as PageSeed);
+}
+
+export async function fetchPlainContent({
   path,
   indexed,
   title,

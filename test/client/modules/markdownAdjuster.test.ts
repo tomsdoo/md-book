@@ -215,6 +215,60 @@ describe("markdownAdjuster", () => {
     );
   });
 
+  it("adjustLinks() for github path", () => {
+    globalThis.document = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div id="article">
+            <p>
+              test sentence
+              <a class="test-target" data-expected-href="/md/test.md" href="./test.md">test link</a>
+            </p>
+            <h2>
+              heading
+              <a class="test-target" data-expected-href="/test/test.md" href="../test/test.md">test link</a>
+            </h2>
+            <h4>
+              heading
+              <a class="not-applied" data-original-href="https://www.google.com" href="https://www.google.com">google</a>
+            </h4>
+          </div>
+        </body>
+      </html>
+      `).window.document;
+    const currentPage = {
+      url: "github://owner.repo/md/testing.md",
+    };
+    markdownAdjuster.adjustLinks(currentPage);
+
+    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+
+    expect(document.querySelectorAll(".test-target")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every((el) => {
+          const expectedUrl = `github://owner.repo${
+            (el as HTMLAnchorElement).getAttribute(
+              "data-expected-href"
+            ) as string
+          }`;
+          return (
+            (el as HTMLElement).getAttribute("href") ===
+            `#/?path=${expectedUrl}`
+          );
+        })
+    );
+
+    expect(document.querySelectorAll("not-applied")).to.satisfy(
+      (elementList: NodeList) =>
+        Array.from(elementList).every(
+          (el) =>
+            (el as HTMLElement).getAttribute("data-original-href") ===
+            (el as HTMLElement).getAttribute("href")
+        )
+    );
+  });
+
   it("adjustImagePaths()", () => {
     globalThis.document = new JSDOM(`
       <!DOCTYPE html>

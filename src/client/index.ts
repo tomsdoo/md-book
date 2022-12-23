@@ -4,6 +4,7 @@ import "./css/style.css";
 import "./css/cloak.css";
 import "./css/fade.css";
 import "./css/initial-loading.css";
+import "./css/github-token-area.css";
 
 import { createApp } from "vue";
 import { bodyHtml } from "./html";
@@ -15,8 +16,10 @@ import { router } from "./router/";
 
 import {
   fetchPageContents,
+  getGithubTokens,
   FetchPageContentOptions,
   setHead,
+  PathInterpreter,
 } from "./modules/";
 
 interface MdFiles {
@@ -62,14 +65,23 @@ export async function start({
 
     const pathObjects = [
       ...mdFiles.indexedPaths.map((path) => ({
-        ...(typeof path === "object" ? path : { path }),
+        type: "plain",
+        ...(typeof path === "object" ? path : new PathInterpreter(path).result),
         indexed: true,
       })),
       ...mdFiles.hiddenPaths.map((path) => ({
-        ...(typeof path === "object" ? path : { path }),
+        type: "plain",
+        ...(typeof path === "object" ? path : new PathInterpreter(path).result),
         indexed: false,
       })),
     ];
+
+    const tokens = await getGithubTokens(
+      pathObjects
+        .filter(({ type }) => type === "github")
+        .map(({ owner, repo }: any) => ({ owner, repo }))
+    );
+    sessionStorage.githubTokens = JSON.stringify(tokens);
 
     const pageContents = await fetchPageContents(pathObjects, core);
 
