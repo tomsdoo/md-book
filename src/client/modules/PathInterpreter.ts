@@ -11,7 +11,9 @@ export class PathInterpreter {
     return protocol === "github" ? "github" : "plain";
   }
 
-  public get result(): Partial<PageSeed> | Partial<GitHubPageSeed> {
+  public get result():
+    | Pick<PageSeed, "type" | "path">
+    | Pick<GitHubPageSeed, "type" | "path" | "owner" | "repo"> {
     switch (this.type) {
       case "github": {
         const pathArr = this._path.split("/");

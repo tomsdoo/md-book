@@ -45,11 +45,17 @@ describe("PathInterpreter", () => {
 
   it("owner of result for github://... is correct", () => {
     const url = "github://dummyOwner.dummyRepo/dummyPath";
-    expect(new PathInterpreter(url).result.owner).to.equals("dummyOwner");
+    expect(new PathInterpreter(url).result).to.haveOwnProperty(
+      "owner",
+      "dummyOwner"
+    );
   });
 
   it("repo of result for github://... is correct", () => {
     const url = "github://dummyOwner.dummyRepo/dummyPath";
-    expect(new PathInterpreter(url).result.repo).to.equals("dummyRepo");
+    expect(new PathInterpreter(url).result).to.haveOwnProperty(
+      "repo",
+      "dummyRepo"
+    );
   });
 });
