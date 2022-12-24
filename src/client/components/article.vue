@@ -3,7 +3,7 @@
     <transition name="fade">
       <article
         v-show="state.ready && state.currentPage"
-        v-html="state.currentPage.html"
+        v-html="contentHtml"
         id="article"
         class="article"
       ></article>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { defineComponent, nextTick, reactive, ref, watch } from "vue";
+import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 import { fetchPageContent, markdownAdjuster } from "../modules/";
@@ -43,6 +43,10 @@ export default defineComponent({
       ready: false,
     });
     const route = useRoute();
+    const contentHtml = computed(() => {
+      // @ts-expect-error
+      return state.currentPage?.html ?? "";
+    });
     watch(
       () => route?.query?.path,
       async (to) => {
@@ -87,6 +91,7 @@ export default defineComponent({
     return {
       layout,
       state,
+      contentHtml,
     };
   },
 });
