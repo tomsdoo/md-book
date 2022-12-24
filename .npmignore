@@ -11,5 +11,6 @@ test/
 .npmignore
 doc_server.ts
 package-lock.json
+tsconfig.json
 tsconfig.*.json
 webpack.config.js
