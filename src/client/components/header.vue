@@ -31,8 +31,7 @@ export default defineComponent({
     watch(
       () => route?.query?.keyword,
       (to) => {
-        // @ts-expect-error
-        state.keyword = to ?? "";
+        state.keyword = (to as string) ?? "";
       }
     );
 
