@@ -13,10 +13,19 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  reactive,
+  ref,
+  watch,
+  PropType,
+} from "vue";
 import { useRoute } from "vue-router";
 import hljs from "highlight.js";
 import { fetchPageContent, markdownAdjuster } from "../modules/";
+import { PageContent } from "../../client/modules/types";
 
 export default defineComponent({
   components: {
@@ -28,39 +37,39 @@ export default defineComponent({
       default: () => ({}),
     },
     pageContents: {
-      type: Array,
+      type: Array as PropType<PageContent[]>,
       default: () => [],
     },
     indexedPageContents: {
-      type: Array,
+      type: Array as PropType<PageContent[]>,
       default: () => [],
     },
   },
   setup(props) {
-    const layout = ref(undefined);
-    const state = reactive({
+    const layout = ref<typeof VueLayout>(VueLayout);
+    const state = reactive<{
+      currentPage?: PageContent;
+      ready: boolean;
+    }>({
       currentPage: undefined,
       ready: false,
     });
     const route = useRoute();
     const contentHtml = computed(() => {
-      // @ts-expect-error
       return state.currentPage?.html ?? "";
     });
     watch(
       () => route?.query?.path,
       async (to) => {
         state.ready = false;
-        // @ts-expect-error
         state.currentPage =
           to === undefined
             ? props.indexedPageContents[0]
-            : // @ts-expect-error
-              props.pageContents.find(({ url }) => url === to) ??
-              // @ts-expect-error
-              (await fetchPageContent({ path: to, indexed: false }).then(
-                (page) => (page.status !== 200 ? undefined : page)
-              )) ??
+            : props.pageContents.find(({ url }) => url === to) ??
+              (await fetchPageContent({
+                path: to as string,
+                indexed: false,
+              }).then((page) => (page.status !== 200 ? undefined : page))) ??
               props.indexedPageContents[0];
 
         nextTick(() => {
@@ -78,11 +87,8 @@ export default defineComponent({
           markdownAdjuster.applyCopyable();
           markdownAdjuster.adjustCheckboxes();
           markdownAdjuster.wrapTable();
-          // @ts-expect-error
-          markdownAdjuster.adjustLinks(state.currentPage);
-          // @ts-expect-error
-          markdownAdjuster.adjustImagePaths(state.currentPage);
-          // @ts-expect-error
+          markdownAdjuster.adjustLinks(state.currentPage as PageContent);
+          markdownAdjuster.adjustImagePaths(state.currentPage as PageContent);
           layout?.value?.scrollToTop();
         });
       },
