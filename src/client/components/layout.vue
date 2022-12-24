@@ -34,12 +34,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, PropType } from "vue";
+import { PageContent } from "../../client/modules/types";
 
 export default defineComponent({
   props: {
     indexedPageContents: {
-      type: Array,
+      type: Array as PropType<PageContent[]>,
       default: () => [],
     },
   },
@@ -52,7 +53,7 @@ export default defineComponent({
       state.indexFolded = !state.indexFolded;
     };
     const scrollToTop = () => {
-      articleWrapper.value.scrollTo(0, 0);
+      (articleWrapper.value as unknown as HTMLDivElement).scrollTo(0, 0);
     };
     return {
       articleWrapper,
