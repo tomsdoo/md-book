@@ -25,8 +25,9 @@
 
 <script lang="ts">
 import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive } from "vue";
+import { computed, defineComponent, nextTick, reactive, PropType } from "vue";
 import { useRoute } from "vue-router";
+import { PageContent } from "../../client/modules/types";
 
 export default defineComponent({
   components: {
@@ -34,11 +35,11 @@ export default defineComponent({
   },
   props: {
     pageContents: {
-      type: Array,
+      type: Array as PropType<PageContent[]>,
       default: () => [],
     },
     indexedPageContents: {
-      type: Array,
+      type: Array as PropType<PageContent[]>,
       default: () => [],
     },
   },
@@ -50,7 +51,7 @@ export default defineComponent({
     const keyword = computed(() => route.query.keyword);
 
     const searchResultPages = computed(() => {
-      const keyl = route.query.keyword.split(" ");
+      const keyl = (route.query.keyword as string).split(" ");
       return props.pageContents.filter(({ text }) =>
         keyl.every((keye) => text.match(new RegExp(keye, "i")))
       );
@@ -83,6 +84,7 @@ export default defineComponent({
 }
 
 .search-result > .list > .item {
+  font-size: 1em;
 }
 
 .search-result > .list > .item > .link {
