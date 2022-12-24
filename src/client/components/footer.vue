@@ -50,6 +50,7 @@ export default defineComponent({
 }
 
 .footer-text {
+  font-size: 1em;
 }
 
 .footer-link {
