@@ -1,4 +1,4 @@
-.github-token-area {
+.github-token-area-wrapper {
   position: fixed;
   display: grid;
   top: 0;
@@ -8,6 +8,13 @@
   justify-content: center;
   align-items: center;
   background: var(--bg-color);
+}
+.github-token-area {
+  display: grid;
+  width: max-content;
+  max-width: min(600px, calc(100vw - 4rem));
+  height: max-content;
+  grid-gap: 1rem;
 }
 
 .github-token-area > .form-list {
@@ -24,11 +31,15 @@
 }
 
 .github-token-area > .form-list > .form-item > .repo {
-  font-size: 1em;
+  display: grid;
+  align-items: center;
+  font-size: 0.8em;
 }
 
 .github-token-area > .form-list > .form-item > .tokenbox {
+  font-size: 0.8em;
   border: 1px solid;
+  padding: 0.2em 0.5em;
 }
 
 .github-token-area > .ok-button {
@@ -36,4 +47,16 @@
   margin-bottom: auto;
   margin-left: auto;
   width: max-content;
+  border: 1px solid;
+  border-radius: 0.2em;
+  padding: 0.2em 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .github-token-area > .form-list > .form-item {
+    grid-template:
+      "repository" max-content
+      "tokenbox" max-content / 1fr;
+    grid-gap: 0.2em;
+  }
 }
