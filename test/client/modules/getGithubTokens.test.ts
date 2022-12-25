@@ -31,6 +31,19 @@ describe("getGithubTokens()", () => {
     ).window.document;
   });
 
+  it("div.github-token-area-wrapper exists", (done) => {
+    getGithubTokens(repositoryInfos).catch((e) => {
+      throw e;
+    });
+    setTimeout(() => {
+      const expected = expect(
+        document.querySelector("div.github-token-area-wrapper")
+      );
+      expected.to.be.an("HTMLDivElement");
+      done();
+    }, 1);
+  });
+
   it("div.github-token-area exists", (done) => {
     getGithubTokens(repositoryInfos).catch((e) => {
       throw e;

@@ -11,15 +11,24 @@ export async function getGithubTokens(
       resolve({});
       return;
     }
-    const div = document.body.appendChild(document.createElement("div"));
+    const wrapperDiv = document.body.appendChild(document.createElement("div"));
+    wrapperDiv.classList.add("github-token-area-wrapper");
+    const div = wrapperDiv.appendChild(document.createElement("div"));
     div.classList.add("github-token-area");
+    const paragraph = div.appendChild(document.createElement("p"));
+    paragraph.innerHTML = [
+      "Input your token for each GitHub repository.",
+      "",
+      "You can just click OK button without input your token.",
+      "The content that requires token will be 'Not Found' if the token is invalid or the token is not provided.",
+    ].join("<br />");
     const ul = div.appendChild(document.createElement("ul"));
     ul.classList.add("form-list");
     Object.values(
       Object.fromEntries(
         repositoryInfos.map((info) => [`${info.owner}/${info.repo}`, info])
       )
-    ).forEach(({ owner, repo }) => {
+    ).forEach(({ owner, repo }, index) => {
       const li = ul.appendChild(document.createElement("li"));
       li.classList.add("form-item");
       const formDiv = li.appendChild(document.createElement("div"));
@@ -27,7 +36,13 @@ export async function getGithubTokens(
       formDiv.innerHTML = `${owner}/${repo}`;
       const box = li.appendChild(document.createElement("input"));
       box.setAttribute("data-repo", `${owner}/${repo}`);
+      box.setAttribute("placeholder", `token for ${owner}/${repo}`);
       box.classList.add("tokenbox");
+      if (index === 0) {
+        setTimeout(() => {
+          box.focus();
+        }, 1);
+      }
     });
     const button = div.appendChild(document.createElement("button"));
     button.setAttribute("type", "button");
