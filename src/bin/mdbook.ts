@@ -13,6 +13,7 @@ const commandname = "mdbook";
 program
   .option("--directory <directory>", "path/to/directory")
   .option("--serve", "serve document server")
+  .option("--ad-hoc", "md files in directory are as indexed paths")
   .option("--init", "initialize html file")
   .option("--port <port>", "port number for serve option");
 
@@ -22,6 +23,9 @@ program.on("--help", () => {
   console.log(`  $${commandname} --help`);
   console.log(`  $${commandname} --init --directory path/to/directory`);
   console.log(`  $${commandname} --serve --directory path/to/directory`);
+  console.log(
+    `  $${commandname} --serve --ad-hoc --directory path/to/directory`
+  );
 });
 
 (async () => {
@@ -49,7 +53,7 @@ program.on("--help", () => {
   const directoryPath = await getDirectoryPath();
 
   if ((opts.init as boolean) && Boolean(directoryPath)) {
-    await initializeHtmlFile(directoryPath as string);
+    await initializeHtmlFile(directoryPath as string, false);
   } else if ((opts.serve as boolean) && Boolean(directoryPath)) {
     if (
       "port" in opts &&
@@ -57,6 +61,9 @@ program.on("--help", () => {
       !Number.isNaN(Number(opts.port as string))
     ) {
       process.env.PORT = opts.port;
+    }
+    if (opts.adHoc as boolean) {
+      await initializeHtmlFile(directoryPath as string, true);
     }
     await serveDocuments(directoryPath as string);
   } else {
