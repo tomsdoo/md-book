@@ -27,12 +27,12 @@ export default defineComponent({
         (props.options?.text === undefined && {
           href: "https://www.npmjs.com/package/@tomsd/md-book",
           text: "@tomsd/md-book",
-        })
+        }),
     );
     const footerText = computed(
       () =>
         props.options?.text ??
-        (props.options?.link === undefined && "powered by ")
+        (props.options?.link === undefined && "powered by "),
     );
     return {
       link,

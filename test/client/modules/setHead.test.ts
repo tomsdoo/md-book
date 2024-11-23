@@ -1,6 +1,6 @@
-import { describe, it } from "mocha";
 import { expect } from "chai";
-import { JSDOM, ConstructorOptions } from "jsdom";
+import { ConstructorOptions, JSDOM } from "jsdom";
+import { describe, it } from "mocha";
 
 import { setHead } from "../../../src/client/modules/setHead";
 
@@ -29,7 +29,7 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
@@ -38,7 +38,7 @@ describe("setHead()", () => {
     expected.to.be.an("HTMLMetaElement");
     expected.to.satisfy(
       (metaTag: HTMLElement) =>
-        (metaTag.getAttribute("charset") as string).toLowerCase() === "utf-8"
+        (metaTag.getAttribute("charset") as string).toLowerCase() === "utf-8",
     );
   });
 
@@ -53,7 +53,7 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
@@ -62,7 +62,7 @@ describe("setHead()", () => {
     expected.to.be.an("HTMLMetaElement");
     expected.to.satisfy(
       (metaTag: HTMLElement) =>
-        (metaTag.getAttribute("charset") as string).toLowerCase() === "utf-16"
+        (metaTag.getAttribute("charset") as string).toLowerCase() === "utf-16",
     );
   });
 
@@ -75,7 +75,7 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
@@ -84,7 +84,7 @@ describe("setHead()", () => {
     expected.to.be.an("HTMLTitleElement");
     expected.to.satisfy(
       (titleTag: HTMLElement) =>
-        titleTag.textContent === mdBookOptions.header.title
+        titleTag.textContent === mdBookOptions.header.title,
     );
   });
 
@@ -99,7 +99,7 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
@@ -107,7 +107,7 @@ describe("setHead()", () => {
     const expected = expect(document.querySelector("head title"));
     expected.to.be.an("HTMLTitleElement");
     expected.to.satisfy(
-      (titleTag: HTMLElement) => titleTag.textContent === "this is a test"
+      (titleTag: HTMLElement) => titleTag.textContent === "this is a test",
     );
   });
 
@@ -120,19 +120,19 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
 
     const expected = expect(
-      document.querySelector("head meta[name='viewport']")
+      document.querySelector("head meta[name='viewport']"),
     );
     expected.to.be.an("HTMLMetaElement");
     expected.to.satisfy(
       (metaTag: HTMLElement) =>
         (metaTag.getAttribute("content") as string) ===
-        "width=device-width, initial-scale=1"
+        "width=device-width, initial-scale=1",
     );
   });
 
@@ -147,18 +147,18 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
 
     const expected = expect(
-      document.querySelector("head meta[name='viewport']")
+      document.querySelector("head meta[name='viewport']"),
     );
     expected.to.be.an("HTMLMetaElement");
     expected.to.satisfy(
       (metaTag: HTMLElement) =>
-        (metaTag.getAttribute("content") as string) === "test viewport"
+        (metaTag.getAttribute("content") as string) === "test viewport",
     );
   });
 
@@ -171,13 +171,13 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
 
     const expected = expect(
-      document.querySelector("head meta[name='description']")
+      document.querySelector("head meta[name='description']"),
     );
     expected.to.be.an("HTMLMetaElement");
   });
@@ -193,18 +193,18 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
 
     const expected = expect(
-      document.querySelector("head meta[name='description']")
+      document.querySelector("head meta[name='description']"),
     );
     expected.to.be.an("HTMLMetaElement");
     expected.to.satisfy(
       (metaTag: HTMLElement) =>
-        (metaTag.getAttribute("content") as string) === "test description"
+        (metaTag.getAttribute("content") as string) === "test description",
     );
   });
 
@@ -217,19 +217,19 @@ describe("setHead()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
 
     await setHead(mdBookOptions);
 
     const expected = expect(
-      document.querySelector("head script[src$='mermaid.min.js']")
+      document.querySelector("head script[src$='mermaid.min.js']"),
     );
     expected.to.be.an("HTMLScriptElement");
     expected.to.satisfy(
       (scriptTag: HTMLElement) =>
         (scriptTag.getAttribute("src") as string) ===
-        "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+        "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js",
     );
   });
 });

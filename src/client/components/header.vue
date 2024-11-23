@@ -32,7 +32,7 @@ export default defineComponent({
       () => route?.query?.keyword,
       (to) => {
         state.keyword = (to as string) ?? "";
-      }
+      },
     );
 
     const onSubmit = () => {

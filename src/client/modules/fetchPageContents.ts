@@ -1,5 +1,5 @@
-import { PageContent, PageSeed } from "./types";
 import { fetchPageContent } from "./fetchPageContent";
+import { PageContent, PageSeed } from "./types";
 
 export interface FetchPageContentOptions {
   loading?: {
@@ -14,7 +14,7 @@ async function fetchBatch(pathObjects: PageSeed[]): Promise<PageContent[]> {
 
 export async function fetchPageContents(
   pathObjects: PageSeed[],
-  options?: FetchPageContentOptions
+  options?: FetchPageContentOptions,
 ): Promise<PageContent[]> {
   const batches: PageContent[][] = [];
   const UNIT_PER_BATCH = options?.loading?.maxNumberOfFilesAtOnce ?? 5;
@@ -26,9 +26,9 @@ export async function fetchPageContents(
       await fetchBatch(
         pathObjects.slice(
           i * UNIT_PER_BATCH,
-          i * UNIT_PER_BATCH + UNIT_PER_BATCH
-        )
-      )
+          i * UNIT_PER_BATCH + UNIT_PER_BATCH,
+        ),
+      ),
     );
   }
   if (options?.verbose as boolean) {

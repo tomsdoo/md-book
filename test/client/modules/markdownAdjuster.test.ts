@@ -1,6 +1,6 @@
-import { describe, it } from "mocha";
 import { expect } from "chai";
 import { JSDOM } from "jsdom";
+import { describe, it } from "mocha";
 
 import { markdownAdjuster } from "../../../src/client/modules/";
 
@@ -12,7 +12,9 @@ declare global {
 describe("markdownAdjuster", () => {
   it("applyMermaid()", () => {
     globalThis.mermaid = {
-      init: () => {},
+      init: () => {
+        // nop
+      },
     };
     globalThis.document = new JSDOM(`
       <!DOCTYPE html>
@@ -42,12 +44,12 @@ describe("markdownAdjuster", () => {
     expect(document.querySelectorAll(".test-target")).to.satisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
-          (el as HTMLElement).classList.contains("language-mermaid")
-        )
+          (el as HTMLElement).classList.contains("language-mermaid"),
+        ),
     );
 
     expect(
-      document.querySelectorAll(".test-target > div.mermaid")
+      document.querySelectorAll(".test-target > div.mermaid"),
     ).to.have.lengthOf(2);
   });
 
@@ -78,12 +80,12 @@ describe("markdownAdjuster", () => {
     expect(document.querySelectorAll(".test-target")).to.satisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
-          (el as HTMLElement).classList.contains("copyable")
-        )
+          (el as HTMLElement).classList.contains("copyable"),
+        ),
     );
 
     expect(
-      document.querySelectorAll(".test-target > .copy-button")
+      document.querySelectorAll(".test-target > .copy-button"),
     ).to.have.lengthOf(2);
   });
 
@@ -114,8 +116,8 @@ describe("markdownAdjuster", () => {
     expect(document.querySelectorAll(".test-target")).to.satisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
-          (el as HTMLElement).classList.contains("check-list")
-        )
+          (el as HTMLElement).classList.contains("check-list"),
+        ),
     );
   });
 
@@ -158,7 +160,7 @@ describe("markdownAdjuster", () => {
     expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
 
     expect(
-      document.querySelectorAll("#article > .table-wrapper > .test-target")
+      document.querySelectorAll("#article > .table-wrapper > .test-target"),
     ).to.have.lengthOf(2);
   });
 
@@ -196,13 +198,13 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every((el) => {
           const expectedUrl = new URL(
             (el as HTMLElement).getAttribute("data-original-href") as string,
-            currentPage.url
+            currentPage.url,
           );
           return (
             (el as HTMLElement).getAttribute("href") ===
             `#/?path=${expectedUrl.origin}${expectedUrl.pathname}`
           );
-        })
+        }),
     );
 
     expect(document.querySelectorAll("not-applied")).to.satisfy(
@@ -210,8 +212,8 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every(
           (el) =>
             (el as HTMLElement).getAttribute("data-original-href") ===
-            (el as HTMLElement).getAttribute("href")
-        )
+            (el as HTMLElement).getAttribute("href"),
+        ),
     );
   });
 
@@ -249,14 +251,14 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every((el) => {
           const expectedUrl = `github://owner.repo${
             (el as HTMLAnchorElement).getAttribute(
-              "data-expected-href"
+              "data-expected-href",
             ) as string
           }`;
           return (
             (el as HTMLElement).getAttribute("href") ===
             `#/?path=${expectedUrl}`
           );
-        })
+        }),
     );
 
     expect(document.querySelectorAll("not-applied")).to.satisfy(
@@ -264,8 +266,8 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every(
           (el) =>
             (el as HTMLElement).getAttribute("data-original-href") ===
-            (el as HTMLElement).getAttribute("href")
-        )
+            (el as HTMLElement).getAttribute("href"),
+        ),
     );
   });
 
@@ -313,13 +315,13 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every((el) => {
           const expectedUrl = new URL(
             (el as HTMLElement).getAttribute("data-original-href") as string,
-            currentPage.url
+            currentPage.url,
           );
           return (
             (el as HTMLElement).getAttribute("src") ===
             `${expectedUrl.origin}${expectedUrl.pathname}`
           );
-        })
+        }),
     );
 
     expect(document.querySelectorAll("not-applied")).to.satisfy(
@@ -327,8 +329,8 @@ describe("markdownAdjuster", () => {
         Array.from(elementList).every(
           (el) =>
             (el as HTMLElement).getAttribute("data-original-href") ===
-            (el as HTMLElement).getAttribute("src")
-        )
+            (el as HTMLElement).getAttribute("src"),
+        ),
     );
   });
 });

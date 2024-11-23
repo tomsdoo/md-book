@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, PropType } from "vue";
+import { PropType, defineComponent, reactive, ref } from "vue";
 import { PageContent } from "../../client/modules/types";
 
 export default defineComponent({

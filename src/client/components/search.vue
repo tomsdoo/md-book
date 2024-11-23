@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-import VueLayout from "./layout.vue";
-import { computed, defineComponent, nextTick, reactive, PropType } from "vue";
+import { PropType, computed, defineComponent, nextTick, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { PageContent } from "../../client/modules/types";
+import VueLayout from "./layout.vue";
 
 export default defineComponent({
   components: {
@@ -53,7 +53,7 @@ export default defineComponent({
     const searchResultPages = computed(() => {
       const keyl = (route.query.keyword as string).split(" ");
       return props.pageContents.filter(({ text }) =>
-        keyl.every((keye) => text.match(new RegExp(keye, "i")))
+        keyl.every((keye) => text.match(new RegExp(keye, "i"))),
       );
     });
     nextTick(() => {

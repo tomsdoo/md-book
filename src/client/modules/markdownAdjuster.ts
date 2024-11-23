@@ -20,8 +20,12 @@ function applyMermaid(options?: object): void {
     // eslint-disable-next-line no-undef
     globalThis.mermaid.init();
   })
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {
+      // nop
+    })
+    .catch(() => {
+      // nop
+    });
 }
 
 async function waitMs(ms: number): Promise<any> {
@@ -52,7 +56,9 @@ function applyCopyable(): void {
           .then(() => {
             iconTag.innerHTML = "content_copy";
           })
-          .catch(() => {});
+          .catch(() => {
+            // nop
+          });
       });
     });
 }

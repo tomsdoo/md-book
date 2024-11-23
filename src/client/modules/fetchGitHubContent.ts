@@ -1,6 +1,6 @@
-import { marked } from "marked";
-import { PageContent, GitHubPageSeed } from "./types";
 import { GitHubRepo } from "@tomsd/github-repo";
+import { marked } from "marked";
+import { GitHubPageSeed, PageContent } from "./types";
 
 export async function fetchGitHubContent({
   path,
@@ -41,5 +41,5 @@ export async function fetchGitHubContent({
       text,
       html: marked.parse(text),
     }))
-    .catch((e) => notFoundContent);
+    .catch(() => notFoundContent);
 }

@@ -7,7 +7,5 @@
     "declaration": false,
     "outDir": "./bin/"
   },
-  "include": [
-    "src/bin/**/*.ts"
-  ]
+  "include": ["src/bin/**/*.ts"]
 }

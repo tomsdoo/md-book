@@ -1,5 +1,5 @@
-import { describe, it } from "mocha";
 import { expect } from "chai";
+import { describe, it } from "mocha";
 import { mock } from "sinon";
 
 import { fetchPlainContent } from "../../../src/client/modules/fetchPageContent";
@@ -37,12 +37,12 @@ describe("fetchPlainContent()", () => {
           url: responseUrl,
           status: 200,
           text: async () => await Promise.resolve(responseText),
-        })
+        }),
       );
 
     expect(
       async () =>
-        await fetchPlainContent({ type: "plain", path, indexed: true })
+        await fetchPlainContent({ type: "plain", path, indexed: true }),
     ).to.not.throw();
 
     const expected = expect(
@@ -50,7 +50,7 @@ describe("fetchPlainContent()", () => {
         type: "plain",
         path,
         indexed: true,
-      })
+      }),
     );
 
     expected.to.include.all.keys([

@@ -1,6 +1,6 @@
-import { describe, it } from "mocha";
 import { expect } from "chai";
-import { JSDOM, ConstructorOptions } from "jsdom";
+import { ConstructorOptions, JSDOM } from "jsdom";
+import { describe, it } from "mocha";
 import { theme } from "../../src/client/themes";
 
 describe("theme", () => {
@@ -23,7 +23,7 @@ describe("theme", () => {
     const expected = expect(theme.getCssPath("test-name"));
     expected.to.be.a("string");
     expected.to.equal(
-      `https://cdn.jsdelivr.net/npm/@tomsd/md-book/public/css/test-name.css`
+      `https://cdn.jsdelivr.net/npm/@tomsd/md-book/public/css/test-name.css`,
     );
   });
 
@@ -36,12 +36,12 @@ describe("theme", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
     theme.apply("dark");
 
     const expected = expect(
-      document.querySelector("head link[rel='stylesheet'][href$='dark.css']")
+      document.querySelector("head link[rel='stylesheet'][href$='dark.css']"),
     );
     expected.to.be.an("HTMLLinkElement");
   });

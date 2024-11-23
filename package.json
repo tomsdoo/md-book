@@ -11,48 +11,24 @@
     "build": "npm run build:bin && npm run build:client",
     "build:bin": "tsc --project tsconfig.bin.json",
     "build:client": "webpack",
-    "format": "npm run format:public && npm run format:src:bin && npm run format:src:client",
-    "format:public": "prettier --write public/css/**/*.css",
-    "format:src:bin": "prettier --write src/bin/",
-    "format:test": "prettier --write test/**/*.ts",
-    "format:src:client": "prettier --write src/client/",
-    "lint:src:bin": "eslint src/bin/",
-    "lint:src:client": "eslint src/client/**/*.ts",
-    "lint:src:client:vue": "eslint src/client/**/*.vue",
-    "lint:test": "eslint test/**/*.ts",
+    "lint": "biome check",
     "serve": "ts-node doc_server",
     "dev": "npm run build && npm run serve",
     "prepare": "husky install",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"lib\": [\"esnext\", \"dom\"], \"module\":\"commonjs\"}' mocha -r ts-node/register \"test/**/*.ts\" --timeout 30000"
   },
   "lint-staged": {
-    "public/**/*.css": [
-      "npm run format:public"
-    ],
-    "src/bin/**/*.ts": [
-      "npm run lint:src:bin",
-      "npm run format:src:bin"
-    ],
-    "src/client/**/*.(ts|vue)": [
-      "npm run lint:src:client",
-      "npm run lint:src:client:vue",
-      "npm run format:src:client"
-    ],
-    "src/client/**/*.css": [
-      "npm run format:src:client"
-    ],
-    "test/**/*.ts": [
-      "npm run lint:test",
-      "npm run format:test"
-    ]
+    "public/**/*.css": ["npm run lint"],
+    "src/bin/**/*.ts": ["npm run lint"],
+    "src/client/**/*.(ts|vue)": ["npm run lint"],
+    "src/client/**/*.css": ["npm run lint"],
+    "test/**/*.ts": ["npm run lint"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomsdoo/md-book.git"
   },
-  "keywords": [
-    "markdown"
-  ],
+  "keywords": ["markdown"],
   "author": "tom",
   "license": "MIT",
   "bugs": {
@@ -60,6 +36,7 @@
   },
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/chai": "4.3.3",
     "@types/commander": "2.12.2",
     "@types/jsdom": "20.0.0",
@@ -67,16 +44,8 @@
     "@types/marked": "4.0.7",
     "@types/mocha": "9.1.1",
     "@types/sinon": "10.0.13",
-    "@typescript-eslint/eslint-plugin": "5.37.0",
     "chai": "4.3.6",
     "css-loader": "6.7.1",
-    "eslint": "8.23.1",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-config-standard-with-typescript": "23.0.0",
-    "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-n": "15.2.5",
-    "eslint-plugin-promise": "6.0.1",
-    "eslint-plugin-vue": "9.5.1",
     "husky": "8.0.1",
     "jsdom": "20.0.0",
     "lint-staged": "13.0.3",

@@ -1,6 +1,6 @@
-import { beforeEach, describe, it } from "mocha";
 import { expect } from "chai";
-import { JSDOM, ConstructorOptions } from "jsdom";
+import { ConstructorOptions, JSDOM } from "jsdom";
+import { beforeEach, describe, it } from "mocha";
 
 import { getGithubTokens } from "../../../src/client/modules/getGithubTokens";
 
@@ -27,7 +27,7 @@ describe("getGithubTokens()", () => {
         <body></body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
   });
 
@@ -37,7 +37,7 @@ describe("getGithubTokens()", () => {
     });
     setTimeout(() => {
       const expected = expect(
-        document.querySelector("div.github-token-area-wrapper")
+        document.querySelector("div.github-token-area-wrapper"),
       );
       expected.to.be.an("HTMLDivElement");
       done();
@@ -115,8 +115,8 @@ describe("getGithubTokens()", () => {
       expected.to.have.lengthOf(repositoryInfos.length);
       expected.satisfy((nodeList: NodeList) =>
         (Array.from(nodeList) as HTMLDivElement[]).every(
-          (div: HTMLDivElement) => div.hasAttribute("data-repo")
-        )
+          (div: HTMLDivElement) => div.hasAttribute("data-repo"),
+        ),
       );
       done();
     }, 1);
@@ -128,7 +128,7 @@ describe("getGithubTokens()", () => {
     });
     setTimeout(() => {
       const selector = ["div.github-token-area", "button.ok-button"].join(
-        " > "
+        " > ",
       );
       const expected = expect(document.querySelector(selector));
       expected.to.be.an("HTMLButtonElement");
@@ -153,12 +153,12 @@ describe("getGithubTokens()", () => {
     setTimeout(() => {
       (
         document.querySelector(
-          ".tokenbox[data-repo='owner1/repo1"
+          ".tokenbox[data-repo='owner1/repo1",
         ) as HTMLInputElement
       ).value = "token1";
       (
         document.querySelector(
-          ".tokenbox[data-repo='owner2/repo2"
+          ".tokenbox[data-repo='owner2/repo2",
         ) as HTMLInputElement
       ).value = "token2";
       (document.querySelector("button.ok-button") as HTMLButtonElement).click();
@@ -167,7 +167,7 @@ describe("getGithubTokens()", () => {
 
   it("parameter length === 0", async () => {
     const expected = expect(
-      await getGithubTokens([]).then((result) => JSON.stringify(result))
+      await getGithubTokens([]).then((result) => JSON.stringify(result)),
     );
     expected.to.equals("{}");
   });
