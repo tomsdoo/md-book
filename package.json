@@ -18,17 +18,29 @@
     "test": "TS_NODE_COMPILER_OPTIONS='{\"lib\": [\"esnext\", \"dom\"], \"module\":\"commonjs\"}' mocha -r ts-node/register \"test/**/*.ts\" --timeout 30000"
   },
   "lint-staged": {
-    "public/**/*.css": ["npm run lint"],
-    "src/bin/**/*.ts": ["npm run lint"],
-    "src/client/**/*.(ts|vue)": ["npm run lint"],
-    "src/client/**/*.css": ["npm run lint"],
-    "test/**/*.ts": ["npm run lint"]
+    "public/**/*.css": [
+      "npm run lint"
+    ],
+    "src/bin/**/*.ts": [
+      "npm run lint"
+    ],
+    "src/client/**/*.(ts|vue)": [
+      "npm run lint"
+    ],
+    "src/client/**/*.css": [
+      "npm run lint"
+    ],
+    "test/**/*.ts": [
+      "npm run lint"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomsdoo/md-book.git"
   },
-  "keywords": ["markdown"],
+  "keywords": [
+    "markdown"
+  ],
   "author": "tom",
   "license": "MIT",
   "bugs": {
@@ -50,7 +62,6 @@
     "jsdom": "20.0.0",
     "lint-staged": "13.0.3",
     "mocha": "10.0.0",
-    "prettier": "2.7.1",
     "sinon": "14.0.0",
     "style-loader": "3.3.1",
     "ts-loader": "9.3.1",
