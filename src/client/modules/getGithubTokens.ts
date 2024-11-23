@@ -4,9 +4,9 @@ export interface RepositoryInfo {
 }
 
 export async function getGithubTokens(
-  repositoryInfos: RepositoryInfo[]
+  repositoryInfos: RepositoryInfo[],
 ): Promise<{ [key: string]: string }> {
-  return await new Promise((resolve, reject) => {
+  return await new Promise((resolve) => {
     if (repositoryInfos.length === 0) {
       resolve({});
       return;
@@ -26,8 +26,8 @@ export async function getGithubTokens(
     ul.classList.add("form-list");
     Object.values(
       Object.fromEntries(
-        repositoryInfos.map((info) => [`${info.owner}/${info.repo}`, info])
-      )
+        repositoryInfos.map((info) => [`${info.owner}/${info.repo}`, info]),
+      ),
     ).forEach(({ owner, repo }, index) => {
       const li = ul.appendChild(document.createElement("li"));
       li.classList.add("form-item");
@@ -56,8 +56,8 @@ export async function getGithubTokens(
             .map((box) => [
               box.getAttribute("data-repo"),
               (box as HTMLInputElement).value,
-            ])
-        )
+            ]),
+        ),
       );
       setTimeout(() => {
         document.querySelector(".github-token-area")?.remove();

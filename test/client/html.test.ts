@@ -1,6 +1,6 @@
-import { describe, it, before } from "mocha";
 import { expect } from "chai";
-import { JSDOM, ConstructorOptions } from "jsdom";
+import { ConstructorOptions, JSDOM } from "jsdom";
+import { before, describe, it } from "mocha";
 import { bodyHtml } from "../../src/client/html";
 
 describe("body html", () => {
@@ -24,7 +24,7 @@ describe("body html", () => {
         </body>
       </html>
       `,
-      domOptions
+      domOptions,
     ).window.document;
   });
 
@@ -34,12 +34,12 @@ describe("body html", () => {
 
   it("header#header > vue-header", () => {
     const expected = expect(
-      document.querySelector("header#header > vue-header")
+      document.querySelector("header#header > vue-header"),
     );
     expected.to.be.an("HTMLElement");
     expected.to.satisfy(
       (vueHeaderTag: HTMLElement) =>
-        vueHeaderTag.getAttribute(":options") === "headerOptions"
+        vueHeaderTag.getAttribute(":options") === "headerOptions",
     );
   });
 
@@ -49,12 +49,12 @@ describe("body html", () => {
 
   it("footer#footer > vue-footer", () => {
     const expected = expect(
-      document.querySelector("footer#footer > vue-footer")
+      document.querySelector("footer#footer > vue-footer"),
     );
     expected.to.be.an("HTMLElement");
     expected.to.satisfy(
       (vueFooterTag: HTMLElement) =>
-        vueFooterTag.getAttribute(":options") === "footerOptions"
+        vueFooterTag.getAttribute(":options") === "footerOptions",
     );
   });
 
@@ -67,24 +67,24 @@ describe("body html", () => {
     expected.to.be.an("HTMLElement");
     expected.to.satisfy(
       (routerViewTag: HTMLElement) =>
-        routerViewTag.getAttribute("v-slot") === "{ Component }"
+        routerViewTag.getAttribute("v-slot") === "{ Component }",
     );
   });
 
   it("main#app > router-view > transition", () => {
     const expected = expect(
-      document.querySelector("main#app > router-view > transition")
+      document.querySelector("main#app > router-view > transition"),
     );
     expected.to.be.an("HTMLUnknownElement");
     expected.to.satisfy(
       (transitionTag: HTMLElement) =>
-        transitionTag.getAttribute("name") === "fade"
+        transitionTag.getAttribute("name") === "fade",
     );
   });
 
   it("main#app > router-view > transition > component", () => {
     const expected = expect(
-      document.querySelector("main#app > router-view > transition > component")
+      document.querySelector("main#app > router-view > transition > component"),
     );
     expected.to.be.an("HTMLUnknownElement");
     expected.to.satisfy(
@@ -93,7 +93,7 @@ describe("body html", () => {
         componentTag.getAttribute(":book-options") === "bookOptions" &&
         componentTag.getAttribute(":page-contents") === "pageContents" &&
         componentTag.getAttribute(":indexed-page-contents") ===
-          "indexedPageContents"
+          "indexedPageContents",
     );
   });
 });

@@ -9,17 +9,17 @@ import "./css/github-token-area.css";
 import { createApp } from "vue";
 import { bodyHtml } from "./html";
 
-import VueHeader from "./components/header.vue";
 import VueFooter from "./components/footer.vue";
+import VueHeader from "./components/header.vue";
 
 import { router } from "./router/";
 
 import {
+  FetchPageContentOptions,
+  PathInterpreter,
   fetchPageContents,
   getGithubTokens,
-  FetchPageContentOptions,
   setHead,
-  PathInterpreter,
 } from "./modules/";
 
 interface MdFiles {
@@ -76,7 +76,7 @@ export async function start({
     const tokens = await getGithubTokens(
       pathObjects
         .filter(({ type }) => type === "github")
-        .map(({ owner, repo }: any) => ({ owner, repo }))
+        .map(({ owner, repo }: any) => ({ owner, repo })),
     );
     sessionStorage.githubTokens = JSON.stringify(tokens);
 

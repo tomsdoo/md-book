@@ -12,20 +12,20 @@
 </template>
 
 <script lang="ts">
-import VueLayout from "./layout.vue";
+import hljs from "highlight.js";
 import {
+  PropType,
   computed,
   defineComponent,
   nextTick,
   reactive,
   ref,
   watch,
-  PropType,
 } from "vue";
 import { useRoute } from "vue-router";
-import hljs from "highlight.js";
-import { fetchPageContent, markdownAdjuster } from "../modules/";
 import { PageContent } from "../../client/modules/types";
+import { fetchPageContent, markdownAdjuster } from "../modules/";
+import VueLayout from "./layout.vue";
 
 export default defineComponent({
   components: {
@@ -65,22 +65,22 @@ export default defineComponent({
         state.currentPage =
           to === undefined
             ? props.indexedPageContents[0]
-            : props.pageContents.find(({ url }) => url === to) ??
+            : (props.pageContents.find(({ url }) => url === to) ??
               (await fetchPageContent({
                 path: to as string,
                 indexed: false,
               }).then((page) => (page.status !== 200 ? undefined : page))) ??
-              props.indexedPageContents[0];
+              props.indexedPageContents[0]);
 
         nextTick(() => {
           state.ready = true;
         });
       },
-      { immediate: true }
+      { immediate: true },
     );
     watch(
       () => state?.currentPage,
-      (to) => {
+      () => {
         nextTick(() => {
           hljs.highlightAll();
           markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
@@ -92,7 +92,7 @@ export default defineComponent({
           layout?.value?.scrollToTop();
         });
       },
-      { immediate: true }
+      { immediate: true },
     );
     return {
       layout,

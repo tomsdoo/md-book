@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, it } from "mocha";
-import { expect } from "chai";
-import { restore, stub, SinonStub } from "sinon";
 import { GitHubRepo } from "@tomsd/github-repo";
+import { expect } from "chai";
+import { afterEach, beforeEach, describe, it } from "mocha";
+import { SinonStub, restore, stub } from "sinon";
 
 import { fetchGitHubContent } from "../../../src/client/modules/fetchGitHubContent";
 
@@ -17,7 +17,7 @@ describe("fetchGitHubContent()", () => {
   it("404 if no token", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({});
     stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.resolve("dummyText")
+      Promise.resolve("dummyText"),
     );
     expect(
       await fetchGitHubContent({
@@ -26,7 +26,7 @@ describe("fetchGitHubContent()", () => {
         type: "github",
         owner: "dummyOwner",
         repo: "dummyRepo",
-      }).then((content) => JSON.stringify(content))
+      }).then((content) => JSON.stringify(content)),
     ).to.equals(
       JSON.stringify({
         indexed: true,
@@ -36,7 +36,7 @@ describe("fetchGitHubContent()", () => {
         title: "Not Found",
         text: "Not Found",
         html: "Not Found",
-      })
+      }),
     );
     stubGetFileContent.restore();
   });
@@ -45,7 +45,7 @@ describe("fetchGitHubContent()", () => {
       "dummyOwner/dummyRepo": "dummyToken",
     });
     stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.reject(new Error("dummyError"))
+      Promise.reject(new Error("dummyError")),
     );
     expect(
       await fetchGitHubContent({
@@ -54,7 +54,7 @@ describe("fetchGitHubContent()", () => {
         type: "github",
         owner: "dummyOwner",
         repo: "dummyRepo",
-      }).then((content) => JSON.stringify(content))
+      }).then((content) => JSON.stringify(content)),
     ).to.equals(
       JSON.stringify({
         indexed: true,
@@ -64,7 +64,7 @@ describe("fetchGitHubContent()", () => {
         title: "Not Found",
         text: "Not Found",
         html: "Not Found",
-      })
+      }),
     );
     stubGetFileContent.restore();
   });
@@ -73,7 +73,7 @@ describe("fetchGitHubContent()", () => {
       "dummyOwner/dummyRepo": "dummyToken",
     });
     stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.resolve("dummyText")
+      Promise.resolve("dummyText"),
     );
     expect(
       await fetchGitHubContent({
@@ -82,7 +82,7 @@ describe("fetchGitHubContent()", () => {
         type: "github",
         owner: "dummyOwner",
         repo: "dummyRepo",
-      }).then((content) => JSON.stringify(content))
+      }).then((content) => JSON.stringify(content)),
     ).to.equals(
       JSON.stringify({
         indexed: true,
@@ -92,7 +92,7 @@ describe("fetchGitHubContent()", () => {
         title: "dummyText",
         text: "dummyText",
         html: "<p>dummyText</p>\n",
-      })
+      }),
     );
     stubGetFileContent.restore();
   });

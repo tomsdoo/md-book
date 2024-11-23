@@ -1,4 +1,4 @@
-import { PageSeed, GitHubPageSeed } from "./types";
+import { GitHubPageSeed, PageSeed } from "./types";
 
 export class PathInterpreter {
   protected _path: string;

@@ -7,5 +7,9 @@ import { serveDocuments } from "./src/bin/opts/serve";
 
   ///
 })()
-  .then(() => {})
-  .catch(() => {});
+  .then(() => {
+    // nop
+  })
+  .catch(() => {
+    // nop
+  });

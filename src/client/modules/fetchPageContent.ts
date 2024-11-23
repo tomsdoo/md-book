@@ -1,12 +1,12 @@
 import { marked } from "marked";
-import { PageSeed, GitHubPageSeed, PageContent } from "./types";
 import { PathInterpreter } from "./PathInterpreter";
 import { fetchGitHubContent } from "./fetchGitHubContent";
+import { GitHubPageSeed, PageContent, PageSeed } from "./types";
 
 export async function fetchPageContent(
   seed: (Omit<PageSeed, "type"> | Omit<GitHubPageSeed, "type">) & {
     type?: string;
-  }
+  },
 ): Promise<PageContent> {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const lseed = seed.type

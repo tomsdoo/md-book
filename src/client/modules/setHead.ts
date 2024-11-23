@@ -29,7 +29,7 @@ export async function setHead({ header }: HeadOptions): Promise<any> {
         createTag("meta", {
           name: "viewport",
           content: "width=device-width, initial-scale=1",
-        })
+        }),
       );
     }
 
@@ -38,14 +38,14 @@ export async function setHead({ header }: HeadOptions): Promise<any> {
         createTag("meta", {
           name: "description",
           content: "@tomsd/md-book helps you ad hoc web book making.",
-        })
+        }),
       );
     }
 
     headTag.appendChild(
       createTag("script", {
         src: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js",
-      })
+      }),
     ).onload = () => resolve(undefined);
   });
 }

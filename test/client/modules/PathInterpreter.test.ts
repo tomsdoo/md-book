@@ -1,5 +1,5 @@
-import { describe, it } from "mocha";
 import { expect } from "chai";
+import { describe, it } from "mocha";
 import { PathInterpreter } from "../../../src/client/modules/PathInterpreter";
 
 describe("PathInterpreter", () => {
@@ -47,7 +47,7 @@ describe("PathInterpreter", () => {
     const url = "github://dummyOwner.dummyRepo/dummyPath";
     expect(new PathInterpreter(url).result).to.haveOwnProperty(
       "owner",
-      "dummyOwner"
+      "dummyOwner",
     );
   });
 
@@ -55,7 +55,7 @@ describe("PathInterpreter", () => {
     const url = "github://dummyOwner.dummyRepo/dummyPath";
     expect(new PathInterpreter(url).result).to.haveOwnProperty(
       "repo",
-      "dummyRepo"
+      "dummyRepo",
     );
   });
 });
