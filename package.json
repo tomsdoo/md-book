@@ -55,7 +55,7 @@
     "webpack-cli": "5.1.4"
   },
   "dependencies": {
-    "@tomsd/github-repo": "1.0.0",
+    "@tomsd/github-repo": "1.7.0",
     "commander": "9.4.0",
     "destyle.css": "4.0.1",
     "fast-glob": "3.3.2",
