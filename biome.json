@@ -3,7 +3,14 @@
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["**/*.html", "**/*.txt", "bin/", "public/js/"]
+    "ignore": [
+      "**/*.html",
+      "**/*.txt",
+      "bin/",
+      "public/js/",
+      "package.json",
+      "package-lock.json"
+    ]
   },
   "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2 },
   "organizeImports": { "enabled": true },
