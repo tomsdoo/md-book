@@ -1,13 +1,17 @@
 {
   "name": "@tomsd/md-book",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "It provides .js that displays the contents from the markdown document files on page",
   "main": "public/js/index.js",
   "bin": {
     "mdbook": "bin/mdbook.js",
     "md-book": "bin/mdbook.js"
   },
-  "files": ["bin", "public/css", "public/js"],
+  "files": [
+    "bin",
+    "public/css",
+    "public/js"
+  ],
   "scripts": {
     "build": "npm run build:bin && npm run build:client",
     "build:bin": "tsc --project tsconfig.bin.json",
@@ -19,17 +23,29 @@
     "test": "vitest"
   },
   "lint-staged": {
-    "public/**/*.css": ["npm run lint"],
-    "src/bin/**/*.ts": ["npm run lint"],
-    "src/client/**/*.(ts|vue)": ["npm run lint"],
-    "src/client/**/*.css": ["npm run lint"],
-    "test/**/*.ts": ["npm run lint"]
+    "public/**/*.css": [
+      "npm run lint"
+    ],
+    "src/bin/**/*.ts": [
+      "npm run lint"
+    ],
+    "src/client/**/*.(ts|vue)": [
+      "npm run lint"
+    ],
+    "src/client/**/*.css": [
+      "npm run lint"
+    ],
+    "test/**/*.ts": [
+      "npm run lint"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomsdoo/md-book.git"
   },
-  "keywords": ["markdown"],
+  "keywords": [
+    "markdown"
+  ],
   "author": "tom",
   "license": "MIT",
   "bugs": {
