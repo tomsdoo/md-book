@@ -47,12 +47,14 @@ module.exports = {
     path: path.join(__dirname, "public/js"),
     filename: "[name].js",
   },
-  ...(USE_CACHE ? {
-    cache: {
-      type: "filesystem",
-      buildDependencies: {
-        config: [__filename],
-      },
-    },
-  } : {}),
+  ...(USE_CACHE
+    ? {
+        cache: {
+          type: "filesystem",
+          buildDependencies: {
+            config: [__filename],
+          },
+        },
+      }
+    : {}),
 };
