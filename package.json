@@ -7,6 +7,7 @@
     "mdbook": "bin/mdbook.js",
     "md-book": "bin/mdbook.js"
   },
+  "files": ["bin", "public/css", "public/js"],
   "scripts": {
     "build": "npm run build:bin && npm run build:client",
     "build:bin": "tsc --project tsconfig.bin.json",
