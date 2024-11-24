@@ -14,7 +14,7 @@
     "lint": "biome check",
     "serve": "tsx doc_server",
     "dev": "npm run build && npm run serve",
-    "prepare": "husky install && playwright install",
+    "prepare": "husky && playwright install",
     "test": "vitest"
   },
   "lint-staged": {
@@ -42,7 +42,7 @@
     "@types/marked": "4.0.7",
     "@vitest/browser": "2.1.5",
     "css-loader": "6.7.1",
-    "husky": "8.0.1",
+    "husky": "9.1.7",
     "lint-staged": "13.0.3",
     "playwright": "1.49.0",
     "style-loader": "3.3.1",
