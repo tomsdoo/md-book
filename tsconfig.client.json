@@ -4,6 +4,7 @@
     "lib": ["esnext", "dom"],
     "target": "es2015",
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": false
   },
   "include": ["src/client/**/*.ts"]
