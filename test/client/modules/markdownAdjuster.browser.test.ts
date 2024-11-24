@@ -1,8 +1,6 @@
-import { expect } from "chai";
-import { JSDOM } from "jsdom";
-import { describe, it } from "mocha";
+import { describe, expect, it } from "vitest";
 
-import { markdownAdjuster } from "../../../src/client/modules/";
+import { markdownAdjuster } from "../../../src/client/modules/markdownAdjuster";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -16,10 +14,7 @@ describe("markdownAdjuster", () => {
         // nop
       },
     };
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <pre class="test-target">
               <code class="language-mermaid">
@@ -34,14 +29,12 @@ describe("markdownAdjuster", () => {
               </code>
             </pre>
           </div>
-        </body>
-      </html>
-    `).window.document;
+    `;
     markdownAdjuster.applyMermaid();
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
           (el as HTMLElement).classList.contains("language-mermaid"),
@@ -50,14 +43,11 @@ describe("markdownAdjuster", () => {
 
     expect(
       document.querySelectorAll(".test-target > div.mermaid"),
-    ).to.have.lengthOf(2);
+    ).toHaveLength(2);
   });
 
   it("applyCopyable()", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <pre class="test-target">
               <code class="hljs">
@@ -70,14 +60,12 @@ describe("markdownAdjuster", () => {
               </code>
             </pre>
           </div>
-        </body>
-      </html>
-    `).window.document;
+    `;
     markdownAdjuster.applyCopyable();
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
           (el as HTMLElement).classList.contains("copyable"),
@@ -86,14 +74,11 @@ describe("markdownAdjuster", () => {
 
     expect(
       document.querySelectorAll(".test-target > .copy-button"),
-    ).to.have.lengthOf(2);
+    ).toHaveLength(2);
   });
 
   it("adjustCheckboxes()", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <ul class="test-target">
               <li>
@@ -106,14 +91,12 @@ describe("markdownAdjuster", () => {
               </li>
             </ol>
           </div>
-        </body>
-      </html>
-      `).window.document;
+      `;
     markdownAdjuster.adjustCheckboxes();
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) =>
           (el as HTMLElement).classList.contains("check-list"),
@@ -122,10 +105,7 @@ describe("markdownAdjuster", () => {
   });
 
   it("wrapTable()", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <table class="test-target">
               <thead>
@@ -152,23 +132,18 @@ describe("markdownAdjuster", () => {
               </tbody>
             </table>
           </div>
-        </body>
-      </html>
-      `).window.document;
+      `;
     markdownAdjuster.wrapTable();
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
     expect(
       document.querySelectorAll("#article > .table-wrapper > .test-target"),
-    ).to.have.lengthOf(2);
+    ).toHaveLength(2);
   });
 
   it("adjustLinks()", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <p>
               test sentence
@@ -183,17 +158,15 @@ describe("markdownAdjuster", () => {
               <a class="not-applied" data-original-href="https://www.google.com" href="https://www.google.com">google</a>
             </h4>
           </div>
-        </body>
-      </html>
-      `).window.document;
+      `;
     const currentPage = {
       url: "http://localhost:1234/md/testing.md",
     };
     markdownAdjuster.adjustLinks(currentPage);
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) => {
           const expectedUrl = new URL(
@@ -207,7 +180,7 @@ describe("markdownAdjuster", () => {
         }),
     );
 
-    expect(document.querySelectorAll("not-applied")).to.satisfy(
+    expect(document.querySelectorAll("not-applied")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every(
           (el) =>
@@ -218,10 +191,7 @@ describe("markdownAdjuster", () => {
   });
 
   it("adjustLinks() for github path", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <p>
               test sentence
@@ -236,17 +206,15 @@ describe("markdownAdjuster", () => {
               <a class="not-applied" data-original-href="https://www.google.com" href="https://www.google.com">google</a>
             </h4>
           </div>
-        </body>
-      </html>
-      `).window.document;
+      `;
     const currentPage = {
       url: "github://owner.repo/md/testing.md",
     };
     markdownAdjuster.adjustLinks(currentPage);
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) => {
           const expectedUrl = `github://owner.repo${
@@ -261,7 +229,7 @@ describe("markdownAdjuster", () => {
         }),
     );
 
-    expect(document.querySelectorAll("not-applied")).to.satisfy(
+    expect(document.querySelectorAll("not-applied")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every(
           (el) =>
@@ -272,10 +240,7 @@ describe("markdownAdjuster", () => {
   });
 
   it("adjustImagePaths()", () => {
-    globalThis.document = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
+    document.body.innerHTML = `
           <div id="article">
             <p>
               <img
@@ -300,17 +265,15 @@ describe("markdownAdjuster", () => {
               />
             </p>
           </div>
-        </body>
-      </html>
-      `).window.document;
+      `;
     const currentPage = {
       url: "http://localhost:1234/md/testing.md",
     };
     markdownAdjuster.adjustImagePaths(currentPage);
 
-    expect(document.querySelectorAll(".test-target")).to.have.lengthOf(2);
+    expect(document.querySelectorAll(".test-target")).toHaveLength(2);
 
-    expect(document.querySelectorAll(".test-target")).to.satisfy(
+    expect(document.querySelectorAll(".test-target")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every((el) => {
           const expectedUrl = new URL(
@@ -324,7 +287,7 @@ describe("markdownAdjuster", () => {
         }),
     );
 
-    expect(document.querySelectorAll("not-applied")).to.satisfy(
+    expect(document.querySelectorAll("not-applied")).toSatisfy(
       (elementList: NodeList) =>
         Array.from(elementList).every(
           (el) =>

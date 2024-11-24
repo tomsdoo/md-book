@@ -2,3 +2,4 @@ bin/**/*.d.ts
 bin/**/*.js
 node_modules/
 public/js/
+__screenshots__/

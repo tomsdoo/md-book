@@ -1,23 +1,20 @@
 import { GitHubRepo } from "@tomsd/github-repo";
-import { expect } from "chai";
-import { afterEach, beforeEach, describe, it } from "mocha";
-import { SinonStub, restore, stub } from "sinon";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { fetchGitHubContent } from "../../../src/client/modules/fetchGitHubContent";
 
 describe("fetchGitHubContent()", () => {
-  let stubGetFileContent: SinonStub;
   beforeEach(() => {
     // @ts-expect-error
     globalThis.sessionStorage = {};
   });
   afterEach(() => {
-    restore();
+    vi.clearAllMocks();
   });
   it("404 if no token", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({});
-    stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.resolve("dummyText"),
+    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockResolvedValue(
+      "dummyText",
     );
     expect(
       await fetchGitHubContent({
@@ -27,7 +24,7 @@ describe("fetchGitHubContent()", () => {
         owner: "dummyOwner",
         repo: "dummyRepo",
       }).then((content) => JSON.stringify(content)),
-    ).to.equals(
+    ).toEqual(
       JSON.stringify({
         indexed: true,
         rawPath: "dummyPath",
@@ -38,14 +35,13 @@ describe("fetchGitHubContent()", () => {
         html: "Not Found",
       }),
     );
-    stubGetFileContent.restore();
   });
   it("404 if error is thrown", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({
       "dummyOwner/dummyRepo": "dummyToken",
     });
-    stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.reject(new Error("dummyError")),
+    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockRejectedValue(
+      new Error("dummyError"),
     );
     expect(
       await fetchGitHubContent({
@@ -55,7 +51,7 @@ describe("fetchGitHubContent()", () => {
         owner: "dummyOwner",
         repo: "dummyRepo",
       }).then((content) => JSON.stringify(content)),
-    ).to.equals(
+    ).toEqual(
       JSON.stringify({
         indexed: true,
         rawPath: "dummyPath",
@@ -66,14 +62,13 @@ describe("fetchGitHubContent()", () => {
         html: "Not Found",
       }),
     );
-    stubGetFileContent.restore();
   });
   it("success", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({
       "dummyOwner/dummyRepo": "dummyToken",
     });
-    stubGetFileContent = stub(GitHubRepo.prototype, "getFileContent").returns(
-      Promise.resolve("dummyText"),
+    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockResolvedValue(
+      "dummyText",
     );
     expect(
       await fetchGitHubContent({
@@ -83,7 +78,7 @@ describe("fetchGitHubContent()", () => {
         owner: "dummyOwner",
         repo: "dummyRepo",
       }).then((content) => JSON.stringify(content)),
-    ).to.equals(
+    ).toEqual(
       JSON.stringify({
         indexed: true,
         rawPath: "dummyPath",
@@ -94,6 +89,5 @@ describe("fetchGitHubContent()", () => {
         html: "<p>dummyText</p>\n",
       }),
     );
-    stubGetFileContent.restore();
   });
 });
