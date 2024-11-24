@@ -34,12 +34,12 @@ export async function fetchGitHubContent({
     .getFileContent(path)
     .then((text) => text as unknown)
     .then((text) => text as string)
-    .then((text: string) => ({
+    .then(async (text: string) => ({
       ...baseContent,
       status: 200,
       title: title ?? text.split("\n")[0].replace(/^# /, ""),
       text,
-      html: marked.parse(text),
+      html: await marked.parse(text),
     }))
     .catch(() => notFoundContent);
 }

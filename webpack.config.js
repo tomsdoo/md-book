@@ -1,6 +1,8 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 
+const USE_CACHE = false;
+
 module.exports = {
   // devtool: "inline-source-map",
   // mode: "development",
@@ -45,10 +47,12 @@ module.exports = {
     path: path.join(__dirname, "public/js"),
     filename: "[name].js",
   },
-  cache: {
-    type: "filesystem",
-    buildDependencies: {
-      config: [__filename],
+  ...(USE_CACHE ? {
+    cache: {
+      type: "filesystem",
+      buildDependencies: {
+        config: [__filename],
+      },
     },
-  },
+  } : {}),
 };
