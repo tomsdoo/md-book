@@ -54,7 +54,6 @@
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/commander": "2.12.2",
     "@types/koa": "2.15.0",
     "@vitest/browser": "2.1.5",
     "css-loader": "7.1.2",
@@ -72,7 +71,7 @@
   },
   "dependencies": {
     "@tomsd/github-repo": "1.7.0",
-    "commander": "9.4.0",
+    "commander": "12.1.0",
     "destyle.css": "4.0.1",
     "fast-glob": "3.3.2",
     "highlight.js": "11.10.0",
