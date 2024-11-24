@@ -59,7 +59,7 @@
     "@tomsd/github-repo": "1.0.0",
     "commander": "9.4.0",
     "destyle.css": "3.0.2",
-    "fast-glob": "3.3.1",
+    "fast-glob": "3.3.2",
     "highlight.js": "11.6.0",
     "koa": "2.15.3",
     "koa-router": "13.0.1",
