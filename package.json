@@ -39,7 +39,6 @@
     "@biomejs/biome": "1.9.4",
     "@types/commander": "2.12.2",
     "@types/koa": "2.15.0",
-    "@types/marked": "4.0.7",
     "@vitest/browser": "2.1.5",
     "css-loader": "6.7.1",
     "husky": "9.1.7",
@@ -64,7 +63,7 @@
     "koa": "2.15.3",
     "koa-router": "13.0.1",
     "koa-static-server": "1.5.2",
-    "marked": "4.1.0",
+    "marked": "15.0.2",
     "vue": "3.2.39",
     "vue-router": "4.1.5"
   }
