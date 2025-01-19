@@ -52,7 +52,6 @@ export async function start({
   core,
   mermaid,
 }: MdBookOptions): Promise<any> {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   window.addEventListener("load", async () => {
     document.body.innerHTML = `<div id="initial-loading"><div class="rotate">md-book</div></div>`;
 

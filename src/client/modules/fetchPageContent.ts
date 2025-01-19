@@ -8,7 +8,6 @@ export async function fetchPageContent(
     type?: string;
   },
 ): Promise<PageContent> {
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const lseed = seed.type
     ? seed
     : {
