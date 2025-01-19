@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { fetchPlainContent } from "../../../src/client/modules/fetchPageContent";
+import { fetchPlainContent } from "@/client/modules/fetchPageContent";
 
 let originalFetch: Function;
 

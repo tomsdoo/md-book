@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { getGithubTokens } from "../../../src/client/modules/getGithubTokens";
+import { getGithubTokens } from "@/client/modules/getGithubTokens";
 
 describe("getGithubTokens()", () => {
   const repositoryInfos = [

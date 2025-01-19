@@ -1,5 +1,5 @@
+import { bodyHtml } from "@/client/html";
 import { beforeEach, describe, expect, it } from "vitest";
-import { bodyHtml } from "../../src/client/html";
 
 describe("body html", () => {
   beforeEach(() => {

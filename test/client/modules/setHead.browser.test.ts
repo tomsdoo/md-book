@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { setHead } from "../../../src/client/modules/setHead";
+import { setHead } from "@/client/modules/setHead";
 
 describe("setHead()", () => {
   const mdBookOptions = {
