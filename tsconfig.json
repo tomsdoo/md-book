@@ -10,6 +10,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ]
   }
 }

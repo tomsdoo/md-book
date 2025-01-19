@@ -55,7 +55,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/koa": "2.15.0",
-    "@vitest/browser": "2.1.8",
+    "@vitest/browser": "3.0.2",
     "css-loader": "7.1.2",
     "husky": "9.1.7",
     "lint-staged": "15.4.1",
@@ -64,7 +64,7 @@
     "ts-loader": "9.5.2",
     "tsx": "4.19.2",
     "typescript": "5.7.3",
-    "vitest": "2.1.8",
+    "vitest": "3.0.2",
     "vue-loader": "17.4.2",
     "webpack": "5.97.1",
     "webpack-cli": "6.0.1"
