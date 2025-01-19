@@ -2,7 +2,7 @@
   <vue-layout :indexed-page-contents="indexedPageContents" ref="layout">
     <transition name="fade">
       <article
-        v-show="state.ready && state.currentPage"
+        v-show="ready && currentPage"
         v-html="_contentHtml"
         id="article"
         class="article"
@@ -17,7 +17,7 @@ import VueLayout from "@/client/components/layout.vue";
 import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
 import { PageContent } from "@/client/modules/types";
 import hljs from "highlight.js";
-import { computed, nextTick, reactive, ref, watchEffect } from "vue";
+import { computed, nextTick, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
 const props = defineProps<{
@@ -27,22 +27,18 @@ const props = defineProps<{
 }>();
 
 const layout = ref<typeof VueLayout>(VueLayout);
-const state = reactive<{
-  currentPage?: PageContent;
-  ready: boolean;
-}>({
-  currentPage: undefined,
-  ready: false,
-});
+const currentPage = ref<PageContent>();
+const ready = ref(false);
+
 const route = useRoute();
-const _contentHtml = computed(() => state.currentPage?.html ?? "");
+const _contentHtml = computed(() => currentPage.value?.html ?? "");
 
 watchEffect(async () => {
   const [pagePath] = Array.isArray(route.query.path)
     ? route.query.path
     : [route.query.path];
-  state.ready = false;
-  state.currentPage =
+  ready.value = false;
+  currentPage.value =
     pagePath == null
       ? props.indexedPageContents[0]
       : (props.pageContents.find(({ url }) => url === pagePath) ??
@@ -52,20 +48,20 @@ watchEffect(async () => {
         }).then((page) => (page.status !== 200 ? undefined : page))) ??
         props.indexedPageContents[0]);
   nextTick(() => {
-    state.ready = true;
+    ready.value = true;
   });
 });
 
 watchEffect(() => {
-  if (state.ready) {
+  if (ready.value) {
     nextTick(() => {
       hljs.highlightAll();
       markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
       markdownAdjuster.applyCopyable();
       markdownAdjuster.adjustCheckboxes();
       markdownAdjuster.wrapTable();
-      markdownAdjuster.adjustLinks(state.currentPage as PageContent);
-      markdownAdjuster.adjustImagePaths(state.currentPage as PageContent);
+      markdownAdjuster.adjustLinks(currentPage.value as PageContent);
+      markdownAdjuster.adjustImagePaths(currentPage.value as PageContent);
       layout?.value?.scrollToTop();
     });
   }
