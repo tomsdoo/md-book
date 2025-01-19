@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import { markdownAdjuster } from "../../../src/client/modules/markdownAdjuster";
 
 declare global {
-  // eslint-disable-next-line no-var
   var mermaid: any;
 }
 

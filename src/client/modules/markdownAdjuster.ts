@@ -17,7 +17,6 @@ function applyMermaid(options?: object): void {
     if (options != null) {
       globalThis.mermaid.mermaidAPI.initialize(options);
     }
-    // eslint-disable-next-line no-undef
     globalThis.mermaid.init();
   })
     .then(() => {
