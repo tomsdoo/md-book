@@ -3,7 +3,7 @@
     <transition name="fade">
       <article
         v-show="state.ready && state.currentPage"
-        v-html="contentHtml"
+        v-html="_contentHtml"
         id="article"
         class="article"
       ></article>
@@ -11,95 +11,64 @@
   </vue-layout>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import type { MdBookOptions } from "@/client/";
 import VueLayout from "@/client/components/layout.vue";
 import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
 import { PageContent } from "@/client/modules/types";
 import hljs from "highlight.js";
-import {
-  PropType,
-  computed,
-  defineComponent,
-  nextTick,
-  reactive,
-  ref,
-  watch,
-} from "vue";
+import { computed, nextTick, reactive, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
-export default defineComponent({
-  components: {
-    VueLayout,
-  },
-  props: {
-    bookOptions: {
-      type: Object,
-      default: () => ({}),
-    },
-    pageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-    indexedPageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-  },
-  setup(props) {
-    const layout = ref<typeof VueLayout>(VueLayout);
-    const state = reactive<{
-      currentPage?: PageContent;
-      ready: boolean;
-    }>({
-      currentPage: undefined,
-      ready: false,
-    });
-    const route = useRoute();
-    const contentHtml = computed(() => {
-      return state.currentPage?.html ?? "";
-    });
-    watch(
-      () => route?.query?.path,
-      async (to) => {
-        state.ready = false;
-        state.currentPage =
-          to === undefined
-            ? props.indexedPageContents[0]
-            : (props.pageContents.find(({ url }) => url === to) ??
-              (await fetchPageContent({
-                path: to as string,
-                indexed: false,
-              }).then((page) => (page.status !== 200 ? undefined : page))) ??
-              props.indexedPageContents[0]);
+const props = defineProps<{
+  bookOptions: MdBookOptions;
+  pageContents: PageContent[];
+  indexedPageContents: PageContent[];
+}>();
 
-        nextTick(() => {
-          state.ready = true;
-        });
-      },
-      { immediate: true },
-    );
-    watch(
-      () => state?.currentPage,
-      () => {
-        nextTick(() => {
-          hljs.highlightAll();
-          markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
-          markdownAdjuster.applyCopyable();
-          markdownAdjuster.adjustCheckboxes();
-          markdownAdjuster.wrapTable();
-          markdownAdjuster.adjustLinks(state.currentPage as PageContent);
-          markdownAdjuster.adjustImagePaths(state.currentPage as PageContent);
-          layout?.value?.scrollToTop();
-        });
-      },
-      { immediate: true },
-    );
-    return {
-      layout,
-      state,
-      contentHtml,
-    };
-  },
+const layout = ref<typeof VueLayout>(VueLayout);
+const state = reactive<{
+  currentPage?: PageContent;
+  ready: boolean;
+}>({
+  currentPage: undefined,
+  ready: false,
+});
+const route = useRoute();
+const _contentHtml = computed(() => state.currentPage?.html ?? "");
+
+watchEffect(async () => {
+  const [pagePath] = Array.isArray(route.query.path)
+    ? route.query.path
+    : [route.query.path];
+  state.ready = false;
+  state.currentPage =
+    pagePath == null
+      ? props.indexedPageContents[0]
+      : (props.pageContents.find(({ url }) => url === pagePath) ??
+        (await fetchPageContent({
+          path: pagePath,
+          indexed: false,
+        }).then((page) => (page.status !== 200 ? undefined : page))) ??
+        props.indexedPageContents[0]);
+  nextTick(() => {
+    state.ready = true;
+  });
+});
+
+watchEffect(() => {
+  if (state.ready) {
+    nextTick(() => {
+      hljs.highlightAll();
+      markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
+      markdownAdjuster.applyCopyable();
+      markdownAdjuster.adjustCheckboxes();
+      markdownAdjuster.wrapTable();
+      markdownAdjuster.adjustLinks(state.currentPage as PageContent);
+      markdownAdjuster.adjustImagePaths(state.currentPage as PageContent);
+      layout?.value?.scrollToTop();
+    });
+  }
 });
 </script>
 
