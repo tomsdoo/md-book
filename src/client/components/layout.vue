@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts">
+import { PageContent } from "@/client/modules/types";
 import { PropType, defineComponent, reactive, ref } from "vue";
-import { PageContent } from "../../client/modules/types";
 
 export default defineComponent({
   props: {

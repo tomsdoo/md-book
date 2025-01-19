@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
+import VueLayout from "@/client/components/layout.vue";
+import { PageContent } from "@/client/modules/types";
 import { PropType, computed, defineComponent, nextTick, reactive } from "vue";
 import { useRoute } from "vue-router";
-import { PageContent } from "../../client/modules/types";
-import VueLayout from "./layout.vue";
 
 export default defineComponent({
   components: {

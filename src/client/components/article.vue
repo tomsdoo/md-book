@@ -12,6 +12,9 @@
 </template>
 
 <script lang="ts">
+import VueLayout from "@/client/components/layout.vue";
+import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
+import { PageContent } from "@/client/modules/types";
 import hljs from "highlight.js";
 import {
   PropType,
@@ -23,9 +26,6 @@ import {
   watch,
 } from "vue";
 import { useRoute } from "vue-router";
-import { PageContent } from "../../client/modules/types";
-import { fetchPageContent, markdownAdjuster } from "../modules/";
-import VueLayout from "./layout.vue";
 
 export default defineComponent({
   components: {
