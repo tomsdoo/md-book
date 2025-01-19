@@ -38,6 +38,7 @@ module.exports = {
     modules: ["node_modules"],
     alias: {
       vue: "vue/dist/vue.cjs.js",
+      "@": path.resolve(process.cwd(), "src"),
     },
   },
   entry: {
