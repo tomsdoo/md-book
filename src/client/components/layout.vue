@@ -1,8 +1,31 @@
+<script setup lang="ts">
+import { PageContent } from "@/client/modules/types";
+import { ref } from "vue";
+
+defineProps<{
+  indexedPageContents: PageContent[];
+}>();
+
+const articleWrapper = ref();
+
+const indexFolded = ref(false);
+
+// biome-ignore lint/correctness/noUnusedVariables: template html calls it
+function toggleIndexFolded() {
+  indexFolded.value = !indexFolded.value;
+}
+
+// biome-ignore lint/correctness/noUnusedVariables: user of this component will call it
+function scrollToTop() {
+  (articleWrapper.value as unknown as HTMLDivElement).scrollTo(0, 0);
+}
+</script>
+
 <template>
-  <section class="index main-padded" :class="[state.indexFolded && 'folded']">
+  <section class="index main-padded" :class="[indexFolded && 'folded']">
     <ul
       class="index-list scroll-hidden"
-      :class="[state.indexFolded && 'folded']"
+      :class="[indexFolded && 'folded']"
     >
       <li
         v-for="(page, index) in indexedPageContents"
@@ -20,7 +43,7 @@
     </ul>
     <button v-on:click="toggleIndexFolded()" class="index-toggle-button">
       index
-      <span v-if="state.indexFolded" class="material-icons-outlined icon">
+      <span v-if="indexFolded" class="material-icons-outlined icon">
         expand_more
       </span>
       <span v-else class="material-icons-outlined icon"> expand_less </span>
@@ -32,38 +55,6 @@
     </div>
   </section>
 </template>
-
-<script lang="ts">
-import { PageContent } from "@/client/modules/types";
-import { PropType, defineComponent, reactive, ref } from "vue";
-
-export default defineComponent({
-  props: {
-    indexedPageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-  },
-  setup() {
-    const articleWrapper = ref(undefined);
-    const state = reactive({
-      indexFolded: false,
-    });
-    const toggleIndexFolded = () => {
-      state.indexFolded = !state.indexFolded;
-    };
-    const scrollToTop = () => {
-      (articleWrapper.value as unknown as HTMLDivElement).scrollTo(0, 0);
-    };
-    return {
-      articleWrapper,
-      scrollToTop,
-      state,
-      toggleIndexFolded,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .main-padded {
