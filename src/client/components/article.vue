@@ -1,16 +1,3 @@
-<template>
-  <vue-layout :indexed-page-contents="indexedPageContents" ref="layout">
-    <transition name="fade">
-      <article
-        v-show="ready && currentPage"
-        v-html="_contentHtml"
-        id="article"
-        class="article"
-      ></article>
-    </transition>
-  </vue-layout>
-</template>
-
 <script setup lang="ts">
 import type { MdBookOptions } from "@/client/";
 import VueLayout from "@/client/components/layout.vue";
@@ -67,6 +54,19 @@ watchEffect(() => {
   }
 });
 </script>
+
+<template>
+  <vue-layout :indexed-page-contents="indexedPageContents" ref="layout">
+    <transition name="fade">
+      <article
+        v-show="ready && currentPage"
+        v-html="_contentHtml"
+        id="article"
+        class="article"
+      ></article>
+    </transition>
+  </vue-layout>
+</template>
 
 <style>
 #article h1:not(:first-child),
