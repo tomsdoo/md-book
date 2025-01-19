@@ -1,7 +1,43 @@
+<script setup lang="ts">
+import VueLayout from "@/client/components/layout.vue";
+import { PageContent } from "@/client/modules/types";
+import { computed, nextTick, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const props = defineProps<{
+  pageContents: PageContent[];
+  indexedPageContents: PageContent[];
+}>();
+
+const ready = ref(false);
+
+const route = useRoute();
+const keyword = computed(() => {
+  const [keyword] = Array.isArray(route.query.keyword)
+    ? route.query.keyword
+    : [route.query.keyword];
+  return keyword ?? "";
+});
+
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const searchResultPages = computed(() => {
+  const keyl = keyword.value.split(" ");
+  return props.pageContents.filter(({ text }) =>
+    keyl.every((keye) => text.match(new RegExp(keye, "i"))),
+  );
+});
+
+onMounted(() => {
+  nextTick(() => {
+    ready.value = true;
+  });
+});
+</script>
+
 <template>
   <vue-layout :indexed-page-contents="indexedPageContents">
     <transition name="fade">
-      <div v-if="state.ready" class="search-result">
+      <div v-if="ready" class="search-result">
         <h1 class="title">"{{ keyword }}": {{ searchResultPages.length }}</h1>
         <ul class="list">
           <li
@@ -22,51 +58,6 @@
     </transition>
   </vue-layout>
 </template>
-
-<script lang="ts">
-import VueLayout from "@/client/components/layout.vue";
-import { PageContent } from "@/client/modules/types";
-import { PropType, computed, defineComponent, nextTick, reactive } from "vue";
-import { useRoute } from "vue-router";
-
-export default defineComponent({
-  components: {
-    VueLayout,
-  },
-  props: {
-    pageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-    indexedPageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-  },
-  setup(props) {
-    const state = reactive({
-      ready: false,
-    });
-    const route = useRoute();
-    const keyword = computed(() => route.query.keyword);
-
-    const searchResultPages = computed(() => {
-      const keyl = (route.query.keyword as string).split(" ");
-      return props.pageContents.filter(({ text }) =>
-        keyl.every((keye) => text.match(new RegExp(keye, "i"))),
-      );
-    });
-    nextTick(() => {
-      state.ready = true;
-    });
-    return {
-      state,
-      keyword,
-      searchResultPages,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .search-result {

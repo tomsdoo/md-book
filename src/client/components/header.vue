@@ -1,58 +1,50 @@
+<script setup lang="ts">
+import type { MdBookOptions } from "@/client/";
+import { computed, ref, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+const props = defineProps<{
+  options?: MdBookOptions["header"];
+}>();
+
+const route = useRoute();
+const router = useRouter();
+
+const keyword = ref("");
+
+// biome-ignore lint/correctness/noUnusedVariables: template html uses it
+const headerText = computed(() => props.options?.title ?? "untitled");
+
+watchEffect(() => {
+  const [queryKeyword] = Array.isArray(route.query.keyword)
+    ? route.query.keyword
+    : [route.query.keyword];
+  keyword.value = queryKeyword ?? "";
+});
+
+// biome-ignore lint/correctness/noUnusedVariables: template html calls it
+function onSubmit() {
+  if (keyword.value === "") {
+    return;
+  }
+
+  router.push({
+    name: "search",
+    query: { keyword: keyword.value },
+  });
+}
+</script>
+
 <template>
   <div class="header-content">
     <router-link :to="{ name: 'article' }">
       {{ headerText }}
     </router-link>
     <form onsubmit="return false" v-on:submit="onSubmit" class="key-form">
-      <input class="keybox" v-model="state.keyword" />
+      <input class="keybox" v-model="keyword" />
     </form>
   </div>
 </template>
-
-<script lang="ts">
-import { computed, defineComponent, reactive, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-
-export default defineComponent({
-  props: {
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const router = useRouter();
-    const state = reactive({
-      keyword: "",
-    });
-    const headerText = computed(() => props.options?.title ?? "untitled");
-
-    watch(
-      () => route?.query?.keyword,
-      (to) => {
-        state.keyword = (to as string) ?? "";
-      },
-    );
-
-    const onSubmit = () => {
-      if (!state.keyword) {
-        return;
-      }
-
-      router.push({
-        name: "search",
-        query: { keyword: state.keyword },
-      });
-    };
-    return {
-      state,
-      headerText,
-      onSubmit,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .header-content {

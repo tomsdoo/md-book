@@ -1,8 +1,67 @@
+<script setup lang="ts">
+import type { MdBookOptions } from "@/client/";
+import VueLayout from "@/client/components/layout.vue";
+import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
+import { PageContent } from "@/client/modules/types";
+import hljs from "highlight.js";
+import { computed, nextTick, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+
+const props = defineProps<{
+  bookOptions: MdBookOptions;
+  pageContents: PageContent[];
+  indexedPageContents: PageContent[];
+}>();
+
+const layout = ref<typeof VueLayout>();
+const currentPage = ref<PageContent>();
+const ready = ref(false);
+
+const route = useRoute();
+
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const contentHtml = computed(() => currentPage.value?.html ?? "");
+
+watchEffect(async () => {
+  const [pagePath] = Array.isArray(route.query.path)
+    ? route.query.path
+    : [route.query.path];
+  ready.value = false;
+  currentPage.value =
+    pagePath == null
+      ? props.indexedPageContents[0]
+      : (props.pageContents.find(({ url }) => url === pagePath) ??
+        (await fetchPageContent({
+          path: pagePath,
+          indexed: false,
+        }).then((page) => (page.status !== 200 ? undefined : page))) ??
+        props.indexedPageContents[0]);
+  nextTick(() => {
+    ready.value = true;
+  });
+});
+
+watchEffect(() => {
+  if (ready.value) {
+    nextTick(() => {
+      hljs.highlightAll();
+      markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
+      markdownAdjuster.applyCopyable();
+      markdownAdjuster.adjustCheckboxes();
+      markdownAdjuster.wrapTable();
+      markdownAdjuster.adjustLinks(currentPage.value as PageContent);
+      markdownAdjuster.adjustImagePaths(currentPage.value as PageContent);
+      layout?.value?.scrollToTop();
+    });
+  }
+});
+</script>
+
 <template>
   <vue-layout :indexed-page-contents="indexedPageContents" ref="layout">
     <transition name="fade">
       <article
-        v-show="state.ready && state.currentPage"
+        v-show="ready && currentPage"
         v-html="contentHtml"
         id="article"
         class="article"
@@ -10,98 +69,6 @@
     </transition>
   </vue-layout>
 </template>
-
-<script lang="ts">
-import VueLayout from "@/client/components/layout.vue";
-import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
-import { PageContent } from "@/client/modules/types";
-import hljs from "highlight.js";
-import {
-  PropType,
-  computed,
-  defineComponent,
-  nextTick,
-  reactive,
-  ref,
-  watch,
-} from "vue";
-import { useRoute } from "vue-router";
-
-export default defineComponent({
-  components: {
-    VueLayout,
-  },
-  props: {
-    bookOptions: {
-      type: Object,
-      default: () => ({}),
-    },
-    pageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-    indexedPageContents: {
-      type: Array as PropType<PageContent[]>,
-      default: () => [],
-    },
-  },
-  setup(props) {
-    const layout = ref<typeof VueLayout>(VueLayout);
-    const state = reactive<{
-      currentPage?: PageContent;
-      ready: boolean;
-    }>({
-      currentPage: undefined,
-      ready: false,
-    });
-    const route = useRoute();
-    const contentHtml = computed(() => {
-      return state.currentPage?.html ?? "";
-    });
-    watch(
-      () => route?.query?.path,
-      async (to) => {
-        state.ready = false;
-        state.currentPage =
-          to === undefined
-            ? props.indexedPageContents[0]
-            : (props.pageContents.find(({ url }) => url === to) ??
-              (await fetchPageContent({
-                path: to as string,
-                indexed: false,
-              }).then((page) => (page.status !== 200 ? undefined : page))) ??
-              props.indexedPageContents[0]);
-
-        nextTick(() => {
-          state.ready = true;
-        });
-      },
-      { immediate: true },
-    );
-    watch(
-      () => state?.currentPage,
-      () => {
-        nextTick(() => {
-          hljs.highlightAll();
-          markdownAdjuster.applyMermaid(props.bookOptions?.mermaid);
-          markdownAdjuster.applyCopyable();
-          markdownAdjuster.adjustCheckboxes();
-          markdownAdjuster.wrapTable();
-          markdownAdjuster.adjustLinks(state.currentPage as PageContent);
-          markdownAdjuster.adjustImagePaths(state.currentPage as PageContent);
-          layout?.value?.scrollToTop();
-        });
-      },
-      { immediate: true },
-    );
-    return {
-      layout,
-      state,
-      contentHtml,
-    };
-  },
-});
-</script>
 
 <style>
 #article h1:not(:first-child),

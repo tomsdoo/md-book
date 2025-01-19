@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import type { MdBookOptions } from "@/client/";
+import { computed } from "vue";
+
+const props = defineProps<{
+  options?: MdBookOptions["footer"];
+}>();
+
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const link = computed(
+  () =>
+    props.options?.link ??
+    (props.options?.text === undefined && {
+      href: "https://www.npmjs.com/package/@tomsd/md-book",
+      text: "@tomsd/md-book",
+    }),
+);
+
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const footerText = computed(
+  () =>
+    props.options?.text ?? (props.options?.link === undefined && "powered by "),
+);
+</script>
+
 <template>
   <div class="footer-content">
     <span v-if="footerText" class="footer-text">
@@ -9,38 +34,6 @@
     </a>
   </div>
 </template>
-
-<script lang="ts">
-import { computed, defineComponent } from "vue";
-
-export default defineComponent({
-  props: {
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const link = computed(
-      () =>
-        props.options?.link ??
-        (props.options?.text === undefined && {
-          href: "https://www.npmjs.com/package/@tomsd/md-book",
-          text: "@tomsd/md-book",
-        }),
-    );
-    const footerText = computed(
-      () =>
-        props.options?.text ??
-        (props.options?.link === undefined && "powered by "),
-    );
-    return {
-      link,
-      footerText,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .footer-content {
