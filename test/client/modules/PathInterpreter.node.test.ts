@@ -1,5 +1,5 @@
+import { PathInterpreter } from "@/client/modules/PathInterpreter";
 import { describe, expect, it } from "vitest";
-import { PathInterpreter } from "../../../src/client/modules/PathInterpreter";
 
 describe("PathInterpreter", () => {
   it("type for github://... is github", () => {

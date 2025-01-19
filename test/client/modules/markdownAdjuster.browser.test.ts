@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { markdownAdjuster } from "../../../src/client/modules/markdownAdjuster";
+import { markdownAdjuster } from "@/client/modules/markdownAdjuster";
 
 declare global {
   var mermaid: any;

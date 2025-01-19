@@ -1,7 +1,7 @@
 import { GitHubRepo } from "@tomsd/github-repo";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { fetchGitHubContent } from "../../../src/client/modules/fetchGitHubContent";
+import { fetchGitHubContent } from "@/client/modules/fetchGitHubContent";
 
 describe("fetchGitHubContent()", () => {
   beforeEach(() => {
