@@ -1,15 +1,3 @@
-<template>
-  <div class="footer-content">
-    <span v-if="_footerText" class="footer-text">
-      {{ _footerText }}
-    </span>
-    <a v-if="_link" :href="_link.href" class="footer-link" target="_blank">
-      <span class="text">{{ _link.text }}</span>
-      <span class="material-icons icon">open_in_new</span>
-    </a>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { MdBookOptions } from "@/client/";
 import { computed } from "vue";
@@ -32,6 +20,18 @@ const _footerText = computed(
     props.options?.text ?? (props.options?.link === undefined && "powered by "),
 );
 </script>
+
+<template>
+  <div class="footer-content">
+    <span v-if="_footerText" class="footer-text">
+      {{ _footerText }}
+    </span>
+    <a v-if="_link" :href="_link.href" class="footer-link" target="_blank">
+      <span class="text">{{ _link.text }}</span>
+      <span class="material-icons icon">open_in_new</span>
+    </a>
+  </div>
+</template>
 
 <style scoped>
 .footer-content {
