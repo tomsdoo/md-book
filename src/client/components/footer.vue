@@ -1,45 +1,36 @@
 <template>
   <div class="footer-content">
-    <span v-if="footerText" class="footer-text">
-      {{ footerText }}
+    <span v-if="_footerText" class="footer-text">
+      {{ _footerText }}
     </span>
-    <a v-if="link" :href="link.href" class="footer-link" target="_blank">
-      <span class="text">{{ link.text }}</span>
+    <a v-if="_link" :href="_link.href" class="footer-link" target="_blank">
+      <span class="text">{{ _link.text }}</span>
       <span class="material-icons icon">open_in_new</span>
     </a>
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "vue";
+<script setup lang="ts">
+import type { MdBookOptions } from "@/client/";
+import { computed } from "vue";
 
-export default defineComponent({
-  props: {
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const link = computed(
-      () =>
-        props.options?.link ??
-        (props.options?.text === undefined && {
-          href: "https://www.npmjs.com/package/@tomsd/md-book",
-          text: "@tomsd/md-book",
-        }),
-    );
-    const footerText = computed(
-      () =>
-        props.options?.text ??
-        (props.options?.link === undefined && "powered by "),
-    );
-    return {
-      link,
-      footerText,
-    };
-  },
-});
+const props = defineProps<{
+  options?: MdBookOptions["footer"];
+}>();
+
+const _link = computed(
+  () =>
+    props.options?.link ??
+    (props.options?.text === undefined && {
+      href: "https://www.npmjs.com/package/@tomsd/md-book",
+      text: "@tomsd/md-book",
+    }),
+);
+
+const _footerText = computed(
+  () =>
+    props.options?.text ?? (props.options?.link === undefined && "powered by "),
+);
 </script>
 
 <style scoped>
