@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PageContent } from "@/client/modules/types";
-import { ref } from "vue";
+import { defineExpose, ref } from "vue";
 
 defineProps<{
   indexedPageContents: PageContent[];
@@ -15,10 +15,13 @@ function toggleIndexFolded() {
   indexFolded.value = !indexFolded.value;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: user of this component will call it
 function scrollToTop() {
   (articleWrapper.value as unknown as HTMLDivElement).scrollTo(0, 0);
 }
+
+defineExpose({
+  scrollToTop,
+});
 </script>
 
 <template>

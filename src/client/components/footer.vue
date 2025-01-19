@@ -6,7 +6,8 @@ const props = defineProps<{
   options?: MdBookOptions["footer"];
 }>();
 
-const _link = computed(
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const link = computed(
   () =>
     props.options?.link ??
     (props.options?.text === undefined && {
@@ -15,7 +16,8 @@ const _link = computed(
     }),
 );
 
-const _footerText = computed(
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const footerText = computed(
   () =>
     props.options?.text ?? (props.options?.link === undefined && "powered by "),
 );
@@ -23,11 +25,11 @@ const _footerText = computed(
 
 <template>
   <div class="footer-content">
-    <span v-if="_footerText" class="footer-text">
-      {{ _footerText }}
+    <span v-if="footerText" class="footer-text">
+      {{ footerText }}
     </span>
-    <a v-if="_link" :href="_link.href" class="footer-link" target="_blank">
-      <span class="text">{{ _link.text }}</span>
+    <a v-if="link" :href="link.href" class="footer-link" target="_blank">
+      <span class="text">{{ link.text }}</span>
       <span class="material-icons icon">open_in_new</span>
     </a>
   </div>

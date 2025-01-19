@@ -13,12 +13,14 @@ const props = defineProps<{
   indexedPageContents: PageContent[];
 }>();
 
-const layout = ref<typeof VueLayout>(VueLayout);
+const layout = ref<typeof VueLayout>();
 const currentPage = ref<PageContent>();
 const ready = ref(false);
 
 const route = useRoute();
-const _contentHtml = computed(() => currentPage.value?.html ?? "");
+
+// biome-ignore lint/correctness/noUnusedVariables: template uses it
+const contentHtml = computed(() => currentPage.value?.html ?? "");
 
 watchEffect(async () => {
   const [pagePath] = Array.isArray(route.query.path)
@@ -60,7 +62,7 @@ watchEffect(() => {
     <transition name="fade">
       <article
         v-show="ready && currentPage"
-        v-html="_contentHtml"
+        v-html="contentHtml"
         id="article"
         class="article"
       ></article>
