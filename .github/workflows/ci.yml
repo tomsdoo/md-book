@@ -19,8 +19,23 @@ jobs:
       with:
         node-version: '22.x'
 
-    - name: npm ci and build and test
-      run: |
-        npm ci
-        npm run build
-        npm test
+    - name: cache npm
+      uses: actions/cache@v4
+      with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+    - name: cache playwright
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+
+    - name: npm ci
+      run: npm ci
+
+    - name: npm run build
+      run: npm run build
+
+    - name: npm test
+      run: npm test
