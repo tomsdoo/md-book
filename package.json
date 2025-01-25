@@ -19,7 +19,7 @@
     "lint": "biome check",
     "serve": "tsx doc_server",
     "dev": "npm run build && npm run serve",
-    "prepare": "husky && playwright install --with-deps",
+    "prepare": "husky && playwright install",
     "test": "vitest"
   },
   "lint-staged": {
