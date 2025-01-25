@@ -30,6 +30,14 @@ jobs:
       with:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+    
+    - name: is netlify
+      uses: actions/github-script@v7
+      with:
+        script: |
+          console.log(process.env);
+          return "";
+        result-encoding: string
 
     - name: npm ci
       run: npm ci
