@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@tomsd/github-repo": "2.3.0",
-    "commander": "13.0.0",
+    "commander": "13.1.0",
     "destyle.css": "4.0.1",
     "fast-glob": "3.3.3",
     "highlight.js": "11.11.1",
