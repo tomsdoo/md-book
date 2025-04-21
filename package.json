@@ -55,18 +55,18 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/koa": "2.15.0",
-    "@vitest/browser": "3.1.1",
+    "@vitest/browser": "3.1.2",
     "css-loader": "7.1.2",
     "husky": "9.1.7",
     "lint-staged": "15.5.1",
-    "playwright": "1.51.1",
+    "playwright": "1.52.0",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.2",
     "tsx": "4.19.3",
     "typescript": "5.8.3",
-    "vitest": "3.1.1",
+    "vitest": "3.1.2",
     "vue-loader": "17.4.2",
-    "webpack": "5.99.5",
+    "webpack": "5.99.6",
     "webpack-cli": "6.0.1"
   },
   "dependencies": {
