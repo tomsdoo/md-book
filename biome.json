@@ -1,26 +1,26 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "**/*.html",
-      "**/*.txt",
-      "bin/",
-      "public/js/",
-      "package.json",
-      "package-lock.json"
+    "includes": [
+      "**",
+      "!**/*.html",
+      "!**/*.txt",
+      "!**/bin/**",
+      "!**/public/js/",
+      "!**/package.json",
+      "!**/package-lock.json"
     ]
   },
   "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2 },
-  "organizeImports": { "enabled": true },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": false,
       "complexity": {
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessConstructor": "error",
         "noUselessLoneBlockStatements": "error",
@@ -28,9 +28,10 @@
         "noUselessTernary": "error",
         "noUselessUndefinedInitialization": "error",
         "noVoid": "error",
-        "noWith": "error",
         "useLiteralKeys": "error",
-        "useRegexLiterals": "error"
+        "useRegexLiterals": "error",
+        "noAdjacentSpacesInRegex": "error",
+        "noCommaOperator": "error"
       },
       "correctness": {
         "noConstAssign": "error",
@@ -40,7 +41,6 @@
         "noGlobalObjectCalls": "error",
         "noInvalidConstructorSuper": "error",
         "noInvalidUseBeforeDeclaration": "error",
-        "noNewSymbol": "error",
         "noPrecisionLoss": "error",
         "noSelfAssign": "error",
         "noSwitchDeclarations": "error",
@@ -49,18 +49,18 @@
         "noUnreachableSuper": "error",
         "noUnsafeFinally": "error",
         "noUnusedVariables": "error",
-        "useArrayLiterals": "error",
-        "useIsNan": "error"
+        "useIsNan": "error",
+        "noInvalidBuiltinInstantiation": "error",
+        "useValidTypeof": "error"
       },
       "security": { "noGlobalEval": "error" },
       "style": {
-        "noCommaOperator": "error",
-        "noVar": "warn",
         "noYodaExpression": "error",
         "useBlockStatements": "off",
         "useConsistentBuiltinInstantiation": "error",
         "useConst": "error",
-        "useSingleVarDeclarator": "error"
+        "useSingleVarDeclarator": "error",
+        "useArrayLiterals": "error"
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
@@ -87,7 +87,8 @@
         "noSparseArray": "error",
         "noUnsafeNegation": "error",
         "useDefaultSwitchClauseLast": "error",
-        "useValidTypeof": "error"
+        "noWith": "error",
+        "noVar": "warn"
       }
     }
   },
@@ -97,7 +98,7 @@
   },
   "overrides": [
     {
-      "include": ["*.ts", "*.tsx"],
+      "includes": ["**/*.ts", "**/*.tsx"],
       "linter": {
         "rules": {
           "complexity": {
@@ -111,8 +112,7 @@
             "noInvalidUseBeforeDeclaration": "error",
             "noPrecisionLoss": "error",
             "noUndeclaredVariables": "off",
-            "noUnusedVariables": "error",
-            "useArrayLiterals": "off"
+            "noUnusedVariables": "error"
           },
           "style": {
             "noNamespace": "error",
@@ -121,7 +121,8 @@
               "level": "error",
               "options": { "syntax": "shorthand" }
             },
-            "useShorthandFunctionType": "error"
+            "useShorthandFunctionType": "error",
+            "useArrayLiterals": "off"
           },
           "suspicious": {
             "noConfusingVoidType": "error",
