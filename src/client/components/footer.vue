@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { MdBookOptions } from "@/client/";
 import { computed } from "vue";
+import type { MdBookOptions } from "@/client/";
 
 const props = defineProps<{
   options?: MdBookOptions["footer"];

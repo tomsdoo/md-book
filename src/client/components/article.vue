@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import hljs from "highlight.js";
+import { computed, nextTick, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import type { MdBookOptions } from "@/client/";
 import VueLayout from "@/client/components/layout.vue";
 import { fetchPageContent, markdownAdjuster } from "@/client/modules/";
 import { PageContent } from "@/client/modules/types";
-import hljs from "highlight.js";
-import { computed, nextTick, ref, watchEffect } from "vue";
-import { useRoute } from "vue-router";
 
 const props = defineProps<{
   bookOptions: MdBookOptions;

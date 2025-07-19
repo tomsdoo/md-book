@@ -1,10 +1,10 @@
+import * as fs from "fs";
 import Koa from "koa";
 // @ts-expect-error
 import Router from "koa-router";
 // @ts-expect-error
 import serve from "koa-static-server";
 import * as path from "path";
-import * as fs from "fs";
 
 export async function serveDocuments(directoryPath: string): Promise<any> {
   ///
@@ -19,7 +19,7 @@ export async function serveDocuments(directoryPath: string): Promise<any> {
     ctx.response.type = "text/html";
     ctx.response.body = await fs.promises.readFile(
       path.join(directoryPath, "./index.html"),
-      "utf8"
+      "utf8",
     );
   }
 
@@ -30,7 +30,7 @@ export async function serveDocuments(directoryPath: string): Promise<any> {
   app.use(
     serve({
       rootDir: directoryPath,
-    })
+    }),
   );
 
   app.listen(port, () => {
