@@ -7,7 +7,7 @@
       "**",
       "!**/*.html",
       "!**/*.txt",
-      "!**/bin/**",
+      "!bin/**",
       "!**/public/js/",
       "!**/package.json",
       "!**/package-lock.json"
