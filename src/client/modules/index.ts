@@ -1,9 +1,9 @@
 export { fetchPageContent } from "./fetchPageContent";
 export {
-  fetchPageContents,
   FetchPageContentOptions,
+  fetchPageContents,
 } from "./fetchPageContents";
-export { markdownAdjuster } from "./markdownAdjuster";
-export { setHead } from "./setHead";
 export { getGithubTokens } from "./getGithubTokens";
+export { markdownAdjuster } from "./markdownAdjuster";
 export { PathInterpreter } from "./PathInterpreter";
+export { setHead } from "./setHead";

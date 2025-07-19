@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MdBookOptions } from "@/client/";
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import type { MdBookOptions } from "@/client/";
 
 const props = defineProps<{
   options?: MdBookOptions["header"];

@@ -1,10 +1,10 @@
-import { join, relative } from "path";
-import { writeFile } from "fs/promises";
 import fg from "fast-glob";
+import { writeFile } from "fs/promises";
+import { join, relative } from "path";
 
 async function getMdFiles(directoryPath: string): Promise<string[]> {
   return await fg(join(directoryPath, "**/*.md")).then((filePaths) =>
-    filePaths.map((filePath) => "/" + relative(directoryPath, filePath))
+    filePaths.map((filePath) => "/" + relative(directoryPath, filePath)),
   );
 }
 
@@ -22,7 +22,7 @@ const defaulthiddenpaths = [
 
 function generateHtmlFileContent(
   indexedPaths: string[],
-  hiddenPaths: string[]
+  hiddenPaths: string[],
 ): string {
   return `<!DOCTYPE html>
 <html>
@@ -52,14 +52,14 @@ function generateHtmlFileContent(
 
 export async function initializeHtmlFile(
   directoryPath: string,
-  adhoc: boolean
+  adhoc: boolean,
 ): Promise<any> {
   const filePath = join(directoryPath, "./index.html");
   await writeFile(
     filePath,
     generateHtmlFileContent(
       adhoc ? await getMdFiles(directoryPath) : defaultIndexedPaths,
-      adhoc ? [] : defaulthiddenpaths
-    )
+      adhoc ? [] : defaulthiddenpaths,
+    ),
   );
 }

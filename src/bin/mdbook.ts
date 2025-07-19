@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-
-import { cwd } from "process";
-import { join } from "path";
 import { stat } from "fs/promises";
+import { join } from "path";
+import { cwd } from "process";
 
 import { initializeHtmlFile, serveDocuments } from "./opts/";
 
@@ -24,7 +23,7 @@ program.on("--help", () => {
   console.log(`  $${commandname} --init --directory path/to/directory`);
   console.log(`  $${commandname} --serve --directory path/to/directory`);
   console.log(
-    `  $${commandname} --serve --ad-hoc --directory path/to/directory`
+    `  $${commandname} --serve --ad-hoc --directory path/to/directory`,
   );
 });
 
@@ -72,5 +71,5 @@ program.on("--help", () => {
 
   ///
 })()
-  .then(() => {})
+  // biome-ignore lint/suspicious/noEmptyBlockStatements: no operation
   .catch(() => {});

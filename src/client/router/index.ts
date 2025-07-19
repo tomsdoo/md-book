@@ -1,6 +1,6 @@
+import { createRouter, createWebHashHistory } from "vue-router";
 import VueArticle from "@/client/components/article.vue";
 import VueSearch from "@/client/components/search.vue";
-import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {

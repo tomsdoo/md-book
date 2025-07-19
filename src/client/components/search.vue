@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import VueLayout from "@/client/components/layout.vue";
-import { PageContent } from "@/client/modules/types";
 import { computed, nextTick, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import VueLayout from "@/client/components/layout.vue";
+import { PageContent } from "@/client/modules/types";
 
 const props = defineProps<{
   pageContents: PageContent[];

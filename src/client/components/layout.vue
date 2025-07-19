@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PageContent } from "@/client/modules/types";
 import { defineExpose, ref } from "vue";
+import { PageContent } from "@/client/modules/types";
 
 defineProps<{
   indexedPageContents: PageContent[];

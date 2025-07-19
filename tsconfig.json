@@ -11,8 +11,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [
-      "@vitest/browser/providers/playwright"
-    ]
+    "types": ["@vitest/browser/providers/playwright"]
   }
 }

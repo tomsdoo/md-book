@@ -1,6 +1,6 @@
 import { marked } from "marked";
-import { PathInterpreter } from "./PathInterpreter";
 import { fetchGitHubContent } from "./fetchGitHubContent";
+import { PathInterpreter } from "./PathInterpreter";
 import { GitHubPageSeed, PageContent, PageSeed } from "./types";
 
 export async function fetchPageContent(

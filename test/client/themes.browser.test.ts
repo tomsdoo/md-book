@@ -1,5 +1,5 @@
-import { theme } from "@/client/themes";
 import { describe, expect, it } from "vitest";
+import { theme } from "@/client/themes";
 
 describe("theme", () => {
   it("getNames()", () => {

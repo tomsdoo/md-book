@@ -7,20 +7,17 @@ import "./css/initial-loading.css";
 import "./css/github-token-area.css";
 
 import { createApp } from "vue";
-import { bodyHtml } from "./html";
-
 import VueFooter from "./components/footer.vue";
 import VueHeader from "./components/header.vue";
-
-import { router } from "./router/";
-
+import { bodyHtml } from "./html";
 import {
   FetchPageContentOptions,
-  PathInterpreter,
   fetchPageContents,
   getGithubTokens,
+  PathInterpreter,
   setHead,
 } from "./modules/";
+import { router } from "./router/";
 
 interface MdFiles {
   indexedPaths: Array<string | { path: string; title: string }>;
