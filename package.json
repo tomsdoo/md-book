@@ -54,7 +54,7 @@
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
-    "@types/koa": "2.15.0",
+    "@types/koa": "3.0.0",
     "@vitest/browser": "3.2.4",
     "css-loader": "7.1.2",
     "husky": "9.1.7",
