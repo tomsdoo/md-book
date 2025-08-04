@@ -79,7 +79,7 @@
     "koa-router": "14.0.0",
     "koa-static-server": "1.5.2",
     "marked": "16.1.1",
-    "vue": "3.5.17",
+    "vue": "3.5.18",
     "vue-router": "4.5.1"
   }
 }
