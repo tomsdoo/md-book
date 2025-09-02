@@ -58,7 +58,7 @@
     "@vitest/browser": "3.2.4",
     "css-loader": "7.1.2",
     "husky": "9.1.7",
-    "lint-staged": "16.1.5",
+    "lint-staged": "16.1.6",
     "playwright": "1.55.0",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.4",
