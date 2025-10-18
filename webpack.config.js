@@ -1,9 +1,11 @@
-const path = require("path");
-const { VueLoaderPlugin } = require("vue-loader");
+import * as path from "path";
+import { VueLoaderPlugin } from "vue-loader";
+import { fileURLToPath } from "node:url";
 
 const USE_CACHE = false;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = {
+export default {
   // devtool: "inline-source-map",
   // mode: "development",
   mode: "production",
