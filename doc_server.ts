@@ -1,5 +1,8 @@
-import { join } from "path";
+import { join, dirname } from "path";
 import { serveDocuments } from "./src/bin/opts/serve";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(new URL(import.meta.url)));
 
 (async () => {
   ///
