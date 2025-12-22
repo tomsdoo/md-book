@@ -54,10 +54,10 @@
   },
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.3.8",
+    "@biomejs/biome": "2.3.10",
     "@types/koa": "3.0.1",
-    "@vitest/browser": "4.0.15",
-    "@vitest/browser-playwright": "4.0.15",
+    "@vitest/browser": "4.0.16",
+    "@vitest/browser-playwright": "4.0.16",
     "css-loader": "7.1.2",
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
@@ -67,9 +67,9 @@
     "tsup": "8.5.1",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.15",
+    "vitest": "4.0.16",
     "vue-loader": "17.4.2",
-    "webpack": "5.103.0",
+    "webpack": "5.104.1",
     "webpack-cli": "6.0.1"
   },
   "dependencies": {
