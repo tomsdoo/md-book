@@ -54,7 +54,7 @@
   },
   "homepage": "https://github.com/tomsdoo/md-book#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.3.10",
+    "@biomejs/biome": "2.3.11",
     "@types/koa": "3.0.1",
     "@vitest/browser": "4.0.16",
     "@vitest/browser-playwright": "4.0.16",
