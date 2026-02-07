@@ -42,3 +42,23 @@ npx mdbook --serve --directory path/to/directory
 ## Publish
 
 The directory can be published, to be hosted by static site hosting services.
+
+## Testing
+
+### Unit and Browser Tests
+
+```shell
+npm run test
+```
+
+### E2E Tests with Visual Regression Testing
+
+```shell
+# Run E2E tests with VRT
+npm run test:e2e
+
+# Update baseline screenshots
+npm run test:e2e:update
+```
+
+The E2E tests include visual regression testing (VRT) using Playwright's screenshot comparison feature. Baseline screenshots are stored in `test/e2e/__screenshots__/` and automatically compared during test runs.

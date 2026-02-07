@@ -3,3 +3,5 @@ bin/**/*.js
 node_modules/
 public/js/
 __screenshots__/
+playwright-report/
+test-results/
