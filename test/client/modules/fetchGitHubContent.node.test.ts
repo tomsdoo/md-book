@@ -1,21 +1,54 @@
-import { GitHubRepo } from "@tomsd/github-repo";
+import { GitHubFacade } from "@tomsd/github-repo-js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
 import { fetchGitHubContent } from "@/client/modules/fetchGitHubContent";
+
+const { testContent, dummyTree, dummyBlob } = vi.hoisted(() => {
+  const testContent = "dummyText";
+  return {
+    testContent,
+    dummyTree: [
+      {
+        path: "dummyPath",
+        mode: "100644",
+        type: "blob",
+        sha: "dummySha",
+        size: null,
+        url: "dummyUrl",
+      },
+    ],
+    dummyBlob: {
+      content: btoa(testContent),
+      encoding: "base64",
+      url: "dummyUrl",
+      sha: "dummySha",
+      size: null,
+      node_id: "dummyNodeId",
+    },
+  };
+});
 
 describe("fetchGitHubContent()", () => {
   beforeEach(() => {
     // @ts-expect-error
     globalThis.sessionStorage = {};
+    vi.spyOn(GitHubFacade.prototype, "repo").mockReturnValue({
+      get: async () => ({
+        default_branch: "dummyBranch",
+      }),
+      getTree: async () => ({
+        sha: "dummySha",
+        truncated: false,
+        tree: dummyTree,
+      }),
+      getBlob: async () => dummyBlob,
+    } as unknown as ReturnType<GitHubFacade["repo"]>);
   });
   afterEach(() => {
     vi.clearAllMocks();
   });
   it("404 if no token", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({});
-    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockResolvedValue(
-      "dummyText",
-    );
+
     await expect(
       fetchGitHubContent({
         path: "dummyPath",
@@ -34,16 +67,13 @@ describe("fetchGitHubContent()", () => {
       html: "Not Found",
     });
   });
-  it("404 if error is thrown", async () => {
+  it("404 if not found", async () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({
       "dummyOwner/dummyRepo": "dummyToken",
     });
-    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockRejectedValue(
-      new Error("dummyError"),
-    );
     await expect(
       fetchGitHubContent({
-        path: "dummyPath",
+        path: "dummyPathNoExist",
         indexed: true,
         type: "github",
         owner: "dummyOwner",
@@ -51,8 +81,8 @@ describe("fetchGitHubContent()", () => {
       }),
     ).resolves.toEqual({
       indexed: true,
-      rawPath: "dummyPath",
-      url: "github://dummyOwner.dummyRepo/dummyPath",
+      rawPath: "dummyPathNoExist",
+      url: "github://dummyOwner.dummyRepo/dummyPathNoExist",
       status: 404,
       title: "Not Found",
       text: "Not Found",
@@ -63,9 +93,7 @@ describe("fetchGitHubContent()", () => {
     globalThis.sessionStorage.githubTokens = JSON.stringify({
       "dummyOwner/dummyRepo": "dummyToken",
     });
-    vi.spyOn(GitHubRepo.prototype, "getFileContent").mockResolvedValue(
-      "dummyText",
-    );
+
     await expect(
       fetchGitHubContent({
         path: "dummyPath",
@@ -79,9 +107,9 @@ describe("fetchGitHubContent()", () => {
       rawPath: "dummyPath",
       url: "github://dummyOwner.dummyRepo/dummyPath",
       status: 200,
-      title: "dummyText",
-      text: "dummyText",
-      html: "<p>dummyText</p>\n",
+      title: testContent,
+      text: testContent,
+      html: `<p>${testContent}</p>\n`,
     });
   });
 });

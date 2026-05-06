@@ -1,4 +1,4 @@
-import { GitHubRepo } from "@tomsd/github-repo";
+import { GitHubFacade } from "@tomsd/github-repo-js";
 import { marked } from "marked";
 import { GitHubPageSeed, PageContent } from "./types";
 
@@ -30,16 +30,28 @@ export async function fetchGitHubContent({
   if (token == null) {
     return notFoundContent;
   }
-  return await new GitHubRepo(token, owner, repo)
-    .getFileContent(path)
-    .then((text) => text as unknown)
-    .then((text) => text as string)
-    .then(async (text: string) => ({
+  const github = new GitHubFacade(token);
+  const repository = github.repo(owner, repo);
+  const { default_branch } = await repository.get();
+  const { tree } = await repository.getTree(default_branch);
+  const treeItem = tree.find((treeItem) => treeItem.path === path);
+  if (treeItem == null) {
+    return notFoundContent;
+  }
+  const blob = await repository.getBlob(treeItem.sha);
+  if (blob == null) {
+    return notFoundContent;
+  }
+  try {
+    const text = atob(blob.content);
+    return {
       ...baseContent,
       status: 200,
       title: title ?? text.split("\n")[0].replace(/^# /, ""),
       text,
       html: await marked.parse(text),
-    }))
-    .catch(() => notFoundContent);
+    };
+  } catch {
+    return notFoundContent;
+  }
 }
