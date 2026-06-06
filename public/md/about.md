@@ -8,7 +8,7 @@
 ![ci](https://img.shields.io/github/actions/workflow/status/tomsdoo/md-book/ci.yml?style=social&logo=github)
 ![checks](https://img.shields.io/github/check-runs/tomsdoo/md-book/main?style=social&logo=github)
 ![top language](https://img.shields.io/github/languages/top/tomsdoo/md-book?style=social&logo=typescript)
-![depends on node greater or equal 20](https://img.shields.io/badge/node.js-%3E%3D%2020-lightyellow?style=social&logo=nodedotjs)
+![depends on node greater or equal 22](https://img.shields.io/badge/node.js-%3E%3D%2022-lightyellow?style=social&logo=nodedotjs)
 
 [![](https://nodei.co/npm/@tomsd/md-book.svg?mini=true)](https://www.npmjs.com/package/@tomsd/md-book)
 
