@@ -63,7 +63,7 @@
     "@playwright/test": "1.63.0",
     "@types/koa": "3.0.3",
     "@vitest/browser": "4.1.11",
-    "@vitest/browser-playwright": "4.1.11",
+    "@vitest/browser-playwright": "5.0.1",
     "css-loader": "7.1.5",
     "husky": "9.1.7",
     "lint-staged": "17.5.1",
