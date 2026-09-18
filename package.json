@@ -59,15 +59,15 @@
     "node": ">=22.22.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.12",
-    "@playwright/test": "1.62.1",
+    "@biomejs/biome": "2.5.13",
+    "@playwright/test": "1.63.0",
     "@types/koa": "3.0.3",
     "@vitest/browser": "4.1.11",
     "@vitest/browser-playwright": "4.1.11",
     "css-loader": "7.1.5",
     "husky": "9.1.7",
-    "lint-staged": "17.4.1",
-    "playwright": "1.62.1",
+    "lint-staged": "17.5.1",
+    "playwright": "1.63.0",
     "style-loader": "4.0.0",
     "ts-loader": "9.6.2",
     "tsdown": "0.23.0",
@@ -75,7 +75,7 @@
     "typescript": "6.0.3",
     "vitest": "4.1.11",
     "vue-loader": "17.4.2",
-    "webpack": "5.110.3",
+    "webpack": "5.111.0",
     "webpack-cli": "7.2.3"
   },
   "dependencies": {
