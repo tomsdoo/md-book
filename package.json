@@ -59,7 +59,7 @@
     "node": ">=22.22.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.13",
+    "@biomejs/biome": "2.5.14",
     "@playwright/test": "1.63.0",
     "@types/koa": "3.0.3",
     "@vitest/browser": "4.1.11",
